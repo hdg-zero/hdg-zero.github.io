@@ -6,7 +6,7 @@ import react from '@astrojs/react';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://hdg-zero.github.io',
-  base: '/hdg-zero.github.io/',
+  base: '/',
 
   vite: {
     plugins: [tailwindcss()],
