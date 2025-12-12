@@ -1,0 +1,158 @@
+---
+// site/src/pages/projects/[...slug].astro
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { Image } from 'astro:assets';
+
+const base = import.meta.env.BASE_URL;
+
+export async function getStaticPaths() {
+	const projects = await getCollection('projects');
+	return projects.map((project) => ({
+		params: { slug: project.slug },
+		props: { project },
+	}));
+}
+
+const { project } = Astro.props;
+const { Content } = await project.render();
+const { title, description, tags, cover, coverAlt, linkDemo, linkRepo, publishDate } = project.data;
+
+// Get related projects (same tags)
+const allProjects = await getCollection('projects');
+const relatedProjects = allProjects
+	.filter(p => p.slug !== project.slug && p.data.tags.some(t => tags.includes(t)))
+	.slice(0, 2);
+
+function formatDate(date: Date) {
+	return new Intl.DateTimeFormat('fr-FR', { 
+		year: 'numeric',
+		month: 'long' 
+	}).format(date);
+}
+---
+
+<BaseLayout title={`${title} — Portfolio`} description={description}>
+	<article class="container mx-auto px-6 py-12">
+		<!-- Back link -->
+		<a 
+			href={`${base}projects`}
+			class="inline-flex items-center gap-2 text-[var(--text-secondary)] hover:text-[var(--accent-primary)] transition-colors mb-8 group animate-fade-up"
+		>
+			<svg class="w-5 h-5 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18"/>
+			</svg>
+			Retour aux projets
+		</a>
+
+		<!-- Header -->
+		<header class="max-w-4xl mb-12">
+			<div class="flex flex-wrap gap-2 mb-6 animate-fade-up delay-100">
+				{tags.map(tag => (
+					<span class="tag">{tag}</span>
+				))}
+			</div>
+			
+			<h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 animate-fade-up delay-200">
+				{title}
+			</h1>
+			
+			<p class="text-xl text-[var(--text-secondary)] leading-relaxed animate-fade-up delay-300">
+				{description}
+			</p>
+
+			<!-- Meta info -->
+			<div class="flex flex-wrap items-center gap-6 mt-8 pt-8 border-t border-[var(--border-subtle)] animate-fade-up delay-400">
+				<div>
+					<span class="text-[var(--text-muted)] text-sm block mb-1">Date</span>
+					<span class="text-[var(--text-primary)] font-medium">{formatDate(publishDate)}</span>
+				</div>
+				
+				{linkDemo && (
+					<a 
+						href={linkDemo}
+						target="_blank"
+						rel="noopener"
+						class="btn-primary inline-flex items-center gap-2"
+					>
+						<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+						</svg>
+						Voir le site
+					</a>
+				)}
+				
+				{linkRepo && (
+					<a 
+						href={linkRepo}
+						target="_blank"
+						rel="noopener"
+						class="btn-secondary inline-flex items-center gap-2"
+					>
+						<svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+							<path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+						</svg>
+						Code source
+					</a>
+				)}
+			</div>
+		</header>
+
+		<!-- Cover image -->
+		{cover && (
+			<div class="relative rounded-2xl overflow-hidden border border-[var(--border-subtle)] mb-16 animate-fade-up delay-500">
+				<Image 
+					src={cover} 
+					alt={coverAlt || title}
+					class="w-full h-auto"
+					width={1200}
+					height={675}
+				/>
+				<div class="absolute inset-0 bg-gradient-to-t from-[var(--bg-primary)] via-transparent to-transparent opacity-30"></div>
+			</div>
+		)}
+
+		<!-- Content -->
+		<div class="max-w-3xl mx-auto">
+			<div class="prose prose-lg prose-invert max-w-none
+				prose-headings:font-bold prose-headings:text-[var(--text-primary)]
+				prose-p:text-[var(--text-secondary)] prose-p:leading-relaxed
+				prose-a:text-[var(--accent-primary)] prose-a:no-underline hover:prose-a:underline
+				prose-strong:text-[var(--text-primary)]
+				prose-code:text-[var(--accent-secondary)] prose-code:bg-[var(--bg-elevated)] prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded
+				prose-pre:bg-[var(--bg-secondary)] prose-pre:border prose-pre:border-[var(--border-subtle)]
+				prose-ul:text-[var(--text-secondary)]
+				prose-li:marker:text-[var(--accent-primary)]
+			">
+				<Content />
+			</div>
+		</div>
+
+		<!-- Related projects -->
+		{relatedProjects.length > 0 && (
+			<section class="mt-24 pt-12 border-t border-[var(--border-subtle)]">
+				<h2 class="text-2xl font-bold mb-8">Projets similaires</h2>
+				<div class="grid md:grid-cols-2 gap-6">
+					{relatedProjects.map(related => (
+						<a 
+							href={`${base}projects/${related.slug}`}
+							class="group p-6 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-secondary)] hover:border-[var(--accent-primary)] transition-all"
+						>
+							<div class="flex gap-2 mb-3">
+								{related.data.tags.slice(0, 2).map(tag => (
+									<span class="tag text-xs">{tag}</span>
+								))}
+							</div>
+							<h3 class="text-lg font-bold text-[var(--text-primary)] group-hover:text-[var(--accent-primary)] transition-colors mb-2">
+								{related.data.title}
+							</h3>
+							<p class="text-sm text-[var(--text-secondary)] line-clamp-2">
+								{related.data.description}
+							</p>
+						</a>
+					))}
+				</div>
+			</section>
+		)}
+	</article>
+</BaseLayout>

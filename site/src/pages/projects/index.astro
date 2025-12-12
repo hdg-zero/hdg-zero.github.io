@@ -1,0 +1,136 @@
+---
+// site/src/pages/projects/index.astro
+// Projects Page with i18n support
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import { getCollection } from 'astro:content';
+
+const projects = (await getCollection('projects')).sort(
+	(a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf()
+);
+
+// Extract unique tags
+const allTags = [...new Set(projects.flatMap(p => p.data.tags))];
+---
+
+<BaseLayout title="Projets — Hippolyte de Guigné">
+	<div class="container mx-auto px-6 py-20">
+		
+		<!-- Header -->
+		<header class="max-w-3xl mb-20">
+			<span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass text-xs font-medium text-[var(--accent-primary)] uppercase tracking-widest mb-6 animate-fade-up">
+				<span class="w-1.5 h-1.5 rounded-full bg-[var(--accent-primary)]"></span>
+				<span data-projects-label>Portfolio</span>
+			</span>
+			<h1 class="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter mb-6 animate-fade-up delay-100">
+				<span data-projects-title>Mes</span> <span class="text-gradient" data-projects-title-accent>projets</span>
+			</h1>
+			<p class="text-xl text-[var(--text-secondary)] leading-relaxed animate-fade-up delay-200">
+				Une sélection de mes travaux récents — des applications web complexes aux expérimentations open-source.
+			</p>
+		</header>
+
+		<!-- Tags filter -->
+		{allTags.length > 0 && (
+			<div class="mb-12 animate-fade-up delay-300">
+				<div class="flex flex-wrap gap-2">
+					<button 
+						class="tag-filter active px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300"
+						data-filter="all"
+					>
+						<span data-projects-all>Tous</span>
+					</button>
+					{allTags.map(tag => (
+						<button 
+							class="tag-filter px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300"
+							data-filter={tag}
+						>
+							{tag}
+						</button>
+					))}
+				</div>
+			</div>
+		)}
+
+		<!-- Projects grid -->
+		<div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="projects-grid">
+			{projects.map((project, index) => (
+				<div 
+					class="project-item animate-fade-up" 
+					style={`animation-delay: ${300 + index * 100}ms`}
+					data-tags={project.data.tags.join(',')}
+				>
+					<ProjectCard project={project} />
+				</div>
+			))}
+		</div>
+
+		{projects.length === 0 && (
+			<div class="text-center py-20">
+				<div class="inline-flex items-center justify-center w-20 h-20 rounded-2xl glass mb-6">
+					<svg class="w-10 h-10 text-[var(--text-muted)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+					</svg>
+				</div>
+				<h2 class="text-2xl font-bold text-[var(--text-primary)] mb-3">Aucun projet</h2>
+				<p class="text-[var(--text-muted)]">Les projets arrivent bientôt !</p>
+			</div>
+		)}
+	</div>
+</BaseLayout>
+
+<script>
+	document.addEventListener('astro:page-load', () => {
+		const filterButtons = document.querySelectorAll('.tag-filter');
+		const projectItems = document.querySelectorAll('.project-item');
+		
+		filterButtons.forEach(button => {
+			button.addEventListener('click', () => {
+				const filter = button.getAttribute('data-filter');
+				
+				// Update active state
+				filterButtons.forEach(btn => btn.classList.remove('active'));
+				button.classList.add('active');
+				
+				// Filter projects with animation
+				projectItems.forEach(item => {
+					const tags = item.getAttribute('data-tags')?.split(',') || [];
+					const matches = filter === 'all' || tags.includes(filter);
+					
+					if (matches) {
+						(item as HTMLElement).style.display = 'block';
+						(item as HTMLElement).style.opacity = '0';
+						(item as HTMLElement).style.transform = 'translateY(20px)';
+						requestAnimationFrame(() => {
+							(item as HTMLElement).style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+							(item as HTMLElement).style.opacity = '1';
+							(item as HTMLElement).style.transform = 'translateY(0)';
+						});
+					} else {
+						(item as HTMLElement).style.display = 'none';
+					}
+				});
+			});
+		});
+	});
+</script>
+
+<style>
+	.tag-filter {
+		background: var(--glass-bg);
+		border: 1px solid var(--glass-border);
+		color: var(--text-secondary);
+	}
+
+	.tag-filter:hover {
+		background: var(--glass-bg-strong);
+		border-color: var(--glass-border-hover);
+		color: var(--text-primary);
+	}
+
+	.tag-filter.active {
+		background: var(--accent-primary);
+		border-color: var(--accent-primary);
+		color: white;
+	}
+</style>
