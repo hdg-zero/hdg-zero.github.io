@@ -695,22 +695,23 @@ a {
 }
 
 /* === MOBILE RESPONSIVE STYLES === */
-@media (max-width: 767px) {
+/* Small mobile: max 639px */
+@media (max-width: 639px) {
 
   /* Smaller ambient orbs on mobile */
   .ambient-orb-1 {
-    width: 300px;
-    height: 300px;
-  }
-
-  .ambient-orb-2 {
     width: 250px;
     height: 250px;
   }
 
-  .ambient-orb-3 {
+  .ambient-orb-2 {
     width: 200px;
     height: 200px;
+  }
+
+  .ambient-orb-3 {
+    width: 150px;
+    height: 150px;
   }
 
   /* Reduce bento card hover effects on mobile (touch) */
@@ -738,12 +739,49 @@ a {
   .btn-secondary {
     min-height: 48px;
     padding: 1rem 1.5rem;
+    width: 100%;
   }
 
   /* Reduce section padding on mobile */
   section {
-    padding-top: 4rem;
-    padding-bottom: 4rem;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+
+  /* Improve text readability */
+  h1 {
+    word-break: break-word;
+  }
+}
+
+/* Tablet: 640px to 1023px */
+@media (min-width: 640px) and (max-width: 1023px) {
+
+  /* Medium ambient orbs on tablet */
+  .ambient-orb-1 {
+    width: 400px;
+    height: 400px;
+  }
+
+  .ambient-orb-2 {
+    width: 350px;
+    height: 350px;
+  }
+
+  .ambient-orb-3 {
+    width: 300px;
+    height: 300px;
+  }
+
+  /* Reduce bento card hover effects on tablet */
+  .bento-card:hover {
+    transform: translateY(-3px);
+  }
+
+  /* Reduce section padding on tablet */
+  section {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
   }
 }
 
@@ -759,5 +797,11 @@ a {
 
   .glow-on-hover::after {
     display: none;
+  }
+
+  /* Disable all hover transforms on touch */
+  .bento-card:hover,
+  .glass-card:hover {
+    transform: none;
   }
 }

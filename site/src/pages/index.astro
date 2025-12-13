@@ -87,12 +87,12 @@ const featuredProjects = allProjects
             </div>
             
             <!-- Bento Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-3 sm:gap-4 mobile-bento-grid md:auto-rows-[200px]">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 lg:auto-rows-[200px]">
                 
                 <!-- Large Feature: Latest Project (2x2) -->
                 {featuredProjects[0] && (
                     <a href={`${base}projects/${featuredProjects[0].slug}`} 
-                       class="bento-card col-span-1 md:col-span-2 md:row-span-2 min-h-[280px] sm:min-h-[320px] md:min-h-0 p-6 sm:p-8 flex flex-col justify-end group">
+                       class="bento-card col-span-1 sm:col-span-2 lg:row-span-2 min-h-[280px] sm:min-h-[320px] lg:min-h-0 p-6 sm:p-8 flex flex-col justify-end group">
                         <div class="absolute inset-0 z-0">
                             {featuredProjects[0].data.cover && (
                                 <Image 
@@ -121,7 +121,7 @@ const featuredProjects = allProjects
                 )}
 
                 <!-- Blog Teaser (1x2) -->
-                <a href={`${base}blog`} class="bento-card col-span-1 md:row-span-2 min-h-[180px] md:min-h-0 p-5 sm:p-6 flex flex-col justify-between group bg-gradient-to-b from-white/[0.02] to-transparent">
+                <a href={`${base}blog`} class="bento-card col-span-1 lg:row-span-2 min-h-[180px] lg:min-h-0 p-5 sm:p-6 flex flex-col justify-between group bg-gradient-to-b from-white/[0.02] to-transparent">
                     <div>
                         <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-[var(--accent-primary)] to-[var(--accent-secondary)] flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                             <span class="text-xl">✍️</span>
@@ -142,7 +142,7 @@ const featuredProjects = allProjects
                 <!-- Secondary Project (2x1) -->
                 {featuredProjects[1] && (
                     <a href={`${base}projects/${featuredProjects[1].slug}`} 
-                       class="bento-card col-span-1 md:col-span-2 md:row-span-1 min-h-[100px] md:min-h-0 p-5 sm:p-6 flex items-center gap-4 sm:gap-6 group">
+                       class="bento-card col-span-1 sm:col-span-2 lg:row-span-1 min-h-[100px] lg:min-h-0 p-5 sm:p-6 flex items-center gap-4 sm:gap-6 group">
                         <div class="flex-1 min-w-0">
                             <h3 class="text-xl font-bold text-[var(--text-primary)] mb-1 group-hover:text-[var(--accent-primary)] transition-colors truncate">
                                 {featuredProjects[1].data.title}
@@ -160,7 +160,7 @@ const featuredProjects = allProjects
                 )}
 
                 <!-- Socials (1x1) -->
-                <div class="bento-card col-span-1 md:row-span-1 min-h-[100px] md:min-h-0 p-5 sm:p-6 flex flex-col justify-center items-center">
+                <div class="bento-card col-span-1 sm:col-span-2 lg:col-span-1 lg:row-span-1 min-h-[100px] lg:min-h-0 p-5 sm:p-6 flex flex-col justify-center items-center">
                     <span class="text-xs text-[var(--text-muted)] uppercase tracking-widest mb-4">Connect</span>
                     <div class="flex gap-4">
                         <a href="https://github.com/hdg-zero" target="_blank" rel="noopener" 
