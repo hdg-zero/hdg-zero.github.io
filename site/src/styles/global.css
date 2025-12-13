@@ -693,3 +693,71 @@ a {
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
 }
+
+/* === MOBILE RESPONSIVE STYLES === */
+@media (max-width: 767px) {
+
+  /* Smaller ambient orbs on mobile */
+  .ambient-orb-1 {
+    width: 300px;
+    height: 300px;
+  }
+
+  .ambient-orb-2 {
+    width: 250px;
+    height: 250px;
+  }
+
+  .ambient-orb-3 {
+    width: 200px;
+    height: 200px;
+  }
+
+  /* Reduce bento card hover effects on mobile (touch) */
+  .bento-card:hover {
+    transform: none;
+  }
+
+  .bento-card:active {
+    transform: scale(0.98);
+    border-color: rgba(10, 132, 255, 0.3);
+  }
+
+  /* Mobile glass card adjustments */
+  .glass-card:hover {
+    transform: none;
+  }
+
+  /* Hide scrollbar on mobile for cleaner look */
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Better tap targets on mobile */
+  .btn-primary,
+  .btn-secondary {
+    min-height: 48px;
+    padding: 1rem 1.5rem;
+  }
+
+  /* Reduce section padding on mobile */
+  section {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+  .bento-card::before {
+    display: none;
+  }
+
+  .glass-card::before {
+    display: none;
+  }
+
+  .glow-on-hover::after {
+    display: none;
+  }
+}
