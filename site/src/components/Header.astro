@@ -286,6 +286,17 @@ const currentPath = Astro.url.pathname;
             document.documentElement.lang = 'fr';
             updateStateUI();
             window.dispatchEvent(new CustomEvent('languageChange'));
+            
+            // Redirect to list page if on article/project detail page
+            const path = window.location.pathname;
+            // Check if we're on a detail page (has something after /blog/ or /projects/)
+            const blogMatch = path.match(/(.*)\/blog\/.+/);
+            const projectMatch = path.match(/(.*)\/projects\/.+/);
+            if (blogMatch) {
+                window.location.href = blogMatch[1] + '/blog';
+            } else if (projectMatch) {
+                window.location.href = projectMatch[1] + '/projects';
+            }
         });
     });
 
@@ -296,6 +307,17 @@ const currentPath = Astro.url.pathname;
             document.documentElement.lang = 'en';
             updateStateUI();
             window.dispatchEvent(new CustomEvent('languageChange'));
+            
+            // Redirect to list page if on article/project detail page
+            const path = window.location.pathname;
+            // Check if we're on a detail page (has something after /blog/ or /projects/)
+            const blogMatch = path.match(/(.*)\/blog\/.+/);
+            const projectMatch = path.match(/(.*)\/projects\/.+/);
+            if (blogMatch) {
+                window.location.href = blogMatch[1] + '/blog';
+            } else if (projectMatch) {
+                window.location.href = projectMatch[1] + '/projects';
+            }
         });
     });
 
