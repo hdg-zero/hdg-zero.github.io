@@ -4,14 +4,18 @@
 import Header from '../components/Header.astro';
 import '../styles/global.css';
 import { ViewTransitions } from 'astro:transitions';
+import { translations } from '../i18n/translations';
 
 interface Props {
 	title: string;
 	description?: string;
 }
 
-const { title, description = "Hippolyte de Guigné — Digital Architect" } = Astro.props;
+const { title, description = "Hippolyte de Guigné" } = Astro.props;
 const base = import.meta.env.BASE_URL;
+
+// Serialize translations for client-side script
+const translationsJson = JSON.stringify(translations);
 ---
 
 <!doctype html>
@@ -111,112 +115,16 @@ const base = import.meta.env.BASE_URL;
 			</div>
 		</footer>
 
+		<script is:inline define:vars={{ translationsJson }}>
+			// Store translations in window for access across scripts
+			window.__translations = window.__translations || JSON.parse(translationsJson);
+		</script>
+
 		<script>
-			// Translations object
-			const translations = {
-				fr: {
-					nav: { home: 'Accueil', work: 'Projets', blog: 'Blog', contact: 'Contact' },
-					hero: {
-						headline: 'Déveloper et',
-						headlineAccent: 'partager.',
-						subtitle: 'Ingénieur en systèmes d\'information, j\'explore au quotidien la nécessité de la protection des données personnelles et privées, le potentiel de l\'IA générative et toute sorte de sujet touchant de près ou loin aux technologies de l\'information.',
-						viewWork: 'Voir mes projets',
-						readBlog: 'Lire le blog',
-					},
-					work: {
-						sectionLabel: 'Travaux sélectionnés',
-						title: 'Projets',
-						titleAccent: 'récents',
-						description: 'Une collection de mes travaux récents.',
-						latest: 'Dernier',
-						viewAll: 'Voir tous les projets',
-						viewDetails: 'Voir le détail',
-					},
-					blog: {
-						sectionLabel: 'Blog',
-						title: 'Articles &',
-						titleAccent: 'réflexions',
-						description: 'Plongées profondes dans le développement web.',
-						readArticle: 'Lire l\'article',
-						minRead: 'min de lecture',
-						noArticles: 'Aucun article',
-						comingSoon: 'Les articles arrivent bientôt !',
-						subscribe: 'S\'abonner',
-						stayUpdated: 'Restez informé',
-						newsletterDesc: 'Recevez les nouveaux articles par email.',
-						engineeringBlog: 'Blog technique',
-						blogDesc: 'Plongées dans le code.',
-						readArticles: 'Lire',
-					},
-					projects: {
-						sectionLabel: 'Portfolio',
-						title: 'Mes',
-						titleAccent: 'projets',
-						description: 'Une sélection de mes travaux récents.',
-						all: 'Tous',
-						noProjects: 'Aucun projet',
-						comingSoon: 'Projets à venir !',
-						viewDetails: 'Voir le détail',
-					},
-					cta: {
-						title: 'Construisons quelque chose',
-						titleAccent: 'd\'extraordinaire',
-						description: 'Vous avez un projet ? Parlons-en.',
-						getInTouch: 'Me contacter',
-					},
-				},
-				en: {
-					nav: { home: 'Home', work: 'Work', blog: 'Blog', contact: 'Contact' },
-					hero: {
-						headline: 'Develop and',
-						headlineAccent: 'share.',
-						subtitle: 'Information systems engineer, I explore daily the need for personal and private data protection, the potential of generative AI, and all kinds of topics related to information technology.',
-						viewWork: 'View Projects',
-						readBlog: 'Read Blog',
-					},
-					work: {
-						sectionLabel: 'Selected Work',
-						title: 'Featured',
-						titleAccent: 'projects',
-						description: 'A curated collection of recent work.',
-						latest: 'Latest',
-						viewAll: 'View all projects',
-						viewDetails: 'View details',
-					},
-					blog: {
-						sectionLabel: 'Blog',
-						title: 'Articles &',
-						titleAccent: 'thoughts',
-						description: 'Deep dives into web development.',
-						readArticle: 'Read article',
-						minRead: 'min read',
-						noArticles: 'No articles yet',
-						comingSoon: 'First articles coming soon!',
-						subscribe: 'Subscribe',
-						stayUpdated: 'Stay updated',
-						newsletterDesc: 'Get new articles by email.',
-						engineeringBlog: 'Engineering Blog',
-						blogDesc: 'Deep dives into code.',
-						readArticles: 'Read',
-					},
-					projects: {
-						sectionLabel: 'Portfolio',
-						title: 'My',
-						titleAccent: 'projects',
-						description: 'A curated selection of recent work.',
-						all: 'All',
-						noProjects: 'No projects yet',
-						comingSoon: 'Projects coming soon!',
-						viewDetails: 'View details',
-					},
-					cta: {
-						title: 'Let\'s build something',
-						titleAccent: 'extraordinary',
-						description: 'Have a project in mind? Let\'s talk.',
-						getInTouch: 'Get in touch',
-					},
-				},
-			};
+			// Get translations from window
+			function getTranslations() {
+				return window.__translations || { fr: {}, en: {} };
+			}
 			
 			// Get current language
 			function getLang() {
@@ -226,6 +134,7 @@ const base = import.meta.env.BASE_URL;
 			// Get translation
 			function t(path) {
 				const lang = getLang();
+				const translations = getTranslations();
 				const keys = path.split('.');
 				let value = translations[lang];
 				for (const key of keys) {
@@ -262,6 +171,7 @@ const base = import.meta.env.BASE_URL;
 				document.querySelectorAll('[data-work-label]').forEach(el => el.textContent = t('work.sectionLabel'));
 				document.querySelectorAll('[data-work-title]').forEach(el => el.textContent = t('work.title'));
 				document.querySelectorAll('[data-work-title-accent]').forEach(el => el.textContent = t('work.titleAccent'));
+				document.querySelectorAll('[data-work-description]').forEach(el => el.textContent = t('work.description'));
 				document.querySelectorAll('[data-work-latest]').forEach(el => el.textContent = t('work.latest'));
 				document.querySelectorAll('[data-work-view-all]').forEach(el => el.textContent = t('work.viewAll'));
 				document.querySelectorAll('[data-work-view-details]').forEach(el => el.textContent = t('work.viewDetails'));
@@ -270,8 +180,10 @@ const base = import.meta.env.BASE_URL;
 				document.querySelectorAll('[data-blog-label]').forEach(el => el.textContent = t('blog.sectionLabel'));
 				document.querySelectorAll('[data-blog-title]').forEach(el => el.textContent = t('blog.title'));
 				document.querySelectorAll('[data-blog-title-accent]').forEach(el => el.textContent = t('blog.titleAccent'));
+				document.querySelectorAll('[data-blog-description]').forEach(el => el.textContent = t('blog.description'));
 				document.querySelectorAll('[data-blog-read-article]').forEach(el => el.textContent = t('blog.readArticle'));
 				document.querySelectorAll('[data-blog-engineering]').forEach(el => el.textContent = t('blog.engineeringBlog'));
+				document.querySelectorAll('[data-blog-blog-desc]').forEach(el => el.textContent = t('blog.blogDesc'));
 				document.querySelectorAll('[data-blog-read-articles]').forEach(el => el.textContent = t('blog.readArticles'));
 				document.querySelectorAll('[data-blog-subscribe]').forEach(el => el.textContent = t('blog.subscribe'));
 				document.querySelectorAll('[data-blog-stay-updated]').forEach(el => el.textContent = t('blog.stayUpdated'));
@@ -280,8 +192,11 @@ const base = import.meta.env.BASE_URL;
 				document.querySelectorAll('[data-projects-label]').forEach(el => el.textContent = t('projects.sectionLabel'));
 				document.querySelectorAll('[data-projects-title]').forEach(el => el.textContent = t('projects.title'));
 				document.querySelectorAll('[data-projects-title-accent]').forEach(el => el.textContent = t('projects.titleAccent'));
+				document.querySelectorAll('[data-projects-description]').forEach(el => el.textContent = t('projects.description'));
 				document.querySelectorAll('[data-projects-all]').forEach(el => el.textContent = t('projects.all'));
 				document.querySelectorAll('[data-projects-view-details]').forEach(el => el.textContent = t('projects.viewDetails'));
+				document.querySelectorAll('[data-projects-no-projects]').forEach(el => el.textContent = t('projects.noProjects'));
+				document.querySelectorAll('[data-projects-coming-soon]').forEach(el => el.textContent = t('projects.comingSoon'));
 				
 				// Update CTA
 				document.querySelectorAll('[data-cta-title]').forEach(el => el.textContent = t('cta.title'));

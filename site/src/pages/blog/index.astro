@@ -28,17 +28,18 @@ function formatDate(date: Date) {
 			<h1 class="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter mb-6 animate-fade-up delay-100">
 				<span data-blog-title>Articles &</span> <span class="text-gradient" data-blog-title-accent>réflexions</span>
 			</h1>
-			<p class="text-xl text-[var(--text-secondary)] leading-relaxed animate-fade-up delay-200">
+			<p class="text-xl text-[var(--text-secondary)] leading-relaxed animate-fade-up delay-200" data-blog-description>
 				Plongées profondes dans le développement web, les patterns d'architecture et les leçons apprises.
 			</p>
 		</header>
 
 		<!-- Posts list -->
-		<div class="max-w-3xl space-y-6">
+		<div class="max-w-3xl space-y-6" id="blog-posts">
 			{posts.map((post, index) => (
 				<article 
-					class="group animate-fade-up"
+					class="group animate-fade-up blog-post"
 					style={`animation-delay: ${200 + index * 100}ms`}
+					data-post-lang={post.data.lang || 'fr'}
 				>
 					<a 
 						href={`${base}blog/${post.slug}`}
@@ -90,6 +91,37 @@ function formatDate(date: Date) {
 				</article>
 			))}
 		</div>
+
+		<script>
+			// Filter blog posts by current language
+			function filterBlogPosts() {
+				const lang = localStorage.getItem('lang') || 'fr';
+				const posts = document.querySelectorAll('.blog-post');
+				
+				posts.forEach(post => {
+					const postLang = post.getAttribute('data-post-lang') || 'fr';
+					// Show posts matching current language OR show all if no posts match
+					if (postLang === lang) {
+						(post as HTMLElement).style.display = '';
+					} else {
+						(post as HTMLElement).style.display = 'none';
+					}
+				});
+				
+				// Check if any posts are visible
+				const visiblePosts = document.querySelectorAll('.blog-post[style=""]');
+				const emptyState = document.getElementById('blog-empty-state');
+				if (visiblePosts.length === 0 && emptyState) {
+					emptyState.style.display = 'block';
+				} else if (emptyState) {
+					emptyState.style.display = 'none';
+				}
+			}
+			
+			// Run on page load and language change
+			document.addEventListener('astro:page-load', filterBlogPosts);
+			window.addEventListener('languageChange', filterBlogPosts);
+		</script>
 
 		{posts.length === 0 && (
 			<div class="text-center py-20 max-w-md mx-auto">

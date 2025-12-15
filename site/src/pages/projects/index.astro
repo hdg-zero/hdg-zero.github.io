@@ -25,7 +25,7 @@ const allTags = [...new Set(projects.flatMap(p => p.data.tags))];
 			<h1 class="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter mb-6 animate-fade-up delay-100">
 				<span data-projects-title>Mes</span> <span class="text-gradient" data-projects-title-accent>projets</span>
 			</h1>
-			<p class="text-xl text-[var(--text-secondary)] leading-relaxed animate-fade-up delay-200">
+			<p class="text-xl text-[var(--text-secondary)] leading-relaxed animate-fade-up delay-200" data-projects-description>
 				Une sélection de mes travaux récents — des applications web complexes aux expérimentations open-source.
 			</p>
 		</header>
@@ -72,8 +72,8 @@ const allTags = [...new Set(projects.flatMap(p => p.data.tags))];
 						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
 					</svg>
 				</div>
-				<h2 class="text-2xl font-bold text-[var(--text-primary)] mb-3">Aucun projet</h2>
-				<p class="text-[var(--text-muted)]">Les projets arrivent bientôt !</p>
+				<h2 class="text-2xl font-bold text-[var(--text-primary)] mb-3" data-projects-no-projects>Aucun projet</h2>
+				<p class="text-[var(--text-muted)]" data-projects-coming-soon>Les projets arrivent bientôt !</p>
 			</div>
 		)}
 	</div>
