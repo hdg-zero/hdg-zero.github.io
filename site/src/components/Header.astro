@@ -114,6 +114,7 @@ const currentPath = Astro.url.pathname;
       <nav class="flex flex-col gap-6">
         {navItems.map((item, index) => (
           <a href={item.href} 
+             {...{[item.dataAttr]: true}}
              class="mobile-nav-link text-4xl font-bold text-[var(--text-primary)] hover:text-[var(--accent-primary)] transition-colors transform translate-y-4 opacity-0"
              style={`transition-delay: ${index * 100}ms`}>
             {item.label}
@@ -131,7 +132,6 @@ const currentPath = Astro.url.pathname;
                 <svg id="mobile-sun-icon" class="w-6 h-6 text-[var(--text-secondary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
                 </svg>
-                <span id="mobile-theme-text" class="text-[var(--text-secondary)] font-medium">Mode</span>
             </button>
 
             <!-- Lang Switcher Mobile -->
@@ -238,11 +238,10 @@ const currentPath = Astro.url.pathname;
 
         // Icons
         const suns = document.querySelectorAll('#sun-icon, #mobile-sun-icon');
-        const moons = document.querySelectorAll('#moon-icon'); // You might need a mobile moon icon too
+        const moons = document.querySelectorAll('#moon-icon');
         
         // Simple text toggle for mobile button
         const mobileThemeText = document.getElementById('mobile-theme-text');
-        if(mobileThemeText) mobileThemeText.textContent = isDark ? 'Mode clair' : 'Mode sombre';
 
         // Desktop Icons
         const deskSun = document.getElementById('sun-icon');

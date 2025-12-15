@@ -117,7 +117,7 @@ const base = import.meta.env.BASE_URL;
 				fr: {
 					nav: { home: 'Accueil', work: 'Projets', blog: 'Blog', contact: 'Contact' },
 					hero: {
-						headline: 'Développer et',
+						headline: 'Déveloper et',
 						headlineAccent: 'partager.',
 						subtitle: 'Ingénieur en systèmes d\'information, j\'explore au quotidien la nécessité de la protection des données personnelles et privées, le potentiel de l\'IA générative et toute sorte de sujet touchant de près ou loin aux technologies de l\'information.',
 						viewWork: 'Voir mes projets',
@@ -315,51 +315,9 @@ const base = import.meta.env.BASE_URL;
 					});
 				});
 
-				// Theme toggle
-				const themeBtn = document.getElementById('theme-toggle');
-				themeBtn?.addEventListener('click', () => {
-					const isDark = document.documentElement.classList.contains('dark');
-					document.documentElement.classList.remove('dark', 'light');
-					document.documentElement.classList.add(isDark ? 'light' : 'dark');
-					localStorage.setItem('theme', isDark ? 'light' : 'dark');
-					updateThemeIcon();
-				});
-
-				function updateThemeIcon() {
-					const isDark = document.documentElement.classList.contains('dark');
-					const sunIcon = document.getElementById('sun-icon');
-					const moonIcon = document.getElementById('moon-icon');
-					if (sunIcon && moonIcon) {
-						sunIcon.style.display = isDark ? 'block' : 'none';
-						moonIcon.style.display = isDark ? 'none' : 'block';
-					}
-				}
-				updateThemeIcon();
-
-				// Language toggle
-				const langFr = document.getElementById('lang-fr');
-				const langEn = document.getElementById('lang-en');
-				
-				function updateLangButtons() {
-					const lang = getLang();
-					langFr?.classList.toggle('active', lang === 'fr');
-					langEn?.classList.toggle('active', lang === 'en');
-				}
-				updateLangButtons();
-
-				langFr?.addEventListener('click', () => {
-					localStorage.setItem('lang', 'fr');
-					document.documentElement.setAttribute('data-lang', 'fr');
-					document.documentElement.lang = 'fr';
-					updateLangButtons();
-					applyTranslations();
-				});
-
-				langEn?.addEventListener('click', () => {
-					localStorage.setItem('lang', 'en');
-					document.documentElement.setAttribute('data-lang', 'en');
-					document.documentElement.lang = 'en';
-					updateLangButtons();
+				// Ecouteur d'événement pour le changement de langue déclenché par le Header
+				// Le Header gère le clic, nous mettons simplement à jour le contenu
+				window.addEventListener('languageChange', () => {
 					applyTranslations();
 				});
 				
