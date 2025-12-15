@@ -197,12 +197,6 @@ const translationsJson = JSON.stringify(translations);
 				document.querySelectorAll('[data-projects-view-details]').forEach(el => el.textContent = t('projects.viewDetails'));
 				document.querySelectorAll('[data-projects-no-projects]').forEach(el => el.textContent = t('projects.noProjects'));
 				document.querySelectorAll('[data-projects-coming-soon]').forEach(el => el.textContent = t('projects.comingSoon'));
-				
-				// Update CTA
-				document.querySelectorAll('[data-cta-title]').forEach(el => el.textContent = t('cta.title'));
-				document.querySelectorAll('[data-cta-title-accent]').forEach(el => el.textContent = t('cta.titleAccent'));
-				document.querySelectorAll('[data-cta-description]').forEach(el => el.textContent = t('cta.description'));
-				document.querySelectorAll('[data-cta-button]').forEach(el => el.textContent = t('cta.getInTouch'));
 			}
 			
 			// Initialize on page load

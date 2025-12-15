@@ -13,9 +13,9 @@ export const translations = {
 
         // Hero
         hero: {
-            headline: 'Créer des expériences',
-            headlineAccent: 'digitales.',
-            subtitle: 'Architecte digital créant des expériences web premium avec les technologies modernes. Code propre, interfaces élégantes, interactions fluides.',
+            headline: 'Développer et',
+            headlineAccent: 'partager.',
+            subtitle: 'Ingénieur en systèmes d\'information, j\'explore au quotidien la nécessité de la protection des données personnelles et privées, le potentiel de l\'IA générative et toute sorte de sujet touchant de près ou loin aux technologies de l\'information.',
             viewWork: 'Voir mes projets',
             readBlog: 'Lire le blog',
         },
@@ -70,14 +70,6 @@ export const translations = {
             sourceCode: 'Code source',
         },
 
-        // CTA
-        cta: {
-            title: 'Construisons quelque chose',
-            titleAccent: 'd\'extraordinaire',
-            description: 'Vous avez un projet en tête ? J\'adorerais en discuter. Parlons de comment nous pouvons collaborer.',
-            getInTouch: 'Me contacter',
-        },
-
         // Footer
         footer: {
             navigation: 'Navigation',
@@ -101,9 +93,9 @@ export const translations = {
 
         // Hero
         hero: {
-            headline: 'Building digital',
-            headlineAccent: 'experiences.',
-            subtitle: 'Digital architect crafting premium web experiences with modern technologies. Clean code, beautiful interfaces, seamless interactions.',
+            headline: 'Develop and',
+            headlineAccent: 'share.',
+            subtitle: 'Information systems engineer, I explore daily the need for personal and private data protection, the potential of generative AI, and all kinds of topics related to information technology.',
             viewWork: 'View Work',
             readBlog: 'Read Blog',
         },
@@ -156,14 +148,6 @@ export const translations = {
             comingSoon: 'Projects coming soon!',
             viewLive: 'View live',
             sourceCode: 'Source code',
-        },
-
-        // CTA
-        cta: {
-            title: 'Let\'s build something',
-            titleAccent: 'extraordinary',
-            description: 'Have a project in mind? I\'d love to hear about it. Let\'s discuss how we can work together.',
-            getInTouch: 'Get in touch',
         },
 
         // Footer
