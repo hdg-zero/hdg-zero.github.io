@@ -15,7 +15,7 @@ const base = import.meta.env.BASE_URL;
 ---
 
 <!doctype html>
-<html lang="fr">
+<html lang="fr" class="scroll-smooth overflow-x-hidden">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="description" content={description} />
@@ -56,16 +56,23 @@ const base = import.meta.env.BASE_URL;
 			});
 		</script>
 	</head>
-	<body class="min-h-screen flex flex-col font-display antialiased">
+	
+	<!-- 
+      FIX MOBILE: 
+      - overflow-x-hidden : Empêche le scroll horizontal indésirable
+      - w-full : Force la largeur à 100% du viewport
+      - relative : Crée un contexte de positionnement pour les éléments absolus internes
+    -->
+	<body class="min-h-screen flex flex-col font-display antialiased overflow-x-hidden w-full relative bg-[var(--bg-primary)] text-[var(--text-primary)]">
 		<Header />
 		
-		<main class="flex-1">
+		<main class="flex-1 w-full relative">
 			<slot />
 		</main>
 		
 		<!-- Minimal Footer -->
-		<footer class="relative border-t border-[var(--glass-border)] mt-20">
-			<!-- Ambient glow -->
+		<footer class="relative border-t border-[var(--glass-border)] mt-20 w-full">
+			<!-- Ambient glow (Maintenu par overflow-hidden du body) -->
 			<div class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[1px] bg-gradient-to-r from-transparent via-[var(--accent-primary)] to-transparent opacity-50"></div>
 			
 			<div class="container mx-auto px-4 sm:px-6 py-8 sm:py-12">
