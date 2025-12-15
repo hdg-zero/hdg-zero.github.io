@@ -8,7 +8,7 @@ const projectsCollection = defineCollection({
 		description: z.string(),
 		publishDate: z.date(),
 		tags: z.array(z.string()),
-		cover: image().optional(), 
+		cover: image().optional(),
 		coverAlt: z.string().optional(),
 		linkDemo: z.string().url().optional(),
 		linkRepo: z.string().url().optional(),
@@ -23,6 +23,7 @@ const blogCollection = defineCollection({
 		publishDate: z.date(),
 		cover: image().optional(),
 		coverAlt: z.string().optional(),
+		lang: z.enum(['fr', 'en']).optional().default('fr'),
 	}),
 });
 

@@ -4,6 +4,7 @@ description: "Pourquoi j'ai choisi Astro pour refaire mon site perso en 2025, et
 publishDate: 2025-05-20
 cover: "../../assets/placeholder.jpg"
 coverAlt: "Image abstraite de code"
+lang: fr
 ---
 
 Ceci est mon premier article. Je vais parler de tech, de mes découvertes et de mes coups de gueule.
