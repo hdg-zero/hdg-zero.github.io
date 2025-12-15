@@ -17,14 +17,17 @@ export async function getStaticPaths() {
 const { post } = Astro.props;
 const { Content } = await post.render();
 
+// Get current post language (default to 'fr' if not set)
+const currentLang = post.data.lang || 'fr';
+
 function formatDate(date: Date) {
 	return new Intl.DateTimeFormat('fr-FR', { dateStyle: 'long' }).format(date);
 }
 
-// Get other posts for "Read more"
+// Get other posts for "Read more" - filter by same language as current post
 const allPosts = await getCollection('blog');
 const otherPosts = allPosts
-	.filter(p => p.slug !== post.slug)
+	.filter(p => p.slug !== post.slug && (p.data.lang || 'fr') === currentLang)
 	.sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
 	.slice(0, 2);
 ---
@@ -39,7 +42,7 @@ const otherPosts = allPosts
 			<svg class="w-5 h-5 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18"/>
 			</svg>
-			Retour au blog
+			<span data-i18n="blog.backToBlog">Retour au blog</span>
 		</a>
 
 		<!-- Header -->
@@ -98,12 +101,13 @@ const otherPosts = allPosts
 		<div class="max-w-3xl mx-auto mt-12 pt-8 border-t border-[var(--border-subtle)]">
 			<div class="flex flex-wrap items-center justify-between gap-4">
 				<div class="flex items-center gap-4">
-					<span class="text-[var(--text-muted)] text-sm">Partager :</span>
+					<span class="text-[var(--text-muted)] text-sm" data-i18n="blog.share">Partager :</span>
 					<a 
 						href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.data.title)}&url=${encodeURIComponent(Astro.url.href)}`}
 						target="_blank"
 						rel="noopener"
 						class="p-2 rounded-lg bg-[var(--bg-elevated)] text-[var(--text-secondary)] hover:text-[var(--accent-primary)] hover:bg-[var(--accent-subtle)] transition-colors"
+						data-i18n-title="blog.shareTwitter"
 						title="Partager sur Twitter"
 					>
 						<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -115,6 +119,7 @@ const otherPosts = allPosts
 						target="_blank"
 						rel="noopener"
 						class="p-2 rounded-lg bg-[var(--bg-elevated)] text-[var(--text-secondary)] hover:text-[var(--accent-primary)] hover:bg-[var(--accent-subtle)] transition-colors"
+						data-i18n-title="blog.shareLinkedin"
 						title="Partager sur LinkedIn"
 					>
 						<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -127,7 +132,7 @@ const otherPosts = allPosts
 					href={`${base}blog`}
 					class="text-[var(--text-secondary)] hover:text-[var(--accent-primary)] transition-colors text-sm"
 				>
-					← Tous les articles
+					← <span data-i18n="blog.allArticles">Tous les articles</span>
 				</a>
 			</div>
 		</div>
@@ -135,7 +140,7 @@ const otherPosts = allPosts
 		<!-- Related posts -->
 		{otherPosts.length > 0 && (
 			<section class="max-w-3xl mx-auto mt-16 pt-12 border-t border-[var(--border-subtle)]">
-				<h2 class="text-2xl font-bold mb-8">À lire également</h2>
+				<h2 class="text-2xl font-bold mb-8" data-i18n="blog.alsoRead">À lire également</h2>
 				<div class="grid md:grid-cols-2 gap-6">
 					{otherPosts.map(related => (
 						<a 

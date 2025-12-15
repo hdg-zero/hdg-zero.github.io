@@ -55,6 +55,12 @@ export const translations = {
             engineeringBlog: 'Blog technique',
             blogDesc: 'Plongées profondes dans le code et les patterns.',
             readArticles: 'Lire les articles',
+            backToBlog: 'Retour au blog',
+            allArticles: 'Tous les articles',
+            alsoRead: 'À lire également',
+            share: 'Partager',
+            shareTwitter: 'Partager sur Twitter',
+            shareLinkedin: 'Partager sur LinkedIn',
         },
 
         // Projects
@@ -68,6 +74,8 @@ export const translations = {
             comingSoon: 'Les projets arrivent bientôt !',
             viewLive: 'Voir le site',
             sourceCode: 'Code source',
+            backToProjects: 'Retour aux projets',
+            relatedProjects: 'Projets similaires',
         },
 
         // Footer
@@ -135,6 +143,12 @@ export const translations = {
             engineeringBlog: 'Engineering Blog',
             blogDesc: 'Deep dives into code and patterns.',
             readArticles: 'Read articles',
+            backToBlog: 'Back to blog',
+            allArticles: 'All articles',
+            alsoRead: 'Also read',
+            share: 'Share',
+            shareTwitter: 'Share on Twitter',
+            shareLinkedin: 'Share on LinkedIn',
         },
 
         // Projects
@@ -148,6 +162,8 @@ export const translations = {
             comingSoon: 'Projects coming soon!',
             viewLive: 'View live',
             sourceCode: 'Source code',
+            backToProjects: 'Back to projects',
+            relatedProjects: 'Related projects',
         },
 
         // Footer

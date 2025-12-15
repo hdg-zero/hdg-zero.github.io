@@ -197,6 +197,20 @@ const translationsJson = JSON.stringify(translations);
 				document.querySelectorAll('[data-projects-view-details]').forEach(el => el.textContent = t('projects.viewDetails'));
 				document.querySelectorAll('[data-projects-no-projects]').forEach(el => el.textContent = t('projects.noProjects'));
 				document.querySelectorAll('[data-projects-coming-soon]').forEach(el => el.textContent = t('projects.comingSoon'));
+			
+				// Update blog article page
+				document.querySelectorAll('[data-i18n="blog.backToBlog"]').forEach(el => el.textContent = t('blog.backToBlog'));
+				document.querySelectorAll('[data-i18n="blog.allArticles"]').forEach(el => el.textContent = t('blog.allArticles'));
+				document.querySelectorAll('[data-i18n="blog.alsoRead"]').forEach(el => el.textContent = t('blog.alsoRead'));
+				document.querySelectorAll('[data-i18n="blog.share"]').forEach(el => el.textContent = t('blog.share'));
+				document.querySelectorAll('[data-i18n-title="blog.shareTwitter"]').forEach(el => el.setAttribute('title', t('blog.shareTwitter')));
+				document.querySelectorAll('[data-i18n-title="blog.shareLinkedin"]').forEach(el => el.setAttribute('title', t('blog.shareLinkedin')));
+				
+				// Update project page
+				document.querySelectorAll('[data-i18n="projects.backToProjects"]').forEach(el => el.textContent = t('projects.backToProjects'));
+				document.querySelectorAll('[data-i18n="projects.viewLive"]').forEach(el => el.textContent = t('projects.viewLive'));
+				document.querySelectorAll('[data-i18n="projects.sourceCode"]').forEach(el => el.textContent = t('projects.sourceCode'));
+				document.querySelectorAll('[data-i18n="projects.relatedProjects"]').forEach(el => el.textContent = t('projects.relatedProjects'));
 			}
 			
 			// Initialize on page load
