@@ -12,6 +12,7 @@ const projectsCollection = defineCollection({
 		coverAlt: z.string().optional(),
 		linkDemo: z.string().url().optional(),
 		linkRepo: z.string().url().optional(),
+		lang: z.enum(['fr', 'en']).optional().default('fr'),
 	}),
 });
 
