@@ -59,6 +59,7 @@ const allTags = [...new Set(projects.flatMap(p => p.data.tags))];
 					class="project-item animate-fade-up" 
 					style={`animation-delay: ${300 + index * 100}ms`}
 					data-tags={project.data.tags.join(',')}
+					data-lang={project.data.lang || 'fr'}
 				>
 					<ProjectCard project={project} />
 				</div>
@@ -80,42 +81,83 @@ const allTags = [...new Set(projects.flatMap(p => p.data.tags))];
 </BaseLayout>
 
 <script>
+	// Filter projects by language
+	function filterProjectsByLanguage() {
+		const lang = localStorage.getItem('lang') || 'fr';
+		const projectItems = document.querySelectorAll('.project-item');
+		
+		projectItems.forEach(item => {
+			const projectLang = item.getAttribute('data-lang') || 'fr';
+			if (projectLang === lang) {
+				(item as HTMLElement).dataset.langHidden = 'false';
+			} else {
+				(item as HTMLElement).dataset.langHidden = 'true';
+			}
+		});
+		
+		// Re-apply current tag filter
+		const activeFilter = document.querySelector('.tag-filter.active');
+		if (activeFilter) {
+			applyFilters();
+		}
+	}
+	
+	// Apply both language and tag filters
+	function applyFilters() {
+		const activeButton = document.querySelector('.tag-filter.active');
+		const filter = activeButton?.getAttribute('data-filter') || 'all';
+		const projectItems = document.querySelectorAll('.project-item');
+		
+		projectItems.forEach(item => {
+			const tags = item.getAttribute('data-tags')?.split(',') || [];
+			const langHidden = item.getAttribute('data-lang-hidden') === 'true';
+			const tagMatches = filter === 'all' || tags.includes(filter);
+			const shouldShow = !langHidden && tagMatches;
+			
+			if (shouldShow) {
+				(item as HTMLElement).style.display = '';
+				(item as HTMLElement).style.opacity = '0';
+				(item as HTMLElement).style.transform = 'translateY(20px)';
+				requestAnimationFrame(() => {
+					(item as HTMLElement).style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+					(item as HTMLElement).style.opacity = '1';
+					(item as HTMLElement).style.transform = 'translateY(0)';
+				});
+			} else {
+				(item as HTMLElement).style.display = 'none';
+			}
+		});
+	}
+	
 	document.addEventListener('astro:page-load', () => {
 		const filterButtons = document.querySelectorAll('.tag-filter');
-		const projectItems = document.querySelectorAll('.project-item');
+		
+		// Initial language filter
+		filterProjectsByLanguage();
 		
 		filterButtons.forEach(button => {
 			button.addEventListener('click', () => {
-				const filter = button.getAttribute('data-filter');
-				
 				// Update active state
 				filterButtons.forEach(btn => btn.classList.remove('active'));
 				button.classList.add('active');
 				
-				// Filter projects with animation
-				projectItems.forEach(item => {
-					const tags = item.getAttribute('data-tags')?.split(',') || [];
-					const matches = filter === 'all' || tags.includes(filter);
-					
-					if (matches) {
-						(item as HTMLElement).style.display = 'block';
-						(item as HTMLElement).style.opacity = '0';
-						(item as HTMLElement).style.transform = 'translateY(20px)';
-						requestAnimationFrame(() => {
-							(item as HTMLElement).style.transition = 'opacity 0.4s ease, transform 0.4s ease';
-							(item as HTMLElement).style.opacity = '1';
-							(item as HTMLElement).style.transform = 'translateY(0)';
-						});
-					} else {
-						(item as HTMLElement).style.display = 'none';
-					}
-				});
+				// Apply combined filters
+				applyFilters();
 			});
 		});
 	});
+	
+	// Listen for language changes
+	window.addEventListener('languageChange', filterProjectsByLanguage);
 </script>
 
 <style>
+	/* CSS-based filtering for instant results */
+	:global(html[data-lang="fr"]) .project-item[data-lang="en"],
+	:global(html[data-lang="en"]) .project-item[data-lang="fr"] {
+		display: none !important;
+	}
+
 	.tag-filter {
 		background: var(--glass-bg);
 		border: 1px solid var(--glass-border);
