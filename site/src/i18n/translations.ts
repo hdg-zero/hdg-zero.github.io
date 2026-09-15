@@ -13,19 +13,20 @@ export const translations = {
 
         // Hero
         hero: {
-            headline: 'Développer et',
-            headlineAccent: 'partager.',
-            subtitle: 'Ingénieur en systèmes d\'information, j\'explore au quotidien la nécessité de la protection des données personnelles et privées, le potentiel de l\'IA générative et toute sorte de sujet touchant de près ou loin aux technologies de l\'information.',
-            viewWork: 'Voir mes projets',
+            roleBadge: 'Ingénieur Systèmes & Sécurité • Linux & IA Locale',
+            headline: 'Bâtir des systèmes fiables,',
+            headlineAccent: 'isolés & souverains.',
+            subtitle: 'Ingénieur spécialisé dans la sécurité des conteneurs Linux rootless, la souveraineté des données personnelles et l\'intégration locale d\'outils d\'IA sans exposition du système hôte.',
+            viewWork: 'Explorer mes projets',
             readBlog: 'Lire le blog',
         },
 
         // Bento Grid / Work section
         work: {
-            sectionLabel: 'Travaux sélectionnés',
+            sectionLabel: 'Réalisations & Ingénierie',
             title: 'Projets',
-            titleAccent: 'récents',
-            description: 'Une collection de mes travaux récents — applications web, design systems et expérimentations créatives.',
+            titleAccent: 'phares',
+            description: 'Architectures de sécurité, applications offline-first et configurations système pensées pour la performance.',
             latest: 'Dernier projet',
             viewAll: 'Voir tous les projets',
             viewDetails: 'Voir le détail',
@@ -68,7 +69,7 @@ export const translations = {
             sectionLabel: 'Portfolio',
             title: 'Mes',
             titleAccent: 'projets',
-            description: 'Une sélection de mes travaux récents — des applications web complexes aux expérimentations open-source.',
+            description: 'Architectures logicielles, environnements conteneurisés et outils open-source axés sur la confidentialité.',
             all: 'Tous',
             noProjects: 'Aucun projet',
             comingSoon: 'Les projets arrivent bientôt !',
@@ -101,20 +102,21 @@ export const translations = {
 
         // Hero
         hero: {
-            headline: 'Develop and',
-            headlineAccent: 'share.',
-            subtitle: 'Information systems engineer, I explore daily the need for personal and private data protection, the potential of generative AI, and all kinds of topics related to information technology.',
-            viewWork: 'View Work',
-            readBlog: 'Read Blog',
+            roleBadge: 'Systems & Security Engineer • Linux & Local AI',
+            headline: 'Engineering resilient,',
+            headlineAccent: 'isolated & sovereign systems.',
+            subtitle: 'Specializing in rootless Linux container sandboxing, data privacy, and the secure orchestration of autonomous local AI agents.',
+            viewWork: 'Explore Projects',
+            readBlog: 'Read the Blog',
         },
 
         // Bento Grid / Work section
         work: {
-            sectionLabel: 'Selected Work',
-            title: 'Featured',
+            sectionLabel: 'Featured Engineering',
+            title: 'Key',
             titleAccent: 'projects',
-            description: 'A curated collection of recent work spanning web applications, design systems, and creative experiments.',
-            latest: 'Latest',
+            description: 'Security architectures, offline-first applications, and tuned Linux workflows built for performance.',
+            latest: 'Latest Project',
             viewAll: 'View all projects',
             viewDetails: 'View details',
         },
@@ -156,7 +158,7 @@ export const translations = {
             sectionLabel: 'Portfolio',
             title: 'My',
             titleAccent: 'projects',
-            description: 'A curated selection of recent work — from complex web applications to open-source experiments.',
+            description: 'Software architectures, containerized environments, and privacy-focused open-source tooling.',
             all: 'All',
             noProjects: 'No projects yet',
             comingSoon: 'Projects coming soon!',
