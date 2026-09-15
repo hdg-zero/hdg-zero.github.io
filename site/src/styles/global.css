@@ -668,181 +668,16 @@ html.light .btn-primary {
   border-bottom: 1px solid var(--border-subtle);
 }
 
-/* === CAPTIVATING GEOMETRIC CURSOR SYSTEM === */
-
-/* 1. Macro Radar Background Glow */
-#cursor-glow {
+/* === INTERACTIVE NEURAL NETWORK / AGENT TOPOLOGY BACKGROUND === */
+#neural-bg {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 600px;
-  height: 600px;
-  margin-top: -300px;
-  margin-left: -300px;
-  border-radius: 50%;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
   pointer-events: none;
   z-index: 0;
   opacity: 0;
-  background: radial-gradient(
-    circle closest-side,
-    var(--accent-glow) 0%,
-    color-mix(in srgb, var(--accent-glow) 35%, transparent) 40%,
-    transparent 80%
-  );
-  filter: blur(80px);
-  transform: translate3d(-9999px, -9999px, 0);
-  transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-  will-change: transform, opacity;
-}
-
-html.light #cursor-glow {
-  background: radial-gradient(
-    circle closest-side,
-    rgba(45, 88, 67, 0.07) 0%,
-    rgba(45, 88, 67, 0.03) 40%,
-    transparent 80%
-  );
-  filter: blur(70px);
-}
-
-/* 2. Micro Geometric Reticle (HUD) */
-#cursor-reticle {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 84px;
-  height: 84px;
-  margin-top: -42px;
-  margin-left: -42px;
-  pointer-events: none;
-  z-index: 40;
-  opacity: 0;
-  transform: translate3d(-9999px, -9999px, 0);
-  transition: opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-  will-change: transform, opacity;
-}
-
-.reticle-svg {
-  width: 100%;
-  height: 100%;
-  overflow: visible;
-}
-
-.reticle-octagon {
-  transform-origin: 0px 0px;
-  animation: reticle-spin-cw 28s linear infinite;
-  transition: stroke 0.3s ease, stroke-opacity 0.3s ease;
-}
-
-.reticle-arc {
-  transform-origin: 0px 0px;
-  animation: reticle-spin-ccw 16s linear infinite;
-  transition: stroke 0.3s ease, stroke-opacity 0.3s ease;
-}
-
-.reticle-brackets {
-  transform-origin: 0px 0px;
-  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.reticle-core {
-  transform-origin: 0px 0px;
-  animation: reticle-pulse 3s ease-in-out infinite;
-}
-
-/* Micro Telemetry HUD label */
-.reticle-telemetry {
-  position: absolute;
-  top: calc(100% - 8px);
-  left: 50%;
-  transform: translateX(-50%);
-  display: inline-flex;
-  align-items: center;
-  padding: 1px 6px;
-  border-radius: 4px;
-  background: rgba(13, 15, 14, 0.82);
-  border: 1px solid rgba(82, 124, 103, 0.28);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  white-space: nowrap;
-  pointer-events: none;
-  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-html.light .reticle-telemetry {
-  background: rgba(248, 250, 248, 0.9);
-  border-color: rgba(45, 88, 67, 0.22);
-}
-
-.reticle-coords {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 8px;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  color: var(--accent-secondary);
-  line-height: 1.2;
-}
-
-/* Interactive Hover State (Locks onto interactive targets) */
-#cursor-reticle.is-hovering .reticle-brackets {
-  transform: scale(1.35);
-}
-
-#cursor-reticle.is-hovering .reticle-octagon {
-  animation-duration: 10s;
-  stroke: var(--accent-secondary);
-  stroke-opacity: 0.8;
-}
-
-#cursor-reticle.is-hovering .reticle-arc {
-  stroke: var(--text-primary);
-  stroke-opacity: 0.75;
-}
-
-#cursor-reticle.is-hovering .reticle-telemetry {
-  border-color: var(--accent-secondary);
-  background: rgba(82, 124, 103, 0.22);
-  box-shadow: 0 0 10px var(--accent-glow);
-}
-
-#cursor-reticle.is-hovering .reticle-coords {
-  color: var(--text-primary);
-  font-weight: 600;
-}
-
-/* Active Click Pulse */
-#cursor-reticle.is-clicking {
-  transform: scale(0.85);
-  transition: transform 0.15s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-@keyframes reticle-spin-cw {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes reticle-spin-ccw {
-  from {
-    transform: rotate(360deg);
-  }
-  to {
-    transform: rotate(0deg);
-  }
-}
-
-@keyframes reticle-pulse {
-  0%, 100% {
-    transform: scale(1);
-    opacity: 0.8;
-  }
-  50% {
-    transform: scale(1.3);
-    opacity: 1;
-  }
+  transition: opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* === INTERACTIVE GLOW EFFECT === */
@@ -997,9 +832,8 @@ a {
 
 /* Touch device optimizations */
 @media (hover: none) and (pointer: coarse) {
-  #cursor-glow,
-  #cursor-reticle {
-    display: none !important;
+  #neural-bg {
+    opacity: 0.35 !important;
   }
 
   .bento-card::before {
@@ -1023,8 +857,7 @@ a {
 
 /* Accessibility: Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
-  #cursor-glow,
-  #cursor-reticle {
+  #neural-bg {
     display: none !important;
   }
 

@@ -54,26 +54,26 @@ hdg-zero.github.io/
     │   │       ├── 1_hyprland/
     │   │       └── 3_agent-ws/ # agent-ws covers, 3D logos, and badges
     │   ├── components/         # Reusable Astro components
-    │   │   ├── Header.astro    # Responsive header with theme & smart i18n switcher
-    │   │   └── ProjectCard.astro # Accessible Bento project card with glass overlay
-    │   ├── content/            # Localized markdown & MDX files
-    │   │   ├── blog/           # Localized blog posts (*-fr.md, *-en.md)
-    │   │   └── projects/       # Technical case studies (*-fr.mdx, *-en.mdx)
-    │   ├── content.config.ts   # Content Layer API configuration (glob loader & Zod schemas)
-    │   ├── i18n/               # Localization
-    │   │   └── translations.ts # Typed translation dictionaries (FR & EN)
-    │   ├── layouts/
-    │   │   └── BaseLayout.astro # Root HTML shell, fonts, meta tags, and i18n runtime
-    │   ├── pages/              # File-based static routes
-    │   │   ├── index.astro     # Bilingual Bento grid showcase & hero section
-    │   │   ├── blog/
-    │   │   │   ├── index.astro # Blog archive
-    │   │   │   └── [...slug].astro # Localized blog detail route (render() via Content Layer)
-    │   │   └── projects/
-    │   │       ├── index.astro # Portfolio grid with dynamic tag & language filtering
-    │   │       └── [...slug].astro # Localized project case study route
-    │   └── styles/
-    │       └── global.css      # Liquid glass theme, CSS variables & animations
+    │   ├── Header.astro    # Responsive header with theme & smart i18n switcher
+    │   └── ProjectCard.astro # Accessible Bento project card with glass overlay
+    ├── content/            # Localized markdown & MDX files
+    │   ├── blog/           # Localized blog posts (*-fr.md, *-en.md)
+    │   └── projects/       # Technical case studies (*-fr.mdx, *-en.mdx)
+    ├── content.config.ts   # Content Layer API configuration (glob loader & Zod schemas)
+    ├── i18n/               # Localization
+    │   └── translations.ts # Typed translation dictionaries (FR & EN)
+    ├── layouts/
+    │   └── BaseLayout.astro # Root HTML shell, fonts, meta tags, and i18n runtime
+    ├── pages/              # File-based static routes
+    │   ├── index.astro     # Bilingual Bento grid showcase & hero section
+    │   ├── blog/
+    │   │   ├── index.astro # Blog archive
+    │   │   └── [...slug].astro # Localized blog detail route (render() via Content Layer)
+    │   └── projects/
+    │       ├── index.astro # Portfolio grid with dynamic tag & language filtering
+    │       └── [...slug].astro # Localized project case study route
+    └── styles/
+        └── global.css      # Liquid glass theme, CSS variables & animations
     ├── astro.config.mjs        # Astro configuration (vite, markdown, sitemap)
     ├── package.json            # Scripts and lean dependencies
     └── tsconfig.json           # Strict TypeScript configuration
@@ -92,7 +92,6 @@ The portfolio spotlights the following core engineering case studies:
 
 2. **[hyprland](https://github.com/hdg-zero/dotfiles)** — *Wayland Tiling Environment*
    - High-efficiency personal development environment configured on Arch Linux / Hyprland with automated window rules, low latency, and custom status monitors.
-
 
 3. **[hdg-zero.github.io](https://github.com/hdg-zero/hdg-zero.github.io)** — *Astro Portfolio Platform*
    - Modern, zero-JS baseline architecture delivering perfect 100/100 Core Web Vitals.

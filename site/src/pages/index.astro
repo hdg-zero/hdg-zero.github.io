@@ -226,7 +226,7 @@ const latestBlogEn = sortedBlogPosts.filter(p => (p.data.lang || 'fr') === 'en')
                 </div>
 
                 <!-- 3. Secondary Project: GitHub Page (1x1) -->
-                {featuredProjectsFr[1] && (
+                {featuredProjectsFr[2] && (
                     <article class="bento-card col-span-1 sm:col-span-1 lg:col-span-1 p-6 flex flex-col justify-between group relative overflow-hidden">
                         <div>
                             <div class="flex items-center justify-between mb-3">
@@ -236,17 +236,17 @@ const latestBlogEn = sortedBlogPosts.filter(p => (p.data.lang || 'fr') === 'en')
                                 <span class="text-xs font-mono text-[var(--text-muted)]">Astro 7</span>
                             </div>
                             <h3 class="text-xl font-bold text-[var(--text-primary)] mb-2 group-hover:text-[var(--accent-primary)] transition-colors">
-                                <a href={`${base}projects/${featuredProjectsFr[1].id}`} class="after:absolute after:inset-0 focus:outline-none">
-                                    {featuredProjectsFr[1].data.title}
+                                <a href={`${base}projects/${featuredProjectsFr[2].id}`} class="after:absolute after:inset-0 focus:outline-none">
+                                    {featuredProjectsFr[2].data.title}
                                 </a>
                             </h3>
                             <p class="text-xs sm:text-sm text-[var(--text-secondary)] line-clamp-2 mb-4">
-                                {featuredProjectsFr[1].data.description}
+                                {featuredProjectsFr[2].data.description}
                             </p>
                         </div>
                         <div class="flex items-center justify-between pt-3 border-t border-[var(--border-subtle)] relative z-20">
                             <div class="flex items-center gap-1.5 flex-wrap">
-                                {featuredProjectsFr[1].data.tags.slice(0, 2).map(tag => (
+                                {featuredProjectsFr[2].data.tags.slice(0, 2).map(tag => (
                                     <span class="tag text-[10px] py-0.5 px-2">{tag}</span>
                                 ))}
                             </div>
@@ -260,7 +260,7 @@ const latestBlogEn = sortedBlogPosts.filter(p => (p.data.lang || 'fr') === 'en')
                 )}
 
                 <!-- 4. Third Project: Hyprland (2x1) -->
-                {featuredProjectsFr[2] && (
+                {featuredProjectsFr[1] && (
                     <article class="bento-card col-span-1 sm:col-span-1 lg:col-span-2 p-6 flex flex-col justify-between group relative overflow-hidden">
                         <div>
                             <div class="flex items-center justify-between mb-3">
@@ -270,17 +270,17 @@ const latestBlogEn = sortedBlogPosts.filter(p => (p.data.lang || 'fr') === 'en')
                                 <span class="text-xs font-mono text-[var(--text-muted)]">&lt; 800 Mo RAM</span>
                             </div>
                             <h3 class="text-xl font-bold text-[var(--text-primary)] mb-2 group-hover:text-[var(--accent-primary)] transition-colors">
-                                <a href={`${base}projects/${featuredProjectsFr[2].id}`} class="after:absolute after:inset-0 focus:outline-none">
-                                    {featuredProjectsFr[2].data.title}
+                                <a href={`${base}projects/${featuredProjectsFr[1].id}`} class="after:absolute after:inset-0 focus:outline-none">
+                                    {featuredProjectsFr[1].data.title}
                                 </a>
                             </h3>
                             <p class="text-xs sm:text-sm text-[var(--text-secondary)] line-clamp-2 mb-4">
-                                {featuredProjectsFr[2].data.description}
+                                {featuredProjectsFr[1].data.description}
                             </p>
                         </div>
                         <div class="flex items-center justify-between pt-3 border-t border-[var(--border-subtle)] relative z-20">
                             <div class="flex items-center gap-1.5 flex-wrap">
-                                {featuredProjectsFr[2].data.tags.slice(0, 4).map(tag => (
+                                {featuredProjectsFr[1].data.tags.slice(0, 4).map(tag => (
                                     <span class="tag text-[10px] py-0.5 px-2">{tag}</span>
                                 ))}
                             </div>
@@ -419,7 +419,7 @@ const latestBlogEn = sortedBlogPosts.filter(p => (p.data.lang || 'fr') === 'en')
                 </div>
 
                 <!-- 3. Secondary Project: GitHub Page (1x1) -->
-                {featuredProjectsEn[1] && (
+                {featuredProjectsEn[2] && (
                     <article class="bento-card col-span-1 sm:col-span-1 lg:col-span-1 p-6 flex flex-col justify-between group relative overflow-hidden">
                         <div>
                             <div class="flex items-center justify-between mb-3">
@@ -429,17 +429,17 @@ const latestBlogEn = sortedBlogPosts.filter(p => (p.data.lang || 'fr') === 'en')
                                 <span class="text-xs font-mono text-[var(--text-muted)]">Astro 7</span>
                             </div>
                             <h3 class="text-xl font-bold text-[var(--text-primary)] mb-2 group-hover:text-[var(--accent-primary)] transition-colors">
-                                <a href={`${base}projects/${featuredProjectsEn[1].id}`} class="after:absolute after:inset-0 focus:outline-none">
-                                    {featuredProjectsEn[1].data.title}
+                                <a href={`${base}projects/${featuredProjectsEn[2].id}`} class="after:absolute after:inset-0 focus:outline-none">
+                                    {featuredProjectsEn[2].data.title}
                                 </a>
                             </h3>
                             <p class="text-xs sm:text-sm text-[var(--text-secondary)] line-clamp-2 mb-4">
-                                {featuredProjectsEn[1].data.description}
+                                {featuredProjectsEn[2].data.description}
                             </p>
                         </div>
                         <div class="flex items-center justify-between pt-3 border-t border-[var(--border-subtle)] relative z-20">
                             <div class="flex items-center gap-1.5 flex-wrap">
-                                {featuredProjectsEn[1].data.tags.slice(0, 2).map(tag => (
+                                {featuredProjectsEn[2].data.tags.slice(0, 2).map(tag => (
                                     <span class="tag text-[10px] py-0.5 px-2">{tag}</span>
                                 ))}
                             </div>
@@ -453,7 +453,7 @@ const latestBlogEn = sortedBlogPosts.filter(p => (p.data.lang || 'fr') === 'en')
                 )}
 
                 <!-- 4. Third Project: Hyprland (2x1) -->
-                {featuredProjectsEn[2] && (
+                {featuredProjectsEn[1] && (
                     <article class="bento-card col-span-1 sm:col-span-1 lg:col-span-2 p-6 flex flex-col justify-between group relative overflow-hidden">
                         <div>
                             <div class="flex items-center justify-between mb-3">
@@ -463,17 +463,17 @@ const latestBlogEn = sortedBlogPosts.filter(p => (p.data.lang || 'fr') === 'en')
                                 <span class="text-xs font-mono text-[var(--text-muted)]">&lt; 800 MB RAM</span>
                             </div>
                             <h3 class="text-xl font-bold text-[var(--text-primary)] mb-2 group-hover:text-[var(--accent-primary)] transition-colors">
-                                <a href={`${base}projects/${featuredProjectsEn[2].id}`} class="after:absolute after:inset-0 focus:outline-none">
-                                    {featuredProjectsEn[2].data.title}
+                                <a href={`${base}projects/${featuredProjectsEn[1].id}`} class="after:absolute after:inset-0 focus:outline-none">
+                                    {featuredProjectsEn[1].data.title}
                                 </a>
                             </h3>
                             <p class="text-xs sm:text-sm text-[var(--text-secondary)] line-clamp-2 mb-4">
-                                {featuredProjectsEn[2].data.description}
+                                {featuredProjectsEn[1].data.description}
                             </p>
                         </div>
                         <div class="flex items-center justify-between pt-3 border-t border-[var(--border-subtle)] relative z-20">
                             <div class="flex items-center gap-1.5 flex-wrap">
-                                {featuredProjectsEn[2].data.tags.slice(0, 4).map(tag => (
+                                {featuredProjectsEn[1].data.tags.slice(0, 4).map(tag => (
                                     <span class="tag text-[10px] py-0.5 px-2">{tag}</span>
                                 ))}
                             </div>
