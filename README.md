@@ -1,12 +1,12 @@
 # hdg-zero.github.io
 
-[![Astro 5](https://img.shields.io/badge/Astro-5.16-FF5D01?style=flat-square&logo=astro&logoColor=white)](https://astro.build)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind-v4.0-38B2AC?style=flat-square&logo=tailwind-css&logoColor=white)](https://tailwindcss.com)
+[![Astro 7](https://img.shields.io/badge/Astro-7.3-FF5D01?style=flat-square&logo=astro&logoColor=white)](https://astro.build)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-v4.3-38B2AC?style=flat-square&logo=tailwind-css&logoColor=white)](https://tailwindcss.com)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.7-3178C6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
 [![Zero-JS Baseline](https://img.shields.io/badge/JS%20Bundle-~15kB%20gzipped-success?style=flat-square)](https://astro.build)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square)](LICENSE)
 
-Personal technical portfolio and engineering case studies platform, built with **Astro 5**, **Tailwind CSS v4**, and a liquid glassmorphic design system.
+Personal technical portfolio and engineering case studies platform, built with **Astro 7**, **Tailwind CSS v4.3**, and a liquid glassmorphic design system.
 
 🌐 **Live Production Site:** [hdg-zero.github.io](https://hdg-zero.github.io)
 
@@ -17,8 +17,8 @@ Personal technical portfolio and engineering case studies platform, built with *
 The primary engineering goal of this platform is to showcase systems programming, security engineering, and open-source infrastructure projects within a blazing-fast, visually refined interface.
 
 ### Key Tenets
-- **Zero-JS by Default**: Elimination of heavy client-side frameworks (e.g. React runtime) on static content; hydration only where interactive routing is needed.
-- **Fluid Single-Page Navigation**: Instant transitions with Astro 5 `ClientRouter` while preserving static HTML compilation.
+- **Zero-JS by Default**: Elimination of heavy client-side frameworks on static content; hydration only where interactive routing is needed.
+- **Fluid Single-Page Navigation**: Instant transitions with Astro 7 `ClientRouter` while preserving static HTML compilation.
 - **Bilingual Core (FR / EN)**: Native bilingual support for case studies, articles, and navigation without page duplication or clunky reload flows.
 - **Liquid Glassmorphic UI**: High-fidelity dark/light aesthetic built on pure modern CSS variables, backdrop filters, and subtle ambient glows.
 - **Strict Accessibility & OS Integration**: Automatic adaptation to `prefers-reduced-motion` and `prefers-reduced-transparency`.
@@ -29,9 +29,9 @@ The primary engineering goal of this platform is to showcase systems programming
 
 | Technology | Version | Role | Architectural Justification |
 | :--- | :--- | :--- | :--- |
-| **[Astro](https://astro.build)** | `^5.16.5` | Core Framework & SSG | Generates static HTML by default. Content Collections provide type-safe Markdown/MDX parsing via Zod. |
-| **[Tailwind CSS](https://tailwindcss.com)** | `^4.0.0` | Styling Engine | Ultra-fast CSS-first engine using `@theme` and native CSS custom properties. |
-| **[ClientRouter](https://docs.astro.build/en/guides/view-transitions/)** | Astro 5 | Navigation & View Transitions | Persistent client-side transitions, caching, and state preservation during navigation (~5 kB gzipped). |
+| **[Astro](https://astro.build)** | `^7.3.2` | Core Framework & SSG | Blazing-fast Rust compiler, Content Layer API with `glob()` loader, and zero-JS baseline. |
+| **[Tailwind CSS](https://tailwindcss.com)** | `^4.3.3` | Styling Engine | Ultra-fast CSS-first engine via `@tailwindcss/vite` integrated with Vite 8. |
+| **[ClientRouter](https://docs.astro.build/en/guides/view-transitions/)** | Astro 7 | Navigation & View Transitions | Persistent client-side transitions, caching, and state preservation during navigation (~5 kB gzipped). |
 | **[TypeScript](https://www.typescriptlang.org)** | `^5.7.0` | Type Safety | Compile-time validation of frontmatters, i18n dictionaries, and component contracts. |
 | **[GitHub Pages](https://pages.github.com)** | — | Edge Deployment | Free, secure, immutable static artifact hosting powered by GitHub Actions. |
 
@@ -56,10 +56,10 @@ hdg-zero.github.io/
     │   ├── components/         # Reusable Astro components
     │   │   ├── Header.astro    # Responsive header with theme & smart i18n switcher
     │   │   └── ProjectCard.astro # Accessible Bento project card with glass overlay
-    │   ├── content/            # Type-safe content collections
+    │   ├── content/            # Localized markdown & MDX files
     │   │   ├── blog/           # Localized blog posts (*-fr.md, *-en.md)
-    │   │   ├── projects/       # Technical case studies (*-fr.mdx, *-en.mdx)
-    │   │   └── config.ts       # Zod schemas for content validation
+    │   │   └── projects/       # Technical case studies (*-fr.mdx, *-en.mdx)
+    │   ├── content.config.ts   # Content Layer API configuration (glob loader & Zod schemas)
     │   ├── i18n/               # Localization
     │   │   └── translations.ts # Typed translation dictionaries (FR & EN)
     │   ├── layouts/
@@ -68,7 +68,7 @@ hdg-zero.github.io/
     │   │   ├── index.astro     # Bilingual Bento grid showcase & hero section
     │   │   ├── blog/
     │   │   │   ├── index.astro # Blog archive
-    │   │   │   └── [...slug].astro # Localized blog detail route
+    │   │   │   └── [...slug].astro # Localized blog detail route (render() via Content Layer)
     │   │   └── projects/
     │   │       ├── index.astro # Portfolio grid with dynamic tag & language filtering
     │   │       └── [...slug].astro # Localized project case study route
