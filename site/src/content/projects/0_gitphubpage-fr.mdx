@@ -36,7 +36,7 @@ Avant de me lancer dans le code, je me suis d'abord mis sur la création du Gith
 0. Avoir un compte Github.
 1. Créer un répertoire sous le nom : x.github.io avec x, le nom du compte.
 2. Créer un fichier README.md avec ce qu'on veut afficher.
-3. Configurer le déploiement à vide (étapes à préciser)
+3. Configurer le pipeline de déploiement automatisé via GitHub Actions (`actions/deploy-pages`).
 4. Vérifier le bon déploiement sur l'url x.github.io
 
 J'ai vu que cela fonctionnait et j'ai pu donc passer à la seconde étape : le site.
@@ -46,12 +46,18 @@ Pour cela, j'ai suivi la création d'un nouveau projet comme expliqué dans cett
 Après avoir pu vérifier que l'affichage fonctionnait dans l'environnement de développement en local, j'ai pu passer à la personnalisation du site.
 
 
-## Construction du site
+## Conception & Ingénierie du site
 
-L'avantage d'un projet comme celui-ci, où il y a peu de contraintes comme par exemple de sécurité, j'ai directement décrit comment je voulais mon site à quelques IA.
-J'ai commencé par récupérer les différentes propositions, regarder à quel point elles étaient ou non proches de mes attentes, puis j'ai itéré.
-Au bout de quelques itérations, j'avais un design qui satisfaisait et un site à peu près fonctionnel. 
-Quelques bugs ci et là qui m'ont demandé d'aller chercher et de comprendre un peu le code produit, le fixer si je pouvais directement.
+Plutôt que d'aborder ce projet comme une simple vitrine statique, j'ai souhaité en faire un banc d'essai pour une méthodologie de développement moderne : le *pair programming* assisté par IA, mené avec un haut niveau d'exigence technique et un contrôle strict de chaque ligne de code.
+
+J'ai d'abord formalisé un cahier des charges précis : architecture orientée performance avec **Astro 7 (zéro JavaScript client superflu)**, grille Bento responsive inspirée des meilleurs standards d'ingénierie contemporains, palette feutrée sans saturation agressive, et conformité rigoureuse aux critères d'accessibilité. 
+
+En utilisant les modèles de langage comme accélérateurs de prototypage, j'ai piloté l'exploration des différentes pistes d'implémentation. Mais loin de me contenter d'intégrer passivement des blocs générés, j'ai assuré un travail approfondi d'audit, de refonte et d'optimisation :
+- **Maîtrise de l'architecture** : Découpage modulaire des composants Astro, intégration de la Content Layer API typée, et mise en place d'un système bilingue (FR/EN) fluide sans rechargement lourd.
+- **Performances matérielles & 120 FPS** : Refonte manuelle des animations et du système de ciblage géométrique en CSS/SVG pur (`transform: translate3d` et `requestAnimationFrame`), garantissant un coût CPU nul et zéro reflow de mise en page.
+- **Élimination de la dette technique** : Élagage des dépendances inutiles, correction des cas limites de responsive design sur mobile, et durcissement des contrastes typographiques (WCAG AAA).
+
+Cette approche m'a permis d'allier la rapidité d'expérimentation des outils modernes à la rigueur indispensable d'un ingénieur soucieux de la maintenabilité, de l'élégance et de la robustesse de son code.
 
 ## Publication
 
