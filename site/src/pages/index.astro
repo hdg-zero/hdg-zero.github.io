@@ -203,19 +203,20 @@ const latestBlogEn = sortedBlogPosts.filter(p => (p.data.lang || 'fr') === 'en')
                         </div>
 
                         <!-- Posts list inside the card -->
-                        <div class="space-y-4 my-2">
+                        <div class="space-y-3 my-3">
                             {latestBlogFr.map((post) => (
-                                <a href={`${base}blog/${post.id}`} class="block p-3.5 rounded-xl bg-[var(--bg-secondary)]/50 hover:bg-[var(--bg-secondary)] border border-[var(--border-subtle)] transition-all group/post">
-                                    <div class="flex items-center justify-between text-xs text-[var(--text-muted)] mb-1.5">
-                                        <span>{new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' }).format(post.data.publishDate)}</span>
-                                        <span class="text-[var(--accent-primary)] font-medium">Article</span>
+                                <a href={`${base}blog/${post.id}`} class="flex items-center justify-between p-3.5 rounded-xl bg-[var(--bg-secondary)]/40 hover:bg-[var(--bg-secondary)] border border-[var(--border-subtle)] hover:border-[var(--glass-border-hover)] transition-all group/post">
+                                    <div class="min-w-0 pr-3">
+                                        <span class="text-[11px] font-mono text-[var(--text-muted)] block mb-1">
+                                            {new Intl.DateTimeFormat('fr-FR', { month: 'short', year: 'numeric' }).format(post.data.publishDate)}
+                                        </span>
+                                        <h4 class="text-sm font-semibold text-[var(--text-primary)] group-hover/post:text-[var(--accent-primary)] transition-colors truncate">
+                                            {post.data.title}
+                                        </h4>
                                     </div>
-                                    <h4 class="text-sm font-semibold text-[var(--text-primary)] group-hover/post:text-[var(--accent-primary)] transition-colors line-clamp-2 mb-1">
-                                        {post.data.title}
-                                    </h4>
-                                    <p class="text-xs text-[var(--text-secondary)] line-clamp-2">
-                                        {post.data.description}
-                                    </p>
+                                    <svg class="w-4 h-4 text-[var(--text-muted)] group-hover/post:text-[var(--accent-primary)] group-hover/post:translate-x-1 transition-all shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                                    </svg>
                                 </a>
                             ))}
                         </div>
@@ -395,19 +396,20 @@ const latestBlogEn = sortedBlogPosts.filter(p => (p.data.lang || 'fr') === 'en')
                         </div>
 
                         <!-- Posts list inside the card -->
-                        <div class="space-y-4 my-2">
+                        <div class="space-y-3 my-3">
                             {latestBlogEn.map((post) => (
-                                <a href={`${base}blog/${post.id}`} class="block p-3.5 rounded-xl bg-[var(--bg-secondary)]/50 hover:bg-[var(--bg-secondary)] border border-[var(--border-subtle)] transition-all group/post">
-                                    <div class="flex items-center justify-between text-xs text-[var(--text-muted)] mb-1.5">
-                                        <span>{new Intl.DateTimeFormat('en-US', { day: 'numeric', month: 'short', year: 'numeric' }).format(post.data.publishDate)}</span>
-                                        <span class="text-[var(--accent-primary)] font-medium">Article</span>
+                                <a href={`${base}blog/${post.id}`} class="flex items-center justify-between p-3.5 rounded-xl bg-[var(--bg-secondary)]/40 hover:bg-[var(--bg-secondary)] border border-[var(--border-subtle)] hover:border-[var(--glass-border-hover)] transition-all group/post">
+                                    <div class="min-w-0 pr-3">
+                                        <span class="text-[11px] font-mono text-[var(--text-muted)] block mb-1">
+                                            {new Intl.DateTimeFormat('en-US', { month: 'short', year: 'numeric' }).format(post.data.publishDate)}
+                                        </span>
+                                        <h4 class="text-sm font-semibold text-[var(--text-primary)] group-hover/post:text-[var(--accent-primary)] transition-colors truncate">
+                                            {post.data.title}
+                                        </h4>
                                     </div>
-                                    <h4 class="text-sm font-semibold text-[var(--text-primary)] group-hover/post:text-[var(--accent-primary)] transition-colors line-clamp-2 mb-1">
-                                        {post.data.title}
-                                    </h4>
-                                    <p class="text-xs text-[var(--text-secondary)] line-clamp-2">
-                                        {post.data.description}
-                                    </p>
+                                    <svg class="w-4 h-4 text-[var(--text-muted)] group-hover/post:text-[var(--accent-primary)] group-hover/post:translate-x-1 transition-all shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                                    </svg>
                                 </a>
                             ))}
                         </div>
