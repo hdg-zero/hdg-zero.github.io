@@ -21,7 +21,7 @@ const { Content } = await post.render();
 const currentLang = post.data.lang || 'fr';
 
 function formatDate(date: Date) {
-	return new Intl.DateTimeFormat('fr-FR', { dateStyle: 'long' }).format(date);
+	return new Intl.DateTimeFormat(currentLang === 'en' ? 'en-US' : 'fr-FR', { dateStyle: 'long' }).format(date);
 }
 
 // Get other posts for "Read more" - filter by same language as current post

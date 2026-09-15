@@ -1,0 +1,100 @@
+---
+title: "My Hyprland Setup"
+description: "Why I left traditional desktop environments for Hyprland, and how I configured my modern Linux setup."
+publishDate: 2025-12-15
+tags: ["Linux", "Hyprland"]
+cover: "../../assets/projects/1_hyprland/hyprland.webp"
+coverAlt: "Asset for of my Hyprland configuration"
+linkRepo: "https://github.com/hdg-zero/dotfiles"
+lang: en
+---
+
+## Why Hyprland?
+
+After years on traditional desktop environments like GNOME and KDE, I decided to make the jump to a **tiling window manager**. Here's why I chose Hyprland:
+
+### Performance and Lightness
+
+- **Reduced memory consumption**: Hyprland uses significantly less RAM than a full DE
+- **Responsiveness**: Smooth animations thanks to native Wayland support
+- **Efficiency**: No unnecessary background processes
+
+### Maximum Productivity
+
+Automatic tiling completely changes the way you work:
+
+- No more manually resizing windows
+- Ultra-fast keyboard navigation
+- Workspaces organized by project/context
+
+### Total Customization
+
+Unlike traditional DEs, **everything** is configurable:
+
+- Animations, gaps, borders
+- Custom keybindings
+- Integration with any bar (Waybar, eww...)
+
+## My Configuration
+
+### Main Tools
+
+| Component | Tool |
+|-----------|------|
+| WM | Hyprland |
+| Bar | Waybar |
+| Launcher | Rofi (wayland fork) |
+| Terminal | Kitty |
+| Notifications | Dunst |
+| File Manager | Thunar + yazi |
+
+### Essential Keybindings
+
+My config uses `SUPER` as the main modifier:
+
+- `SUPER + Enter`: New terminal
+- `SUPER + D`: Application launcher
+- `SUPER + Q`: Close active window
+- `SUPER + 1-9`: Switch workspace
+- `SUPER + Shift + 1-9`: Move window to workspace
+
+### Animations
+
+I configured subtle but satisfying animations:
+
+```ini
+animations {
+    enabled = true
+    bezier = myBezier, 0.05, 0.9, 0.1, 1.05
+    animation = windows, 1, 7, myBezier
+    animation = windowsOut, 1, 7, default, popin 80%
+    animation = fade, 1, 7, default
+    animation = workspaces, 1, 6, default
+}
+```
+
+## Challenges Encountered
+
+### Application Compatibility
+
+Some Electron or X11 applications require adjustments:
+
+- Using XWayland for X11 apps
+- Specific environment variables for certain apps
+
+### Learning Curve
+
+The learning curve is real but worth the investment. After a few days, the productivity gains are huge.
+
+## Results
+
+- **Idle RAM**: ~800MB (vs ~2GB with GNOME)
+- **Boot time**: Nearly instant
+- **Productivity**: Significantly improved
+- **Satisfaction**: 100% - I'm never going back!
+
+## Resources
+
+- [Official Hyprland Documentation](https://wiki.hyprland.org/)
+- [My dotfiles repository](https://github.com/hdg-zero/dotfiles)
+- [r/unixporn](https://reddit.com/r/unixporn) for inspiration

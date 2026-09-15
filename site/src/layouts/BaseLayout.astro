@@ -3,7 +3,7 @@
 // Ultra Pro Layout with Theme & i18n Support
 import Header from '../components/Header.astro';
 import '../styles/global.css';
-import { ViewTransitions } from 'astro:transitions';
+import { ClientRouter } from 'astro:transitions';
 import { translations } from '../i18n/translations';
 
 interface Props {
@@ -27,13 +27,18 @@ const translationsJson = JSON.stringify(translations);
 		<link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
 		<meta name="generator" content={Astro.generator} />
 		
+		<!-- Google Fonts Preconnect & Stylesheet -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+
 		<!-- Open Graph -->
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
 		<meta property="og:type" content="website" />
 		
 		<title>{title}</title>
-		<ViewTransitions />
+		<ClientRouter />
 
 		<!-- Theme & Language initialization (MUST run immediately) -->
 		<script is:inline>
@@ -143,74 +148,82 @@ const translationsJson = JSON.stringify(translations);
 				return value || path;
 			}
 			
-			// Apply translations to data-i18n elements
+			// Mapping of legacy/shorthand data attributes to translation keys
+			const attrMap: Record<string, string> = {
+				'data-nav-home': 'nav.home',
+				'data-nav-work': 'nav.work',
+				'data-nav-blog': 'nav.blog',
+				'data-nav-contact': 'nav.contact',
+				'data-hero-headline': 'hero.headline',
+				'data-hero-headline-accent': 'hero.headlineAccent',
+				'data-hero-subtitle': 'hero.subtitle',
+				'data-hero-view-work': 'hero.viewWork',
+				'data-hero-read-blog': 'hero.readBlog',
+				'data-work-label': 'work.sectionLabel',
+				'data-work-title': 'work.title',
+				'data-work-title-accent': 'work.titleAccent',
+				'data-work-description': 'work.description',
+				'data-work-latest': 'work.latest',
+				'data-work-view-all': 'work.viewAll',
+				'data-work-view-details': 'work.viewDetails',
+				'data-blog-label': 'blog.sectionLabel',
+				'data-blog-title': 'blog.title',
+				'data-blog-title-accent': 'blog.titleAccent',
+				'data-blog-description': 'blog.description',
+				'data-blog-read-article': 'blog.readArticle',
+				'data-blog-engineering': 'blog.engineeringBlog',
+				'data-blog-blog-desc': 'blog.blogDesc',
+				'data-blog-read-articles': 'blog.readArticles',
+				'data-blog-subscribe': 'blog.subscribe',
+				'data-blog-stay-updated': 'blog.stayUpdated',
+				'data-projects-label': 'projects.sectionLabel',
+				'data-projects-title': 'projects.title',
+				'data-projects-title-accent': 'projects.titleAccent',
+				'data-projects-description': 'projects.description',
+				'data-projects-all': 'projects.all',
+				'data-projects-view-details': 'projects.viewDetails',
+				'data-projects-no-projects': 'projects.noProjects',
+				'data-projects-coming-soon': 'projects.comingSoon',
+			};
+
+			// Apply translations to all translatable elements
 			function applyTranslations() {
-				const lang = getLang();
+				// 1. Standard data-i18n attributes
 				document.querySelectorAll('[data-i18n]').forEach(el => {
 					const key = el.getAttribute('data-i18n');
-					const translation = t(key);
-					if (translation && translation !== key) {
-						el.textContent = translation;
+					if (key) {
+						const translation = t(key);
+						if (translation && translation !== key) {
+							el.textContent = translation;
+						}
 					}
 				});
-				
-				// Update nav items
-				document.querySelectorAll('[data-nav-home]').forEach(el => el.textContent = t('nav.home'));
-				document.querySelectorAll('[data-nav-work]').forEach(el => el.textContent = t('nav.work'));
-				document.querySelectorAll('[data-nav-blog]').forEach(el => el.textContent = t('nav.blog'));
-				document.querySelectorAll('[data-nav-contact]').forEach(el => el.textContent = t('nav.contact'));
-				
-				// Update hero
-				document.querySelectorAll('[data-hero-headline]').forEach(el => el.textContent = t('hero.headline'));
-				document.querySelectorAll('[data-hero-headline-accent]').forEach(el => el.textContent = t('hero.headlineAccent'));
-				document.querySelectorAll('[data-hero-subtitle]').forEach(el => el.textContent = t('hero.subtitle'));
-				document.querySelectorAll('[data-hero-view-work]').forEach(el => el.textContent = t('hero.viewWork'));
-				document.querySelectorAll('[data-hero-read-blog]').forEach(el => el.textContent = t('hero.readBlog'));
-				
-				// Update work section
-				document.querySelectorAll('[data-work-label]').forEach(el => el.textContent = t('work.sectionLabel'));
-				document.querySelectorAll('[data-work-title]').forEach(el => el.textContent = t('work.title'));
-				document.querySelectorAll('[data-work-title-accent]').forEach(el => el.textContent = t('work.titleAccent'));
-				document.querySelectorAll('[data-work-description]').forEach(el => el.textContent = t('work.description'));
-				document.querySelectorAll('[data-work-latest]').forEach(el => el.textContent = t('work.latest'));
-				document.querySelectorAll('[data-work-view-all]').forEach(el => el.textContent = t('work.viewAll'));
-				document.querySelectorAll('[data-work-view-details]').forEach(el => el.textContent = t('work.viewDetails'));
-				
-				// Update blog
-				document.querySelectorAll('[data-blog-label]').forEach(el => el.textContent = t('blog.sectionLabel'));
-				document.querySelectorAll('[data-blog-title]').forEach(el => el.textContent = t('blog.title'));
-				document.querySelectorAll('[data-blog-title-accent]').forEach(el => el.textContent = t('blog.titleAccent'));
-				document.querySelectorAll('[data-blog-description]').forEach(el => el.textContent = t('blog.description'));
-				document.querySelectorAll('[data-blog-read-article]').forEach(el => el.textContent = t('blog.readArticle'));
-				document.querySelectorAll('[data-blog-engineering]').forEach(el => el.textContent = t('blog.engineeringBlog'));
-				document.querySelectorAll('[data-blog-blog-desc]').forEach(el => el.textContent = t('blog.blogDesc'));
-				document.querySelectorAll('[data-blog-read-articles]').forEach(el => el.textContent = t('blog.readArticles'));
-				document.querySelectorAll('[data-blog-subscribe]').forEach(el => el.textContent = t('blog.subscribe'));
-				document.querySelectorAll('[data-blog-stay-updated]').forEach(el => el.textContent = t('blog.stayUpdated'));
-				
-				// Update projects
-				document.querySelectorAll('[data-projects-label]').forEach(el => el.textContent = t('projects.sectionLabel'));
-				document.querySelectorAll('[data-projects-title]').forEach(el => el.textContent = t('projects.title'));
-				document.querySelectorAll('[data-projects-title-accent]').forEach(el => el.textContent = t('projects.titleAccent'));
-				document.querySelectorAll('[data-projects-description]').forEach(el => el.textContent = t('projects.description'));
-				document.querySelectorAll('[data-projects-all]').forEach(el => el.textContent = t('projects.all'));
-				document.querySelectorAll('[data-projects-view-details]').forEach(el => el.textContent = t('projects.viewDetails'));
-				document.querySelectorAll('[data-projects-no-projects]').forEach(el => el.textContent = t('projects.noProjects'));
-				document.querySelectorAll('[data-projects-coming-soon]').forEach(el => el.textContent = t('projects.comingSoon'));
-			
-				// Update blog article page
-				document.querySelectorAll('[data-i18n="blog.backToBlog"]').forEach(el => el.textContent = t('blog.backToBlog'));
-				document.querySelectorAll('[data-i18n="blog.allArticles"]').forEach(el => el.textContent = t('blog.allArticles'));
-				document.querySelectorAll('[data-i18n="blog.alsoRead"]').forEach(el => el.textContent = t('blog.alsoRead'));
-				document.querySelectorAll('[data-i18n="blog.share"]').forEach(el => el.textContent = t('blog.share'));
-				document.querySelectorAll('[data-i18n-title="blog.shareTwitter"]').forEach(el => el.setAttribute('title', t('blog.shareTwitter')));
-				document.querySelectorAll('[data-i18n-title="blog.shareLinkedin"]').forEach(el => el.setAttribute('title', t('blog.shareLinkedin')));
-				
-				// Update project page
-				document.querySelectorAll('[data-i18n="projects.backToProjects"]').forEach(el => el.textContent = t('projects.backToProjects'));
-				document.querySelectorAll('[data-i18n="projects.viewLive"]').forEach(el => el.textContent = t('projects.viewLive'));
-				document.querySelectorAll('[data-i18n="projects.sourceCode"]').forEach(el => el.textContent = t('projects.sourceCode'));
-				document.querySelectorAll('[data-i18n="projects.relatedProjects"]').forEach(el => el.textContent = t('projects.relatedProjects'));
+
+				// 2. data-i18n-title attributes (tooltips/attributes)
+				document.querySelectorAll('[data-i18n-title]').forEach(el => {
+					const key = el.getAttribute('data-i18n-title');
+					if (key) {
+						const translation = t(key);
+						if (translation) el.setAttribute('title', translation);
+					}
+				});
+
+				// 3. Shorthand data attributes
+				for (const [attr, key] of Object.entries(attrMap)) {
+					const translation = t(key);
+					if (translation) {
+						document.querySelectorAll(`[${attr}]`).forEach(el => {
+							el.textContent = translation;
+						});
+					}
+				}
+
+				// 4. Toggle language-specific sections
+				const currentLang = getLang();
+				document.querySelectorAll('[data-lang-section]').forEach(el => {
+					const sLang = el.getAttribute('data-lang-section');
+					(el as HTMLElement).style.display = (sLang === currentLang) ? '' : 'none';
+				});
 			}
 			
 			// Initialize on page load

@@ -18,14 +18,15 @@ const { project } = Astro.props;
 const { Content } = await project.render();
 const { title, description, tags, cover, coverAlt, linkDemo, linkRepo, publishDate } = project.data;
 
-// Get related projects (same tags)
+// Get related projects (same tags and same language)
 const allProjects = await getCollection('projects');
+const projectLang = project.data.lang || 'fr';
 const relatedProjects = allProjects
-	.filter(p => p.slug !== project.slug && p.data.tags.some(t => tags.includes(t)))
+	.filter(p => p.slug !== project.slug && (p.data.lang || 'fr') === projectLang && p.data.tags.some(t => tags.includes(t)))
 	.slice(0, 2);
 
 function formatDate(date: Date) {
-	return new Intl.DateTimeFormat('fr-FR', { 
+	return new Intl.DateTimeFormat(projectLang === 'en' ? 'en-US' : 'fr-FR', { 
 		year: 'numeric',
 		month: 'long' 
 	}).format(date);

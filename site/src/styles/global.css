@@ -4,9 +4,6 @@
 /* Tailwind v4 import */
 @import "tailwindcss";
 
-/* Custom fonts */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
-
 /* === CSS VARIABLES === */
 @theme {
   /* Premium Dark Base */
@@ -807,5 +804,30 @@ a {
   .bento-card:hover,
   .glass-card:hover {
     transform: none;
+  }
+}
+
+/* Accessibility: Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .ambient-orb,
+  .scroll-indicator,
+  .animate-orb,
+  .animate-fade-up {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}
+
+/* Accessibility: Reduced Transparency */
+@media (prefers-reduced-transparency: reduce) {
+  :root {
+    --glass-bg: rgba(18, 18, 22, 0.95);
+    --glass-bg-strong: rgba(28, 28, 34, 0.98);
+  }
+  html.light {
+    --glass-bg: rgba(245, 245, 247, 0.95);
+    --glass-bg-strong: rgba(235, 235, 240, 0.98);
   }
 }
