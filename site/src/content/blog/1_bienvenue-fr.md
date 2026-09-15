@@ -10,31 +10,27 @@ lang: fr
 
 ## Bienvenue
 
-Ceci est mon premier article, puisqu'il en faut bien un, et il est là pour expliquer son objectif.
+Ceci est mon premier article, puisqu'il en faut bien un, et il est là pour expliquer sa démarche.
 
 
-## Pourquoi un site ?
+## Pourquoi ce site ?
 
-Travaillant dans le monde de l'informatique depuis maintenant plusieurs années, j'ai vu passer quelques projets et j'ai observé en essayant d'en apprendre le plus.
-Toutefois, je me rends compte qu'avec les mois et les années qui passent, les souvenirs se tarissent et s'oublient peu à peu, surtout quand ils ne sont pas sollicités pendant de longues durées. Et je trouve tout cela bien dommage.
-Pour cette première raison, j'avais envie d'avoir un espace sur lequel je peux écrire comme je le souhaite et publier des articles sur des sujets qui me paraissent intéressants.
+Travaillant dans le monde de l'informatique et des systèmes d'information depuis plusieurs années, j'ai vu passer de nombreux projets, exploré des architectures variées et cherché à apprendre en continu.
 
-De plus, je me suis rendu compte qu'il était difficile de communiquer et de montrer sur quoi je peux travailler si cela n'est pas préparé et qu'en plus en ne travaillant que pour moi-même, cela était parfois bâclé ou très peu documenté. C'est pour cette seconde raison que je voulais un espace pour recenser ce que je faisais, en garder une trace et permettre à tout le monde d'avoir une petite idée de mes projets personnels.
+Toutefois, avec les mois et les années qui passent, les détails techniques et les souvenirs s'estompent lorsqu'ils ne sont pas régulièrement sollicités. Pour cette première raison, j'avais envie d'un espace pérenne sur lequel écrire librement et documenter des sujets qui me passionnent : sécurité, Linux, souveraineté numérique et intelligence artificielle.
 
-Avec ces deux raisons en tête, j'ai commencé à me dire qu'il me fallait absolument un site et rapidement, le voilà.
+De plus, il est souvent difficile de partager ce sur quoi l'on travaille au quotidien lorsque les expérimentations personnelles restent éparpillées ou peu documentées. Ce site me permet de recenser mes réalisations, d'en conserver une trace rigoureuse et de donner un aperçu concret de ma démarche d'ingénierie.
 
 
-## Ce que vous trouverez
+## Ce que vous trouverez ici
 
-Le site se sépare en deux parties : les articles et les projets. 
-- Les articles répondent au besoin de la première raison précédemment citée, c'est-à-dire un endroit où je peux écrire sur cdes concepts, des applications ou des retours d'expériences.
-- Les projets quant à eux sont là pour montrer et expliquer le développement ou la mise en place d'un projet.
-
-L'un a pour but de m'exprimer et l'autre de montrer ce qu'on peut faire.
+Le site s'articule autour de deux axes complémentaires :
+- **Les articles de blog** : Des réflexions de fond, des retours d'expérience concrets et des analyses sur des concepts ou des pratiques logicielles.
+- **Les projets** : Des études de cas complètes détaillant l'architecture, le code, les choix de sécurité et les leçons tirées de mes développements open source.
 
 
-## Voir mon premier projet
+## Découvrir le premier projet
 
-Afin de d'illustrer (et remplir un peu le site), je montre comment j'ai monté ce site rapidement et comment faire son premier site GitHub Pages juste [ici](/projects/0_gitphubpage-fr).
+Pour inaugurer cet espace, je détaille la conception et le déploiement de ce site statique sous Astro et GitHub Pages dans cette étude de cas dédiée : [Mon site github.io](/projects/0_gitphubpage-fr).
 
-Bonne exploration !
+Bonne lecture et bonne exploration !

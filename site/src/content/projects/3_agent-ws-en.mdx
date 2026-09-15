@@ -14,18 +14,25 @@ import logoImg from '../../assets/projects/3_agent-ws/logo.svg';
 
 ## The Genesis: The Local AI Security Dilemma
 
-The rapid emergence of Large Language Models and autonomous coding agents (Claude Code, Cursor, Cline, Aider, Antigravity) has reshaped software engineering. These tools no longer just autocomplete syntax: they invoke shell commands, inspect directory trees, execute compilation scripts, and manage dependencies autonomously.
+The rapid emergence of Large Language Models and autonomous coding agents like Claude Code, Cursor, Cline, Aider, or Antigravity has fundamentally reshaped software engineering. These tools no longer just suggest code snippets: they run shell commands, inspect whole repository trees, execute build scripts, and manipulate dependencies autonomously.
 
 However, this autonomy introduces a **critical security vulnerability**:
-- Running local AI agents directly inside your primary host user session grants them unrestricted read and write access to your entire `$HOME` directory.
-- Private SSH keys (`~/.ssh`), GPG rings, API access tokens (`~/.config`), browser profiles, session cookies, and confidential project archives are immediately exposed to runtime errors, prompt hallucinations, or supply-chain prompt injection attacks.
-- A single errant recursive deletion or an untrusted package pulled during a build could compromise your entire operating system.
 
-Traditional isolation workarounds each had significant friction:
-- **Virtual Machines (KVM / VirtualBox)**: Strong isolation, but heavy memory footprint, slow boot times, and complex GPU pass-through / Wayland display forwarding.
-- **Standard Docker containers**: Great for headless backend services, but cumbersome for seamless everyday desktop GUI interaction and file permission syncing.
+> **The core vulnerability:** Running local AI agents directly inside your primary host user session grants them unrestricted read and write access to your entire `$HOME` directory.
+> Private SSH keys (`~/.ssh`), GPG keys, API tokens (`~/.config`), browser profiles, session cookies, and confidential archives are immediately exposed to runtime errors, prompt hallucinations, or indirect prompt injection attacks.
 
-To resolve this trade-off, **`agent-ws`** was engineered: delivering **hardened, rock-solid isolation** without sacrificing everyday desktop performance or developer ergonomics.
+A single errant command or an untrusted package pulled during a build could permanently compromise your operating system.
+
+### Why Traditional Workarounds Fall Short
+
+| Isolation Strategy | Security Boundary | RAM / Boot Overhead | Desktop & Wayland Integration |
+| :--- | :--- | :--- | :--- |
+| **Native Host Session** | ❌ None (full access to `$HOME`) | 0 MB / Instant | Native |
+| **Virtual Machine (KVM)** | ✅ Total (separate guest kernel) | ⚠️ 4-8 GB / ~30 seconds | Complex (GPU pass-through & display latency) |
+| **Standard Docker** | ⚠️ Partial (root daemon on host) | ⚡ ~200 MB / ~2 seconds | Clunky for desktop GUI applications |
+| **agent-ws (Podman + Distrobox)** | 🛡️ Airtight (Rootless, Dedicated UID, SGID) | ⚡ ~50 MB / Instant | Seamless via scoped Wayland socket |
+
+To solve this trade-off, **`agent-ws`** was engineered: delivering **hardened, rock-solid isolation** without sacrificing everyday desktop ergonomics.
 
 ---
 
@@ -33,17 +40,17 @@ To resolve this trade-off, **`agent-ws`** was engineered: delivering **hardened,
 
 The architecture of `agent-ws` leverages native Linux primitives to maintain a zero-trust boundary around untrusted AI executions:
 
-1. **Dedicated System User (`agent`)**:
-   AI agents never run under your primary user account. A dedicated system user is provisioned with unique UID/GID boundaries and a completely blank home directory. Your private files remain physically unreachable via standard POSIX permissions.
+### 1. Dedicated System User (`agent`)
+AI agents never run under your primary user account. A dedicated system user is provisioned with unique UID/GID boundaries and a completely blank home directory. Your private files remain physically unreachable via standard POSIX kernel permissions.
 
-2. **Rootless Podman & Disposable Distrobox**:
-   The workspace executes within an Arch Linux **Distrobox** container powered by rootless Podman. The container daemon possesses zero root privileges on the host. If an environment is corrupted or dirty, it can be nuked and reprovisioned in seconds.
+### 2. Rootless Podman & Disposable Distrobox
+The workspace executes within an Arch Linux **Distrobox** container powered by rootless Podman. The container daemon possesses zero root privileges on the host. If an environment is corrupted or dirty, it can be nuked and reprovisioned in seconds.
 
-3. **Secure Shared Bridge (`/srv/ia-projets`)**:
-   Bidirectional project collaboration is facilitated through a dedicated shared volume bound to a common group (`iawork`). Enforcing the **SGID bit** (`chmod 2775`) combined with disciplined umask settings ensures that files generated by either host or container remain immediately readable and editable without permission conflicts.
+### 3. Secure Shared Bridge (`/srv/ia-projets`)
+Bidirectional project collaboration is facilitated through a dedicated shared volume bound to a common group (`iawork`). Enforcing the **SGID bit** (`chmod 2775`) combined with disciplined umask settings ensures that files generated by either host or container remain immediately readable and editable without permission conflicts.
 
-4. **Targeted Wayland Forwarding**:
-   The Wayland display socket is shared with targeted permission scoping, allowing graphical AI tools (VS Code, Cursor, browsers) to leverage host hardware acceleration seamlessly without exposing the entire desktop environment.
+### 4. Targeted Wayland Forwarding
+The Wayland display socket is shared with targeted permission scoping, allowing graphical AI tools (VS Code, Cursor, browsers) to leverage host hardware acceleration seamlessly without exposing the entire desktop environment.
 
 ---
 

@@ -14,36 +14,43 @@ import logoImg from '../../assets/projects/3_agent-ws/logo.svg';
 
 ## La Genèse du Projet : Le Dilemme de Sécurité de l'IA Locale
 
-L'essor fulgurant des modèles de langage et des agents autonomes (Claude Code, Cursor, Cline, Aider, Antigravity) a profondément transformé le développement logiciel. Ces outils ne se contentent plus de suggérer des snippets de code : ils disposent désormais de terminaux intégrés, inspectent des arborescences de fichiers, exécutent des scripts de build et manipulent des dépendances en toute autonomie.
+L'essor fulgurant des modèles de langage et des agents autonomes comme Claude Code, Cursor, Cline, Aider ou Antigravity a transformé le développement logiciel. Ces outils ne se contentent plus de suggérer des snippets de code : ils disposent désormais de terminaux intégrés, inspectent des arborescences de fichiers complètes, exécutent des scripts de build et manipulent des dépendances en toute autonomie.
 
-Cette puissance s'accompagne d'un **risque de sécurité majeur** :
-- Exécuter ces outils directement dans sa session utilisateur principale donne à l'agent un accès sans restriction à l'ensemble du répertoire personnel (`$HOME`).
-- Clés privées SSH (`~/.ssh`), clés GPG, jetons d'accès API (`~/.config`), profils et cookies de navigateurs, documents confidentiels : tout se retrouve exposé à d'éventuelles erreurs d'exécution, hallucinations ou attaques par injection indirecte de prompt (*prompt injection*).
-- Un simple `rm -rf` mal cadré ou un script malveillant téléchargé par une dépendance vérolée peut compromettre l'intégrité de toute la machine.
+Cette puissance s'accompagne d'un **risque de sécurité fondamental** :
 
-Face à ce constat, les alternatives habituelles présentaient chacune leurs limites :
-- **La Machine Virtuelle classique (KVM / VirtualBox)** : Très isolée, mais lourde, lente à démarrer, consommatrice de RAM, et complexe pour le partage GPU et l'affichage fluide des fenêtres graphiques.
-- **Le conteneur Docker standard** : Pratique pour les services web headless, mais rigide et peu adapté à une intégration naturelle sur le bureau Linux au quotidien.
+> **Le problème de fond :** Exécuter ces outils directement dans sa session utilisateur principale donne à l'agent un accès sans restriction à l'ensemble du répertoire personnel `$HOME`. 
+> Clés privées SSH (`~/.ssh`), clés GPG, jetons d'accès API (`~/.config`), profils et sessions de navigateurs, documents confidentiels : tout se retrouve exposé à d'éventuelles erreurs d'exécution, hallucinations ou attaques par injection indirecte de prompt (*prompt injection*).
 
-C'est pour résoudre cette équation qu'est né **`agent-ws`** : offrir une **isolation robuste et étanche**, sans aucune perte de confort ni de performance au quotidien.
+Un simple `rm -rf` imprévu ou un script malveillant téléchargé par une dépendance vérolée peut compromettre irrémédiablement l'intégrité de la machine hôte.
+
+### Pourquoi les solutions classiques ne suffisaient pas
+
+| Solution | Niveau d'isolation | Empreinte RAM / Boot | Intégration bureau & Wayland |
+| :--- | :--- | :--- | :--- |
+| **Session hôte native** | ❌ Nul (accès total à `$HOME`) | 0 Mo / Instantané | Native |
+| **Machine Virtuelle (KVM)** | ✅ Total (noyau guest séparé) | ⚠️ 4-8 Go / ~30 secondes | Complexe (GPU pass-through et latence d'affichage) |
+| **Conteneur Docker classique** | ⚠️ Partiel (démon root sur l'hôte) | ⚡ ~200 Mo / ~2 secondes | Rigide, peu adapté aux interfaces graphiques |
+| **agent-ws (Podman + Distrobox)** | 🛡️ Étanche (Rootless, UID dédié, SGID) | ⚡ ~50 Mo / Immédiat | Fluide via socket Wayland contrôlé |
+
+C'est pour résoudre cette équation qu'est né **`agent-ws`** : garantir une **isolation étanche et robuste**, sans aucune friction au quotidien.
 
 ---
 
 ## L'Architecture : Sécurité par Conception et Moindre Privilège
 
-L'architecture de `agent-ws` repose sur les briques natives et éprouvées de l'écosystème Linux moderne :
+L'architecture de `agent-ws` repose sur quatre principes directeurs de l'écosystème Linux moderne :
 
-1. **Un utilisateur Linux dédié (`agent`)** :
-   Les outils d'IA ne tournent jamais sous votre compte utilisateur principal. Un compte système dédié est provisionné, avec son propre UID/GID et son propre répertoire personnel vierge. Vos données personnelles restent physiquement inaccessibles par les permissions POSIX.
+### 1. Un utilisateur système dédié (`agent`)
+Les outils d'IA ne tournent jamais sous le compte utilisateur principal. Un compte système dédié est provisionné avec son propre UID/GID et un répertoire personnel vierge. Vos données personnelles restent physiquement inaccessibles grâce aux permissions POSIX du noyau.
 
-2. **Podman rootless & Distrobox** :
-   L'agent d'IA s'exécute à l'intérieur d'un conteneur **Distrobox** jetable basé sur Arch Linux, orchestré par Podman en mode rootless (sans démon privilégié, sans accès root sur l'hôte). Si le conteneur est altéré, il peut être détruit et recréé en quelques secondes.
+### 2. Conteneurisation rootless avec Podman & Distrobox
+L'agent d'IA s'exécute à l'intérieur d'un conteneur **Distrobox** jetable basé sur Arch Linux, orchestré par Podman en mode rootless (aucun démon privilégié, aucun droit root sur l'hôte). Si le conteneur est compromis ou pollué, il peut être détruit et reconstruit en quelques secondes.
 
-3. **Un pont d'échange sécurisé (`/srv/ia-projets`)** :
-   Pour permettre la collaboration entre l'hôte et l'environnement IA, un répertoire de travail partagé est configuré avec un groupe dédié (`iawork`). L'activation du bit **SGID** (`chmod 2775`) et des masques de permissions adaptés garantissent que tous les fichiers créés par l'agent ou par vous restent immédiatement lisibles et éditables des deux côtés, sans conflit de droits.
+### 3. Un pont d'échange sécurisé (`/srv/ia-projets`)
+Pour collaborer sereinement entre l'hôte et l'environnement IA, un répertoire de travail partagé est configuré avec un groupe dédié (`iawork`). L'activation du bit **SGID** (`chmod 2775`) garantit que tous les fichiers créés par l'agent ou par vous héritent automatiquement du bon groupe et restent éditables des deux côtés, sans conflit de droits.
 
-4. **Accès graphique Wayland ciblé** :
-   Le socket Wayland est partagé de manière contrôlée vers l'utilisateur dédié, permettant d'exécuter des éditeurs et outils IA graphiques (VS Code, Cursor, navigateurs) avec accélération matérielle, sans exposer le serveur d'affichage complet.
+### 4. Accès graphique Wayland contrôlé
+Le socket Wayland est partagé de manière ciblée vers l'utilisateur dédié, permettant de lancer des éditeurs de code et navigateurs graphiques avec accélération matérielle complète, sans exposer l'ensemble du serveur d'affichage.
 
 ---
 

@@ -43,13 +43,67 @@ On y accède ici : [Hyprland Wiki](https://wiki.hypr.land/) et il y a tout dedan
 
 ## Installation
 
-L'avantage c'est que j'ai pris dans l'expérience pour l'installer, plusieurs fois sur NixOS et une fois, plus tard, sur Arch Linux.
-Ces deux distributions Linux sont les deux seuls qui sont officiellement supportées et les commandes utilisées dans la suite de cet article seront faites dans un environnement sous Arch Linux.
-Donc si votre machine est sur une de ces deux distributions, l'installation devrait se faire sans problèmes (normalement, le facteur humain est rarement 100% fiable).
+L'avantage c'est que j'ai accumulé de l'expérience pour l'installer, plusieurs fois sur NixOS et sur Arch Linux.
+Ces deux distributions Linux sont les deux seules qui sont officiellement recommandées, et les exemples présentés ci-dessous sont issus de mon environnement sous Arch Linux.
 
-Pour récupérer le programme : `sudo pacman -S hyprland`
+Pour installer la base minimale sous Arch Linux :
+```bash
+sudo pacman -S hyprland
+```
 
-## Le choix des outils
+## Le Choix des Outils et de l'Écosystème
 
-Étant donné qu'Hyprland arrive assez léger, il est important de se prémunir de quelques outils si nous voulons personnaliser notre interface de bureau.
+Étant donné qu'Hyprland arrive volontairement minimaliste, il est essentiel de composer un ensemble d'outils cohérents et légers pour former un environnement de travail complet :
+
+| Composant | Outil retenu | Rôle |
+| :--- | :--- | :--- |
+| **Compositeur Wayland** | Hyprland | Gestionnaire de fenêtres dynamique avec tuilage automatique et effets fluides |
+| **Barre d'état** | Waybar | Affichage des métriques système (CPU, RAM, batterie), de l'heure et des espaces de travail |
+| **Lanceur d'applications** | Rofi (fork Wayland) | Recherche rapide au clavier de logiciels et menus personnalisés |
+| **Émulateur de terminal** | Kitty | Rendu GPU rapide, support des ligatures et consommation modérée |
+| **Serveur de notifications** | Dunst | Notifications sobres, intégrées au thème sombre |
+| **Gestionnaire de fichiers** | Thunar & Yazi | Navigation graphique classique (Thunar) ou ultra-rapide au clavier dans le terminal (Yazi) |
+
+---
+
+## Raccourcis Clavier Essentiels
+
+L'ergonomie d'un tiling window manager repose sur la mémoire musculaire. J'utilise la touche `SUPER` (touche Windows) comme modificateur principal :
+
+* `SUPER + Entrée` : Ouvrir un nouveau terminal Kitty
+* `SUPER + D` : Ouvrir le lanceur d'applications Rofi
+* `SUPER + Q` : Fermer la fenêtre active
+* `SUPER + F` : Basculer la fenêtre en plein écran
+* `SUPER + 1 à 9` : Changer d'espace de travail instantanément
+* `SUPER + Shift + 1 à 9` : Déplacer la fenêtre courante vers un autre espace
+
+---
+
+## Configuration des Animations
+
+Hyprland se démarque par la grâce de ses animations natives sous Wayland. Voici la configuration de courbes de Bézier que j'ai retenue pour obtenir un ressenti réactif mais doux à l'œil :
+
+```ini
+animations {
+    enabled = true
+    bezier = myBezier, 0.05, 0.9, 0.1, 1.05
+    animation = windows, 1, 7, myBezier
+    animation = windowsOut, 1, 7, default, popin 80%
+    animation = fade, 1, 7, default
+    animation = workspaces, 1, 6, default
+}
+```
+
+---
+
+## Bilan et Métriques au Quotidien
+
+Après plusieurs mois d'utilisation quotidienne pour du développement intensif :
+
+- **Consommation RAM à vide** : ~800 Mo (contre près de 2,2 Go sur un environnement GNOME lourd).
+- **Temps de démarrage** : Moins d'une seconde pour atteindre un bureau prêt à l'emploi.
+- **Fluidité Wayland** : Zéro déchirure d'écran (*tearing*) et prise en charge parfaite des écrans à taux de rafraîchissement élevé (144 Hz).
+- **Productivité** : La navigation 100% au clavier élimine les allers-retours souris et recentre l'attention sur le code.
+
+L'intégralité de mes fichiers de configuration (*dotfiles*) est documentée et accessible publiquement sur mon dépôt GitHub : [github.com/hdg-zero/dotfiles](https://github.com/hdg-zero/dotfiles).
 
