@@ -73,8 +73,58 @@ const translationsJson = JSON.stringify(translations);
       - relative : Crée un contexte de positionnement pour les éléments absolus internes
     -->
 	<body class="min-h-screen flex flex-col font-display antialiased overflow-x-hidden w-full relative bg-[var(--bg-primary)] text-[var(--text-primary)]">
-		<!-- Interactive Cursor Glow Spotlight -->
-		<div id="cursor-glow" class="fixed pointer-events-none z-0 rounded-full opacity-0 will-change-transform" aria-hidden="true"></div>
+		<!-- Macro Ambient Geometric Radar Grid -->
+		<div id="cursor-glow" class="fixed pointer-events-none z-0 rounded-full opacity-0 will-change-transform" aria-hidden="true">
+			<svg class="w-full h-full opacity-35 dark:opacity-45" viewBox="-300 -300 600 600" fill="none">
+				<circle cx="0" cy="0" r="120" stroke="var(--accent-primary)" stroke-width="1" stroke-dasharray="3 9" />
+				<circle cx="0" cy="0" r="220" stroke="var(--accent-primary)" stroke-width="1" stroke-dasharray="6 14" opacity="0.6" />
+				<line x1="-250" y1="0" x2="-60" y2="0" stroke="var(--accent-secondary)" stroke-width="1" stroke-dasharray="2 6" opacity="0.4"/>
+				<line x1="60" y1="0" x2="250" y2="0" stroke="var(--accent-secondary)" stroke-width="1" stroke-dasharray="2 6" opacity="0.4"/>
+				<line x1="0" y1="-250" x2="0" y2="-60" stroke="var(--accent-secondary)" stroke-width="1" stroke-dasharray="2 6" opacity="0.4"/>
+				<line x1="0" y1="60" x2="0" y2="250" stroke="var(--accent-secondary)" stroke-width="1" stroke-dasharray="2 6" opacity="0.4"/>
+			</svg>
+		</div>
+
+		<!-- Interactive Geometric HUD Reticle -->
+		<div id="cursor-reticle" class="fixed pointer-events-none z-40 opacity-0 will-change-transform select-none" aria-hidden="true">
+			<svg class="reticle-svg" width="84" height="84" viewBox="-42 -42 84 84" fill="none">
+				<!-- Layer 1: Rotating Regular Octagon with Node Vertices -->
+				<g class="reticle-octagon">
+					<polygon points="30,0 21.2,21.2 0,30 -21.2,21.2 -30,0 -21.2,-21.2 0,-30 21.2,-21.2" 
+					         stroke="var(--accent-secondary)" stroke-width="1" stroke-opacity="0.4" />
+					<circle cx="30" cy="0" r="1.5" fill="var(--accent-secondary)" opacity="0.7"/>
+					<circle cx="0" cy="30" r="1.5" fill="var(--accent-secondary)" opacity="0.7"/>
+					<circle cx="-30" cy="0" r="1.5" fill="var(--accent-secondary)" opacity="0.7"/>
+					<circle cx="0" cy="-30" r="1.5" fill="var(--accent-secondary)" opacity="0.7"/>
+				</g>
+
+				<!-- Layer 2: Counter-Rotating Segmented Compass Arc -->
+				<g class="reticle-arc">
+					<circle cx="0" cy="0" r="22" stroke="var(--accent-primary)" stroke-width="1" stroke-dasharray="8 14" stroke-opacity="0.6"/>
+				</g>
+
+				<!-- Layer 3: Precision Target Corner Brackets -->
+				<g class="reticle-brackets">
+					<path d="M-13,-6 V-13 H-6" stroke="var(--accent-secondary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+					<path d="M6,-13 H13 V-6" stroke="var(--accent-secondary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+					<path d="M13,6 V13 H6" stroke="var(--accent-secondary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+					<path d="M-6,13 H-13 V6" stroke="var(--accent-secondary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+					<!-- Cardinal Tick Lines -->
+					<line x1="0" y1="-17" x2="0" y2="-13" stroke="var(--accent-primary)" stroke-width="1" opacity="0.6"/>
+					<line x1="0" y1="13" x2="0" y2="17" stroke="var(--accent-primary)" stroke-width="1" opacity="0.6"/>
+					<line x1="-17" y1="0" x2="-13" y2="0" stroke="var(--accent-primary)" stroke-width="1" opacity="0.6"/>
+					<line x1="13" y1="0" x2="17" y2="0" stroke="var(--accent-primary)" stroke-width="1" opacity="0.6"/>
+				</g>
+
+				<!-- Layer 4: Center Core Precision Diamond -->
+				<polygon class="reticle-core" points="0,-2.5 2.5,0 0,2.5 -2.5,0" fill="var(--accent-secondary)"/>
+			</svg>
+
+			<!-- Micro Telemetry Label -->
+			<div class="reticle-telemetry">
+				<span id="reticle-coords" class="reticle-coords">SYS // 00</span>
+			</div>
+		</div>
 
 		<Header />
 		
@@ -261,56 +311,113 @@ const translationsJson = JSON.stringify(translations);
 					applyTranslations();
 				});
 				
-				// Interactive cursor glow spotlight with fluid lerp physics
+				// Captivating Geometric Cursor System (Macro Radar + Micro Reticle HUD)
 				const glow = document.getElementById('cursor-glow');
-				if (glow && window.matchMedia('(pointer: fine)').matches && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+				const reticle = document.getElementById('cursor-reticle');
+				const coords = document.getElementById('reticle-coords');
+
+				if ((glow || reticle) && window.matchMedia('(pointer: fine)').matches && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
 					let mouseX = window.innerWidth / 2;
 					let mouseY = window.innerHeight / 2;
-					let currentX = mouseX;
-					let currentY = mouseY;
+					let glowX = mouseX;
+					let glowY = mouseY;
+					let reticleX = mouseX;
+					let reticleY = mouseY;
 					let isVisible = false;
+					let isHovering = false;
 					let rafId = 0;
+					let frameCount = 0;
 
 					const onMouseMove = (e: MouseEvent) => {
 						mouseX = e.clientX;
 						mouseY = e.clientY;
 						if (!isVisible) {
 							isVisible = true;
-							glow.style.opacity = '1';
-							currentX = mouseX;
-							currentY = mouseY;
+							if (glow) glow.style.opacity = '1';
+							if (reticle) reticle.style.opacity = '1';
+							glowX = mouseX;
+							glowY = mouseY;
+							reticleX = mouseX;
+							reticleY = mouseY;
 						}
 					};
 
 					const onMouseLeave = () => {
 						isVisible = false;
-						glow.style.opacity = '0';
+						if (glow) glow.style.opacity = '0';
+						if (reticle) reticle.style.opacity = '0';
 					};
 
 					const onMouseEnter = () => {
 						isVisible = true;
-						glow.style.opacity = '1';
+						if (glow) glow.style.opacity = '1';
+						if (reticle) reticle.style.opacity = '1';
 					};
 
-					const renderGlow = () => {
-						if (isVisible) {
-							currentX += (mouseX - currentX) * 0.12;
-							currentY += (mouseY - currentY) * 0.12;
-							glow.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`;
+					const onMouseDown = () => {
+						if (reticle) reticle.classList.add('is-clicking');
+					};
+
+					const onMouseUp = () => {
+						if (reticle) reticle.classList.remove('is-clicking');
+					};
+
+					const onMouseOver = (e: MouseEvent) => {
+						const target = e.target as HTMLElement | null;
+						if (target && target.closest('a, button, .bento-card, .glass-card, input, [role="button"], [data-interactive]')) {
+							isHovering = true;
+							if (reticle) reticle.classList.add('is-hovering');
+							if (coords) coords.textContent = 'SYS // LOCK';
 						}
-						rafId = requestAnimationFrame(renderGlow);
+					};
+
+					const onMouseOut = (e: MouseEvent) => {
+						const target = e.target as HTMLElement | null;
+						if (target && target.closest('a, button, .bento-card, .glass-card, input, [role="button"], [data-interactive]')) {
+							isHovering = false;
+							if (reticle) reticle.classList.remove('is-hovering');
+						}
+					};
+
+					const render = () => {
+						if (isVisible) {
+							// Macro Radar smooth atmospheric lag (factor 0.08)
+							glowX += (mouseX - glowX) * 0.08;
+							glowY += (mouseY - glowY) * 0.08;
+							if (glow) glow.style.transform = `translate3d(${glowX}px, ${glowY}px, 0)`;
+
+							// Micro Reticle agile geometric follow (factor 0.22)
+							reticleX += (mouseX - reticleX) * 0.22;
+							reticleY += (mouseY - reticleY) * 0.22;
+							if (reticle) reticle.style.transform = `translate3d(${reticleX}px, ${reticleY}px, 0)`;
+
+							// Update telemetry coordinates when moving (every 4 frames)
+							if (coords && !isHovering && (++frameCount % 4 === 0)) {
+								coords.textContent = `POS // ${Math.round(mouseX)}·${Math.round(mouseY)}`;
+							}
+						}
+						rafId = requestAnimationFrame(render);
 					};
 
 					window.addEventListener('mousemove', onMouseMove, { passive: true });
 					document.addEventListener('mouseleave', onMouseLeave);
 					document.addEventListener('mouseenter', onMouseEnter);
-					rafId = requestAnimationFrame(renderGlow);
+					window.addEventListener('mousedown', onMouseDown, { passive: true });
+					window.addEventListener('mouseup', onMouseUp, { passive: true });
+					document.addEventListener('mouseover', onMouseOver, { passive: true });
+					document.addEventListener('mouseout', onMouseOut, { passive: true });
+
+					rafId = requestAnimationFrame(render);
 
 					document.addEventListener('astro:before-swap', () => {
 						cancelAnimationFrame(rafId);
 						window.removeEventListener('mousemove', onMouseMove);
 						document.removeEventListener('mouseleave', onMouseLeave);
 						document.removeEventListener('mouseenter', onMouseEnter);
+						window.removeEventListener('mousedown', onMouseDown);
+						window.removeEventListener('mouseup', onMouseUp);
+						document.removeEventListener('mouseover', onMouseOver);
+						document.removeEventListener('mouseout', onMouseOut);
 					}, { once: true });
 				}
 
