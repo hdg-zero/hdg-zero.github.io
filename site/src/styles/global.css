@@ -17,7 +17,7 @@
   --color-glass-bg: rgba(255, 255, 255, 0.025);
   --color-glass-bg-strong: rgba(255, 255, 255, 0.05);
   --color-glass-border: rgba(255, 255, 255, 0.07);
-  --color-glass-border-hover: rgba(78, 138, 106, 0.28);
+  --color-glass-border-hover: rgba(82, 124, 103, 0.20);
   --color-glass-highlight: rgba(255, 255, 255, 0.09);
 
   /* Text Hierarchy */
@@ -26,16 +26,16 @@
   --color-text-muted: #66736a;
   --color-text-dimmed: #46504a;
 
-  /* Accent: Heritage Forest Green & Muted Sage */
-  --color-accent-primary: #4e8a6a;
-  --color-accent-secondary: #72a88b;
-  --color-accent-tertiary: #346249;
-  --color-accent-glow: rgba(78, 138, 106, 0.20);
-  --color-accent-glow-strong: rgba(78, 138, 106, 0.40);
+  /* Accent: Muted Sage & Soft Forest */
+  --color-accent-primary: #527c67;
+  --color-accent-secondary: #6e9481;
+  --color-accent-tertiary: #3a5c4c;
+  --color-accent-glow: rgba(82, 124, 103, 0.12);
+  --color-accent-glow-strong: rgba(82, 124, 103, 0.22);
 
   /* Borders */
   --color-border-subtle: rgba(255, 255, 255, 0.07);
-  --color-border-active: rgba(78, 138, 106, 0.45);
+  --color-border-active: rgba(82, 124, 103, 0.32);
 }
 
 :root {
@@ -49,7 +49,7 @@
   --glass-bg: rgba(255, 255, 255, 0.025);
   --glass-bg-strong: rgba(255, 255, 255, 0.05);
   --glass-border: rgba(255, 255, 255, 0.07);
-  --glass-border-hover: rgba(78, 138, 106, 0.28);
+  --glass-border-hover: rgba(82, 124, 103, 0.20);
   --glass-highlight: rgba(255, 255, 255, 0.09);
   --glass-blur: 40px;
   --glass-blur-strong: 80px;
@@ -60,21 +60,21 @@
   --text-muted: #66736a;
   --text-dimmed: #46504a;
 
-  /* Accent: Heritage Forest Green & Muted Sage */
-  --accent-primary: #4e8a6a;
-  --accent-secondary: #72a88b;
-  --accent-tertiary: #346249;
-  --accent-glow: rgba(78, 138, 106, 0.20);
-  --accent-glow-strong: rgba(78, 138, 106, 0.40);
+  /* Accent: Muted Sage & Soft Forest */
+  --accent-primary: #527c67;
+  --accent-secondary: #6e9481;
+  --accent-tertiary: #3a5c4c;
+  --accent-glow: rgba(82, 124, 103, 0.12);
+  --accent-glow-strong: rgba(82, 124, 103, 0.22);
 
   /* Borders */
   --border-subtle: rgba(255, 255, 255, 0.07);
-  --border-active: rgba(78, 138, 106, 0.45);
+  --border-active: rgba(82, 124, 103, 0.32);
 
   /* Ambient Gradients */
-  --gradient-orb-1: radial-gradient(circle at 20% 20%, rgba(78, 138, 106, 0.08), transparent 50%);
-  --gradient-orb-2: radial-gradient(circle at 80% 80%, rgba(114, 168, 139, 0.05), transparent 50%);
-  --gradient-orb-3: radial-gradient(circle at 60% 30%, rgba(52, 98, 73, 0.06), transparent 40%);
+  --gradient-orb-1: radial-gradient(circle at 20% 20%, rgba(82, 124, 103, 0.05), transparent 50%);
+  --gradient-orb-2: radial-gradient(circle at 80% 80%, rgba(110, 148, 129, 0.03), transparent 50%);
+  --gradient-orb-3: radial-gradient(circle at 60% 30%, rgba(58, 92, 76, 0.04), transparent 40%);
 
   /* Shadows */
   --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.35);
@@ -83,7 +83,7 @@
   --shadow-glow: 0 0 60px var(--accent-glow);
 }
 
-/* === LIGHT MODE (Pale Mist Linen & British Racing Green) === */
+/* === LIGHT MODE (Pale Mist Linen & Soft Forest) === */
 html.light {
   --bg-primary: #f8faf8;
   --bg-secondary: #eff3f0;
@@ -93,7 +93,7 @@ html.light {
   --glass-bg: rgba(255, 255, 255, 0.85);
   --glass-bg-strong: rgba(255, 255, 255, 0.96);
   --glass-border: rgba(18, 27, 21, 0.08);
-  --glass-border-hover: rgba(39, 96, 67, 0.25);
+  --glass-border-hover: rgba(45, 88, 67, 0.16);
   --glass-highlight: rgba(255, 255, 255, 0.95);
 
   --text-primary: #121b15;
@@ -101,18 +101,18 @@ html.light {
   --text-muted: #627368;
   --text-dimmed: #8f9e95;
 
-  --accent-primary: #276043;
-  --accent-secondary: #3a7556;
-  --accent-tertiary: #1a432e;
-  --accent-glow: rgba(39, 96, 67, 0.16);
-  --accent-glow-strong: rgba(39, 96, 67, 0.35);
+  --accent-primary: #2d5843;
+  --accent-secondary: #427259;
+  --accent-tertiary: #1e3f2f;
+  --accent-glow: rgba(45, 88, 67, 0.08);
+  --accent-glow-strong: rgba(45, 88, 67, 0.18);
 
   --border-subtle: rgba(18, 27, 21, 0.08);
-  --border-active: rgba(39, 96, 67, 0.40);
+  --border-active: rgba(45, 88, 67, 0.26);
 
-  --gradient-orb-1: radial-gradient(circle at 20% 20%, rgba(39, 96, 67, 0.06), transparent 50%);
-  --gradient-orb-2: radial-gradient(circle at 80% 80%, rgba(58, 117, 86, 0.04), transparent 50%);
-  --gradient-orb-3: radial-gradient(circle at 60% 30%, rgba(26, 67, 46, 0.05), transparent 40%);
+  --gradient-orb-1: radial-gradient(circle at 20% 20%, rgba(45, 88, 67, 0.04), transparent 50%);
+  --gradient-orb-2: radial-gradient(circle at 80% 80%, rgba(66, 114, 89, 0.03), transparent 50%);
+  --gradient-orb-3: radial-gradient(circle at 60% 30%, rgba(30, 63, 47, 0.03), transparent 40%);
 
   --shadow-sm: 0 1px 3px rgba(18, 27, 21, 0.05);
   --shadow-md: 0 6px 24px rgba(18, 27, 21, 0.06);
@@ -673,36 +673,34 @@ html.light .btn-primary {
   position: fixed;
   top: 0;
   left: 0;
-  width: 650px;
-  height: 650px;
-  margin-top: -325px;
-  margin-left: -325px;
+  width: 700px;
+  height: 700px;
+  margin-top: -350px;
+  margin-left: -350px;
   border-radius: 50%;
   pointer-events: none;
   z-index: 0;
   opacity: 0;
   background: radial-gradient(
     circle closest-side,
-    var(--accent-glow-strong) 0%,
-    var(--accent-glow) 35%,
-    color-mix(in srgb, var(--accent-secondary) 5%, transparent) 60%,
-    transparent 80%
+    var(--accent-glow) 0%,
+    color-mix(in srgb, var(--accent-glow) 40%, transparent) 40%,
+    transparent 85%
   );
-  filter: blur(80px);
+  filter: blur(100px);
   transform: translate3d(-9999px, -9999px, 0);
-  transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1);
   will-change: transform, opacity;
 }
 
 html.light #cursor-glow {
   background: radial-gradient(
     circle closest-side,
-    rgba(39, 96, 67, 0.18) 0%,
-    rgba(39, 96, 67, 0.08) 35%,
-    rgba(58, 117, 86, 0.03) 60%,
+    rgba(45, 88, 67, 0.07) 0%,
+    rgba(45, 88, 67, 0.03) 40%,
     transparent 80%
   );
-  filter: blur(70px);
+  filter: blur(90px);
 }
 
 /* === INTERACTIVE GLOW EFFECT === */
