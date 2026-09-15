@@ -28,12 +28,6 @@ const latestBlogEn = sortedBlogPosts.filter(p => (p.data.lang || 'fr') === 'en')
     <!-- Hero Section -->
     <section class="relative min-h-[92svh] flex items-center justify-center pt-24 pb-20 sm:pt-28 sm:pb-24 overflow-hidden">
         
-        <!-- Ambient Orbs -->
-        <div class="absolute inset-0 pointer-events-none overflow-hidden">
-            <div class="ambient-orb ambient-orb-1 animate-orb"></div>
-            <div class="ambient-orb ambient-orb-2 animate-orb" style="animation-delay: -8s;"></div>
-            <div class="ambient-orb ambient-orb-3 animate-orb" style="animation-delay: -15s;"></div>
-        </div>
 
         <!-- Grid Pattern Overlay -->
         <div class="absolute inset-0 opacity-[0.03] pointer-events-none"
@@ -514,36 +508,3 @@ const latestBlogEn = sortedBlogPosts.filter(p => (p.data.lang || 'fr') === 'en')
     </section>
 
 </BaseLayout>
-
-<style>
-    .ambient-orb {
-        position: absolute;
-        border-radius: 50%;
-        filter: blur(100px);
-        pointer-events: none;
-    }
-    
-    .ambient-orb-1 {
-        width: 800px;
-        height: 800px;
-        background: var(--accent-glow);
-        top: -30%;
-        right: -20%;
-    }
-    
-    .ambient-orb-2 {
-        width: 600px;
-        height: 600px;
-        background: color-mix(in srgb, var(--accent-secondary) 12%, transparent);
-        bottom: -20%;
-        left: -15%;
-    }
-    
-    .ambient-orb-3 {
-        width: 500px;
-        height: 500px;
-        background: color-mix(in srgb, var(--accent-tertiary) 12%, transparent);
-        top: 30%;
-        left: 20%;
-    }
-</style>

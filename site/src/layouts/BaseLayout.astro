@@ -73,6 +73,9 @@ const translationsJson = JSON.stringify(translations);
       - relative : Crée un contexte de positionnement pour les éléments absolus internes
     -->
 	<body class="min-h-screen flex flex-col font-display antialiased overflow-x-hidden w-full relative bg-[var(--bg-primary)] text-[var(--text-primary)]">
+		<!-- Interactive Cursor Glow Spotlight -->
+		<div id="cursor-glow" class="fixed pointer-events-none z-0 rounded-full opacity-0 will-change-transform" aria-hidden="true"></div>
+
 		<Header />
 		
 		<main class="flex-1 w-full relative">
@@ -258,6 +261,59 @@ const translationsJson = JSON.stringify(translations);
 					applyTranslations();
 				});
 				
+				// Interactive cursor glow spotlight with fluid lerp physics
+				const glow = document.getElementById('cursor-glow');
+				if (glow && window.matchMedia('(pointer: fine)').matches && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+					let mouseX = window.innerWidth / 2;
+					let mouseY = window.innerHeight / 2;
+					let currentX = mouseX;
+					let currentY = mouseY;
+					let isVisible = false;
+					let rafId = 0;
+
+					const onMouseMove = (e: MouseEvent) => {
+						mouseX = e.clientX;
+						mouseY = e.clientY;
+						if (!isVisible) {
+							isVisible = true;
+							glow.style.opacity = '1';
+							currentX = mouseX;
+							currentY = mouseY;
+						}
+					};
+
+					const onMouseLeave = () => {
+						isVisible = false;
+						glow.style.opacity = '0';
+					};
+
+					const onMouseEnter = () => {
+						isVisible = true;
+						glow.style.opacity = '1';
+					};
+
+					const renderGlow = () => {
+						if (isVisible) {
+							currentX += (mouseX - currentX) * 0.12;
+							currentY += (mouseY - currentY) * 0.12;
+							glow.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`;
+						}
+						rafId = requestAnimationFrame(renderGlow);
+					};
+
+					window.addEventListener('mousemove', onMouseMove, { passive: true });
+					document.addEventListener('mouseleave', onMouseLeave);
+					document.addEventListener('mouseenter', onMouseEnter);
+					rafId = requestAnimationFrame(renderGlow);
+
+					document.addEventListener('astro:before-swap', () => {
+						cancelAnimationFrame(rafId);
+						window.removeEventListener('mousemove', onMouseMove);
+						document.removeEventListener('mouseleave', onMouseLeave);
+						document.removeEventListener('mouseenter', onMouseEnter);
+					}, { once: true });
+				}
+
 				// Apply translations on load
 				applyTranslations();
 			});

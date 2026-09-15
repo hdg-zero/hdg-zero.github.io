@@ -236,54 +236,9 @@ h6 {
   }
 }
 
-@keyframes orb-drift {
-
-  0%,
-  100% {
-    transform: translate(0, 0);
-  }
-
-  25% {
-    transform: translate(30px, -20px);
-  }
-
-  50% {
-    transform: translate(-20px, 30px);
-  }
-
-  75% {
-    transform: translate(-30px, -10px);
-  }
-}
-
 .animate-fade-up {
   animation: fadeUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
   opacity: 0;
-}
-
-.animate-fade-in {
-  animation: fadeIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-  opacity: 0;
-}
-
-.animate-float {
-  animation: float 8s ease-in-out infinite;
-}
-
-.animate-float-slow {
-  animation: float-slow 12s ease-in-out infinite;
-}
-
-.animate-pulse-glow {
-  animation: pulse-glow 4s ease-in-out infinite;
-}
-
-.animate-shimmer {
-  animation: shimmer 3s linear infinite;
-}
-
-.animate-orb {
-  animation: orb-drift 20s ease-in-out infinite;
 }
 
 .delay-100 {
@@ -713,39 +668,41 @@ html.light .btn-primary {
   border-bottom: 1px solid var(--border-subtle);
 }
 
-/* === AMBIENT ORB COMPONENT === */
-.ambient-orb {
-  position: absolute;
+/* === INTERACTIVE CURSOR GLOW SPOTLIGHT === */
+#cursor-glow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 650px;
+  height: 650px;
+  margin-top: -325px;
+  margin-left: -325px;
   border-radius: 50%;
-  filter: blur(80px);
   pointer-events: none;
-  animation: orb-drift 25s ease-in-out infinite;
+  z-index: 0;
+  opacity: 0;
+  background: radial-gradient(
+    circle closest-side,
+    var(--accent-glow-strong) 0%,
+    var(--accent-glow) 35%,
+    color-mix(in srgb, var(--accent-secondary) 5%, transparent) 60%,
+    transparent 80%
+  );
+  filter: blur(80px);
+  transform: translate3d(-9999px, -9999px, 0);
+  transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform, opacity;
 }
 
-.ambient-orb-1 {
-  width: 600px;
-  height: 600px;
-  background: var(--accent-glow);
-  top: -20%;
-  right: -10%;
-}
-
-.ambient-orb-2 {
-  width: 500px;
-  height: 500px;
-  background: color-mix(in srgb, var(--accent-secondary) 15%, transparent);
-  bottom: -20%;
-  left: -10%;
-  animation-delay: -10s;
-}
-
-.ambient-orb-3 {
-  width: 400px;
-  height: 400px;
-  background: color-mix(in srgb, var(--accent-tertiary) 15%, transparent);
-  top: 40%;
-  left: 30%;
-  animation-delay: -18s;
+html.light #cursor-glow {
+  background: radial-gradient(
+    circle closest-side,
+    rgba(39, 96, 67, 0.18) 0%,
+    rgba(39, 96, 67, 0.08) 35%,
+    rgba(58, 117, 86, 0.03) 60%,
+    transparent 80%
+  );
+  filter: blur(70px);
 }
 
 /* === INTERACTIVE GLOW EFFECT === */
@@ -843,22 +800,6 @@ a {
 /* Small mobile: max 639px */
 @media (max-width: 639px) {
 
-  /* Smaller ambient orbs on mobile */
-  .ambient-orb-1 {
-    width: 250px;
-    height: 250px;
-  }
-
-  .ambient-orb-2 {
-    width: 200px;
-    height: 200px;
-  }
-
-  .ambient-orb-3 {
-    width: 150px;
-    height: 150px;
-  }
-
   /* Reduce bento card hover effects on mobile (touch) */
   .bento-card:hover {
     transform: none;
@@ -902,22 +843,6 @@ a {
 /* Tablet: 640px to 1023px */
 @media (min-width: 640px) and (max-width: 1023px) {
 
-  /* Medium ambient orbs on tablet */
-  .ambient-orb-1 {
-    width: 400px;
-    height: 400px;
-  }
-
-  .ambient-orb-2 {
-    width: 350px;
-    height: 350px;
-  }
-
-  .ambient-orb-3 {
-    width: 300px;
-    height: 300px;
-  }
-
   /* Reduce bento card hover effects on tablet */
   .bento-card:hover {
     transform: translateY(-3px);
@@ -932,6 +857,10 @@ a {
 
 /* Touch device optimizations */
 @media (hover: none) and (pointer: coarse) {
+  #cursor-glow {
+    display: none !important;
+  }
+
   .bento-card::before {
     display: none;
   }
@@ -953,9 +882,11 @@ a {
 
 /* Accessibility: Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
-  .ambient-orb,
+  #cursor-glow {
+    display: none !important;
+  }
+
   .scroll-indicator,
-  .animate-orb,
   .animate-fade-up {
     animation: none !important;
     transition: none !important;
