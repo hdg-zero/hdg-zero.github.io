@@ -136,30 +136,30 @@
       <g id="mock-hero" transform="translate(555, 76)" text-anchor="middle">
         
         <!-- Status Pill -->
-        <rect x="-180" y="0" width="360" height="26" rx="13" fill="#16202e" stroke="#25354c" stroke-width="1"/>
-        <circle cx="-160" cy="13" r="4" fill="#5eead4"/>
-        <text x="5" y="17" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="600" fill="#94a3b8">
-          Ingénieur Systèmes &amp; Sécurité • Linux &amp; IA Locale
+        <rect x="-145" y="0" width="290" height="26" rx="13" fill="#16202e" stroke="#25354c" stroke-width="1"/>
+        <circle cx="-125" cy="13" r="4" fill="#5eead4"/>
+        <text x="6" y="17" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="600" fill="#94a3b8">
+          Ingénieur en systèmes d'information
         </text>
 
         <!-- Main Headline -->
         <text y="54" font-family="'Inter', system-ui, sans-serif" font-size="28" font-weight="900" fill="#f8fafc" letter-spacing="-0.5">
-          Bâtir des systèmes fiables,
+          Développer et
         </text>
         <text y="86" font-family="'Inter', system-ui, sans-serif" font-size="28" font-weight="900" fill="url(#hero-gradient)" letter-spacing="-0.5">
-          isolés &amp; souverains.
+          partager.
         </text>
 
         <!-- Subtitle -->
         <text y="112" font-family="'Inter', system-ui, sans-serif" font-size="12" font-weight="400" fill="#8b949e">
-          Architecture orientée conteneurs rootless, souveraineté des données et intégration d'IA locale.
+          Protection des données, IA générative, projets techniques et retours d'expérience.
         </text>
 
         <!-- Action CTAs -->
         <g transform="translate(0, 126)">
           <rect x="-115" y="0" width="130" height="28" rx="8" fill="url(#btn-primary)"/>
           <text x="-50" y="18" font-family="'Inter', system-ui, sans-serif" font-size="11" font-weight="700" fill="#ffffff">
-            Explorer les projets
+            Voir les projets
           </text>
 
           <rect x="25" y="0" width="90" height="28" rx="8" fill="#16202e" stroke="#28394f" stroke-width="1"/>

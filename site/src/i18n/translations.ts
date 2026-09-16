@@ -13,11 +13,11 @@ export const translations = {
 
         // Hero
         hero: {
-            roleBadge: 'Ingénieur Systèmes & Sécurité • Linux & IA Locale',
-            headline: 'Bâtir des systèmes fiables,',
-            headlineAccent: 'isolés & souverains.',
-            subtitle: 'Ingénieur spécialisé dans la sécurité des conteneurs Linux rootless, la souveraineté des données personnelles et l\'intégration locale d\'outils d\'IA sans exposition du système hôte.',
-            viewWork: 'Explorer mes projets',
+            roleBadge: 'Ingénieur en systèmes d\'information',
+            headline: 'Développer et',
+            headlineAccent: 'partager.',
+            subtitle: 'Ingénieur en systèmes d\'information, j\'explore au quotidien la nécessité de la protection des données personnelles et privées, le potentiel de l\'IA générative et toute sorte de sujet touchant de près ou de loin aux technologies de l\'information. Retrouvez ici mes projets techniques, mes expérimentations et mes retours d\'expérience.',
+            viewWork: 'Voir mes projets',
             readBlog: 'Lire le blog',
         },
 
@@ -102,12 +102,12 @@ export const translations = {
 
         // Hero
         hero: {
-            roleBadge: 'Systems & Security Engineer • Linux & Local AI',
-            headline: 'Engineering resilient,',
-            headlineAccent: 'isolated & sovereign systems.',
-            subtitle: 'Specializing in rootless Linux container sandboxing, data privacy, and the secure orchestration of autonomous local AI agents.',
-            viewWork: 'Explore Projects',
-            readBlog: 'Read the Blog',
+            roleBadge: 'Information Systems Engineer',
+            headline: 'Develop and',
+            headlineAccent: 'share.',
+            subtitle: 'Information systems engineer, I explore daily the need for personal and private data protection, the potential of generative AI, and all kinds of topics related to information technology. Find here my technical projects, experiments, and takeaways.',
+            viewWork: 'View my projects',
+            readBlog: 'Read the blog',
         },
 
         // Bento Grid / Work section
