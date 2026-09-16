@@ -2,7 +2,7 @@
 title: "L'importance d'un bon mot de passe et l'urgence d'un gestionnaire"
 description: "Comprendre le modèle de sécurité des coffres-forts numériques, l'entropie des phrases secrètes et les mécanismes d'authentification modernes."
 publishDate: 2025-12-16
-cover: "../../assets/blog/2_motdepasse/2_motdepasse.webp"
+cover: "../../assets/blog/2_motdepasse/2_motdepasse.svg"
 coverAlt: "Représentation conceptuelle de la cryptographie et de la sécurité des identifiants"
 lang: fr
 ---

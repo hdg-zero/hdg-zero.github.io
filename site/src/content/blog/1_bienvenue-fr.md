@@ -2,7 +2,7 @@
 title: "Lancement du site GitHub.io"
 description: "Pourquoi j'ai choisi de faire un site et à quoi va-t-il me servir ?"
 publishDate: 2025-12-20
-cover: "../../assets/blog/1_bienvenue/1_bienvenue.webp"
+cover: "../../assets/blog/1_bienvenue/1_bienvenue.svg"
 coverAlt: "Image abstraite de code"
 lang: fr
 ---

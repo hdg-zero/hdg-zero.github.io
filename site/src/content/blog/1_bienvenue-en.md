@@ -2,7 +2,7 @@
 title: "Launching this Platform: Engineering, Security & Craft"
 description: "Why I built this personal technical space and what you will discover across these case studies."
 publishDate: 2025-12-20
-cover: "../../assets/blog/1_bienvenue/1_bienvenue.webp"
+cover: "../../assets/blog/1_bienvenue/1_bienvenue.svg"
 coverAlt: "Abstract code visualization"
 lang: en
 ---

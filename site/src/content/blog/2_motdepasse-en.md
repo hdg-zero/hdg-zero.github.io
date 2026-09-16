@@ -2,7 +2,7 @@
 title: "The Importance of Strong Passwords and the Necessity of Password Managers"
 description: "Understanding zero-knowledge cryptographic vaults, passphrase entropy, and modern multi-factor authentication."
 publishDate: 2025-12-16
-cover: "../../assets/blog/2_motdepasse/2_motdepasse.webp"
+cover: "../../assets/blog/2_motdepasse/2_motdepasse.svg"
 coverAlt: "Cryptographic security and identity protection conceptual illustration"
 lang: en
 ---
