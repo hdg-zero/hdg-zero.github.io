@@ -1,0 +1,65 @@
+---
+title: "Mon site github.io"
+description: "Mettre en place un site github.io comme celui-ci."
+publishDate: 2025-12-01
+tags: ["GitHub", "DevOps"]
+cover: "../../assets/projects/0_githubpage/githubpage.svg"
+coverAlt: "Asset for of my project"
+linkRepo: "https://github.com/hdg-zero/hdg-zero.github.io"
+lang: fr
+---
+
+## Le choix de la simplicité
+
+Quand je me suis penché sur mes besoins, j'en ai tiré la liste suivante :
+- simple à utiliser,
+- facile à mettre à jour,
+- rapide à mettre en place,
+- peu coûteux,
+- et pas trop moche.
+
+J'ai rapidement fait mes recherches en délégant les tâches primaires aux chatbots désormais bien connus.
+Github Pages m'a fait un plus d'oeil que les autres, surtout pour sa réputation et son utilisation largement adoptée dans ce cas d'usage.
+Inutile d'aller chercher plus loin, je me suis dirigé vers cette solution qui cochait pas mal de cas d'usage comme la facilité, la simplicité, l'absence de coût et la mise en place rapide.
+
+La seconde étape de mon choix fut celui de la technologie web pour mon site.
+De la même façon j'ai commencé par explorer ce qu'il se faisait dans la matière. 
+Je connaissais les principales technologies Internet et les frameworks les plus reconnus et puis je suis tombé sur Astro.
+Astro, c'est rapide, largement utilisé, gratuit et open source. Ces arguments m'ont convaincu pour au moins l'essayer.
+
+
+## La prise en main des outils
+
+Avant de me lancer dans le code, je me suis d'abord mis sur la création du Github avec un premier déploiement *à blanc* du site dans sa plus simple configuration, c'est-à-dire sans framework, juste un fichier texte.
+
+### Comment procéder ?
+0. Avoir un compte Github.
+1. Créer un répertoire sous le nom : x.github.io avec x, le nom du compte.
+2. Créer un fichier README.md avec ce qu'on veut afficher.
+3. Configurer le pipeline de déploiement automatisé via GitHub Actions (`actions/deploy-pages`).
+4. Vérifier le bon déploiement sur l'url x.github.io
+
+J'ai vu que cela fonctionnait et j'ai pu donc passer à la seconde étape : le site.
+
+Pour cela, j'ai suivi la création d'un nouveau projet comme expliqué dans cette documentation : [Astro - Manual Setup](https://docs.astro.build/en/install-and-setup/#manual-setup).
+
+Après avoir pu vérifier que l'affichage fonctionnait dans l'environnement de développement en local, j'ai pu passer à la personnalisation du site.
+
+
+## Conception & Ingénierie du site
+
+Plutôt que d'aborder ce projet comme une simple vitrine statique, j'ai souhaité en faire un banc d'essai pour une méthodologie de développement moderne : le *pair programming* assisté par IA, mené avec un haut niveau d'exigence technique et un contrôle strict de chaque ligne de code.
+
+J'ai d'abord formalisé un cahier des charges précis : architecture orientée performance avec **Astro 7 (zéro JavaScript client superflu)**, grille Bento responsive inspirée des meilleurs standards d'ingénierie contemporains, palette feutrée sans saturation agressive, et conformité rigoureuse aux critères d'accessibilité. 
+
+En utilisant les modèles de langage comme accélérateurs de prototypage, j'ai piloté l'exploration des différentes pistes d'implémentation. Mais loin de me contenter d'intégrer passivement des blocs générés, j'ai assuré un travail approfondi d'audit, de refonte et d'optimisation :
+- **Maîtrise de l'architecture** : Découpage modulaire des composants Astro, intégration de la Content Layer API typée, et mise en place d'un système bilingue (FR/EN) fluide sans rechargement lourd.
+- **Performances matérielles & 120 FPS** : Développement d'un arrière-plan interactif simulant une topologie de réseau de neurones et de paquets de données sur Canvas HTML5 2D via `requestAnimationFrame`, garantissant un coût CPU minimal et zéro reflow de mise en page.
+- **Élimination de la dette technique** : Élagage des dépendances inutiles, correction des cas limites de responsive design sur mobile, et durcissement des contrastes typographiques (WCAG AAA).
+
+Cette approche m'a permis d'allier la rapidité d'expérimentation des outils modernes à la rigueur indispensable d'un ingénieur soucieux de la maintenabilité, de l'élégance et de la robustesse de son code.
+
+## Publication
+
+Et maintenant, place aux publications.
+Pour illustrer le site et avoir un premier aperçu de ce qu'il pourrait devenir, j'ai publié un premier article de blog [ici](/blog/1_bienvenue-fr).

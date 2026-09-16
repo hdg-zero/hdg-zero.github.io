@@ -1,0 +1,138 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675">
+  <defs>
+    <linearGradient id="bv-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090d12"/>
+      <stop offset="50%" stop-color="#0d1219"/>
+      <stop offset="100%" stop-color="#080c10"/>
+    </linearGradient>
+    <linearGradient id="bv-accent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#5eead4"/>
+      <stop offset="100%" stop-color="#14b8a6"/>
+    </linearGradient>
+    <linearGradient id="bv-card" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#161f2c" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#0d141f" stop-opacity="0.9"/>
+    </linearGradient>
+    <filter id="bv-shadow" x="-5%" y="-5%" width="110%" height="115%">
+      <feDropShadow dx="0" dy="16" stdDeviation="24" flood-color="#000000" flood-opacity="0.75"/>
+    </filter>
+    <pattern id="bv-grid" width="48" height="48" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.2" fill="#5eead4" fill-opacity="0.08"/>
+      <path d="M 48 0 L 0 0 0 48" fill="none" stroke="#94a3b8" stroke-width="0.5" stroke-opacity="0.04"/>
+    </pattern>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="675" fill="url(#bv-bg)"/>
+  <rect width="1200" height="675" fill="url(#bv-grid)"/>
+
+  <!-- Geometric Watermark Elements -->
+  <g transform="translate(600, 337)" opacity="0.08" stroke="#5eead4" stroke-width="1.5" fill="none">
+    <circle r="220" stroke-dasharray="4,8"/>
+    <circle r="340" stroke-dasharray="8,16"/>
+    <polygon points="0,-180 180,0 0,180 -180,0"/>
+    <line x1="-380" y1="0" x2="380" y2="0"/>
+    <line x1="0" y1="-380" x2="0" y2="380"/>
+  </g>
+
+  <!-- Ambient Light Halos -->
+  <circle cx="350" cy="220" r="300" fill="#5eead4" opacity="0.06" filter="blur(60px)"/>
+  <circle cx="850" cy="450" r="280" fill="#38bdf8" opacity="0.05" filter="blur(60px)"/>
+
+  <!-- MAIN CENTRAL CARD -->
+  <g transform="translate(150, 75)" filter="url(#bv-shadow)">
+    <rect width="900" height="525" rx="20" fill="url(#bv-card)" stroke="#303f56" stroke-width="1.5"/>
+    
+    <!-- Top Card Header Window Controls -->
+    <path d="M 0 20 C 0 8.954 8.954 0 20 0 L 880 0 C 891.046 0 900 8.954 900 20 L 900 48 L 0 48 Z" fill="#1b2535"/>
+    <line x1="0" y1="48" x2="900" y2="48" stroke="#2c3a50" stroke-width="1"/>
+    
+    <circle cx="28" cy="24" r="6.5" fill="#ff5f56"/>
+    <circle cx="48" cy="24" r="6.5" fill="#ffbd2e"/>
+    <circle cx="68" cy="24" r="6.5" fill="#27c93f"/>
+    <text x="96" y="29" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="600" fill="#94a3b8">
+      kernel: sys.init // personal-engineering-space.md
+    </text>
+
+    <!-- Header Badge -->
+    <g transform="translate(730, 14)">
+      <rect width="144" height="22" rx="11" fill="#5eead4" fill-opacity="0.15" stroke="#5eead4" stroke-width="1"/>
+      <circle cx="12" cy="11" r="3.5" fill="#5eead4"/>
+      <text x="22" y="15" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="700" fill="#5eead4">SYSTEM READY</text>
+    </g>
+
+    <!-- Main Content Inside Card -->
+    <g transform="translate(55, 90)">
+      
+      <!-- Big Headline -->
+      <text font-family="'Inter', system-ui, -apple-system, sans-serif" font-size="34" font-weight="900" fill="#f8fafc" letter-spacing="-0.5">
+        Bienvenue sur mon espace personnel
+      </text>
+      
+      <text y="38" font-family="'Inter', system-ui, -apple-system, sans-serif" font-size="17" font-weight="500" fill="#94a3b8">
+        Notes d'ingénierie, retours d'expérience et architectures souveraines
+      </text>
+
+      <!-- Terminal Session Output -->
+      <g transform="translate(0, 75)">
+        <rect width="790" height="220" rx="12" fill="#0b1017" stroke="#222f42" stroke-width="1.2"/>
+        
+        <g transform="translate(24, 32)" font-family="'JetBrains Mono', 'Fira Code', monospace" font-size="13">
+          <!-- Command 1 -->
+          <text fill="#5eead4">hdg@workstation</text>
+          <text x="135" fill="#94a3b8">:</text>
+          <text x="145" fill="#38bdf8">~</text>
+          <text x="155" fill="#f8fafc">$ whoami --verbose</text>
+          
+          <text y="28" fill="#94a3b8">role</text>
+          <text x="80" y="28" fill="#e2e8f0">= Ingénieur Systèmes &amp; Sécurité Linux</text>
+          
+          <text y="52" fill="#94a3b8">focus</text>
+          <text x="80" y="52" fill="#e2e8f0">= Conteneurs rootless, vie privée, modèles locaux &amp; robustesse</text>
+
+          <!-- Command 2 -->
+          <text y="92" fill="#5eead4">hdg@workstation</text>
+          <text x="135" y="92" fill="#94a3b8">:</text>
+          <text x="145" y="92" fill="#38bdf8">~</text>
+          <text x="155" y="92" fill="#f8fafc">$ cat /etc/manifesto</text>
+          
+          <text y="120" fill="#5eead4">"Partager des démarches techniques concrètes, sans compromis sur l'indépendance numérique."</text>
+          
+          <!-- Prompt line -->
+          <text y="156" fill="#5eead4">hdg@workstation</text>
+          <text x="135" y="156" fill="#94a3b8">:</text>
+          <text x="145" y="156" fill="#38bdf8">~</text>
+          <text x="155" y="156" fill="#f8fafc">$</text>
+          <rect x="168" y="144" width="8" height="15" fill="#5eead4" opacity="0.9"/>
+        </g>
+      </g>
+
+      <!-- 4 Technical Pillars Badges -->
+      <g transform="translate(0, 340)">
+        <!-- Pill 1 -->
+        <g transform="translate(0, 0)">
+          <rect width="180" height="34" rx="8" fill="#1b2535" stroke="#2e3e57" stroke-width="1"/>
+          <text x="20" y="21" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="600" fill="#5eead4">🐧 Arch &amp; Wayland</text>
+        </g>
+
+        <!-- Pill 2 -->
+        <g transform="translate(196, 0)">
+          <rect width="190" height="34" rx="8" fill="#1b2535" stroke="#2e3e57" stroke-width="1"/>
+          <text x="20" y="21" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="600" fill="#38bdf8">📦 Podman Rootless</text>
+        </g>
+
+        <!-- Pill 3 -->
+        <g transform="translate(402, 0)">
+          <rect width="185" height="34" rx="8" fill="#1b2535" stroke="#2e3e57" stroke-width="1"/>
+          <text x="20" y="21" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="600" fill="#2dd4bf">🔒 Zero-Knowledge</text>
+        </g>
+
+        <!-- Pill 4 -->
+        <g transform="translate(603, 0)">
+          <rect width="187" height="34" rx="8" fill="#1b2535" stroke="#2e3e57" stroke-width="1"/>
+          <text x="20" y="21" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="600" fill="#a78bfa">⚡ Astro 7 Zero-JS</text>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

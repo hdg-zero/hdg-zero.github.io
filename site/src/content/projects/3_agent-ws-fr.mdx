@@ -1,0 +1,106 @@
+---
+title: "agent-ws : Espace de travail IA isolé sous Linux"
+description: "Architecture de sandboxing sécurisée avec Podman, Distrobox et Wayland pour exécuter des outils et agents d'IA sans exposer son environnement personnel."
+publishDate: 2026-03-01
+tags: ["Linux", "Sécurité", "Podman", "Distrobox", "IA"]
+cover: "../../assets/projects/3_agent-ws/logo.svg"
+coverAlt: "Visuel d'architecture et logo 3D du projet agent-ws"
+linkRepo: "https://github.com/hdg-zero/agent-ws"
+lang: fr
+---
+
+import { Image } from 'astro:assets';
+import logoImg from '../../assets/projects/3_agent-ws/logo.svg';
+
+## La Genèse du Projet : Le Dilemme de Sécurité de l'IA Locale
+
+L'essor fulgurant des modèles de langage et des agents autonomes comme Claude Code, Cursor, Cline, Aider ou Antigravity a transformé le développement logiciel. Ces outils ne se contentent plus de suggérer des snippets de code : ils disposent désormais de terminaux intégrés, inspectent des arborescences de fichiers complètes, exécutent des scripts de build et manipulent des dépendances en toute autonomie.
+
+Cette puissance s'accompagne d'un **risque de sécurité fondamental** :
+
+> **Le problème de fond :** Exécuter ces outils directement dans sa session utilisateur principale donne à l'agent un accès sans restriction à l'ensemble du répertoire personnel `$HOME`. 
+> Clés privées SSH (`~/.ssh`), clés GPG, jetons d'accès API (`~/.config`), profils et sessions de navigateurs, documents confidentiels : tout se retrouve exposé à d'éventuelles erreurs d'exécution, hallucinations ou attaques par injection indirecte de prompt (*prompt injection*).
+
+Un simple `rm -rf` imprévu ou un script malveillant téléchargé par une dépendance vérolée peut compromettre irrémédiablement l'intégrité de la machine hôte.
+
+### Pourquoi les solutions classiques ne suffisaient pas
+
+| Solution | Niveau d'isolation | Empreinte RAM / Boot | Intégration bureau & Wayland |
+| :--- | :--- | :--- | :--- |
+| **Session hôte native** | ❌ Nul (accès total à `$HOME`) | 0 Mo / Instantané | Native |
+| **Machine Virtuelle (KVM)** | ✅ Total (noyau guest séparé) | ⚠️ 4-8 Go / ~30 secondes | Complexe (GPU pass-through et latence d'affichage) |
+| **Conteneur Docker classique** | ⚠️ Partiel (démon root sur l'hôte) | ⚡ ~200 Mo / ~2 secondes | Rigide, peu adapté aux interfaces graphiques |
+| **agent-ws (Podman + Distrobox)** | 🛡️ Étanche (Rootless, UID dédié, SGID) | ⚡ ~50 Mo / Immédiat | Fluide via socket Wayland contrôlé |
+
+C'est pour résoudre cette équation qu'est né **`agent-ws`** : garantir une **isolation étanche et robuste**, sans aucune friction au quotidien.
+
+---
+
+## L'Architecture : Sécurité par Conception et Moindre Privilège
+
+L'architecture de `agent-ws` repose sur quatre principes directeurs de l'écosystème Linux moderne :
+
+### 1. Un utilisateur système dédié (`agent`)
+Les outils d'IA ne tournent jamais sous le compte utilisateur principal. Un compte système dédié est provisionné avec son propre UID/GID et un répertoire personnel vierge. Vos données personnelles restent physiquement inaccessibles grâce aux permissions POSIX du noyau.
+
+### 2. Conteneurisation rootless avec Podman & Distrobox
+L'agent d'IA s'exécute à l'intérieur d'un conteneur **Distrobox** jetable basé sur Arch Linux, orchestré par Podman en mode rootless (aucun démon privilégié, aucun droit root sur l'hôte). Si le conteneur est compromis ou pollué, il peut être détruit et reconstruit en quelques secondes.
+
+### 3. Un pont d'échange sécurisé (`/srv/ia-projets`)
+Pour collaborer sereinement entre l'hôte et l'environnement IA, un répertoire de travail partagé est configuré avec un groupe dédié (`iawork`). L'activation du bit **SGID** (`chmod 2775`) garantit que tous les fichiers créés par l'agent ou par vous héritent automatiquement du bon groupe et restent éditables des deux côtés, sans conflit de droits.
+
+### 4. Accès graphique Wayland contrôlé
+Le socket Wayland est partagé de manière ciblée vers l'utilisateur dédié, permettant de lancer des éditeurs de code et navigateurs graphiques avec accélération matérielle complète, sans exposer l'ensemble du serveur d'affichage.
+
+---
+
+## Le Logo et sa Symbolique Visuelle
+
+L'identité visuelle de `agent-ws` a été conçue pour traduire immédiatement cette philosophie d'isolation contrôlée à travers une composition isométrique 3D épurée :
+
+<div class="my-10 p-6 rounded-2xl border border-[var(--glass-border)] bg-[var(--glass-bg)] flex flex-col items-center">
+  <img src={logoImg.src} alt="Logo 3D isométrique agent-ws" class="max-w-[320px] w-full h-auto drop-shadow-2xl" />
+  <span class="text-xs text-[var(--text-muted)] mt-4 font-mono">Composition isométrique 3D officielle de agent-ws</span>
+</div>
+
+La structure vectorielle repose sur 4 piliers narratifs :
+
+* **Le grand cube en filaire subtil (L'hôte Linux)** :  
+  Ses arêtes douces délimitent le système hôte dans son ensemble. Les lignes en tirets à l'arrière rappellent la virtualisation légère et la transparence de l'environnement conteneurisé.
+* **Le cube `home` (Utilisateur principal)** :  
+  Positionné au premier plan bas en teintes ardoise (`#334155` / `#64748B`), il symbolise votre session privée. Stable et protégé au sol, son contenu reste hermétique à toute intrusion.
+* **Le cube `A-WS` (Espace de travail IA surélevé)** :  
+  Mis en valeur par un blanc éclatant et un halo cyan technologique, ce cube surélevé figure l'espace d'exécution de l'agent. Il est placé en hauteur pour marquer son détachement complet de la session hôte.
+* **Le tuyau de communication étanche (The Pipe)** :  
+  Ce tube épuré relie directement la face visible des deux univers. Il matérialise le canal de transit sécurisé (le dossier partagé `/srv/ia-projets`) : les données circulent uniquement par ce vecteur contrôlé, sans jamais déborder dans l'intimité du système hôte.
+
+---
+
+## Outillage et Utilisation Quotidienne
+
+`agent-ws` a été pensé pour les développeurs, avec une suite complète d'outils CLI prêts à l'emploi :
+
+```bash
+# Entrer dans le conteneur Distrobox de l'agent
+agent-ia-enter
+
+# Exécuter une commande ou lancer un shell instantané
+ai "npm test"
+
+# Lancer un terminal graphique complet en tant que compte IA
+agent-shell
+
+# Réparer récursivement les permissions du groupe partagé en un éclair
+agent-fix-perms
+```
+
+Le dépôt comprend des installateurs interactifs et non-interactifs, des suites de tests automatisés (vérification des permissions POSIX, tests ShellCheck et sécurité des sockets) ainsi qu'une documentation exhaustive en français et en anglais.
+
+---
+
+## Fiche Technique
+
+* **Dépôt officiel** : [github.com/hdg-zero/agent-ws](https://github.com/hdg-zero/agent-ws)
+* **Licence** : MIT
+* **Technologies clés** : Linux, Podman Rootless, Distrobox, Wayland, Bash, POSIX Permissions & SGID
+* **Statut** : v1.0 Production-Ready

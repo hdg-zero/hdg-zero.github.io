@@ -1,6 +1,6 @@
 ---
 // site/src/pages/projects/[...slug].astro
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { Image } from 'astro:assets';
 
@@ -9,23 +9,24 @@ const base = import.meta.env.BASE_URL;
 export async function getStaticPaths() {
 	const projects = await getCollection('projects');
 	return projects.map((project) => ({
-		params: { slug: project.slug },
+		params: { slug: project.id },
 		props: { project },
 	}));
 }
 
 const { project } = Astro.props;
-const { Content } = await project.render();
+const { Content } = await render(project);
 const { title, description, tags, cover, coverAlt, linkDemo, linkRepo, publishDate } = project.data;
 
-// Get related projects (same tags)
+// Get related projects (same tags and same language)
 const allProjects = await getCollection('projects');
+const projectLang = project.data.lang || 'fr';
 const relatedProjects = allProjects
-	.filter(p => p.slug !== project.slug && p.data.tags.some(t => tags.includes(t)))
+	.filter(p => p.id !== project.id && (p.data.lang || 'fr') === projectLang && p.data.tags.some(t => tags.includes(t)))
 	.slice(0, 2);
 
 function formatDate(date: Date) {
-	return new Intl.DateTimeFormat('fr-FR', { 
+	return new Intl.DateTimeFormat(projectLang === 'en' ? 'en-US' : 'fr-FR', { 
 		year: 'numeric',
 		month: 'long' 
 	}).format(date);
@@ -114,16 +115,7 @@ function formatDate(date: Date) {
 
 		<!-- Content -->
 		<div class="max-w-3xl mx-auto">
-			<div class="prose prose-lg prose-invert max-w-none
-				prose-headings:font-bold prose-headings:text-[var(--text-primary)]
-				prose-p:text-[var(--text-secondary)] prose-p:leading-relaxed
-				prose-a:text-[var(--accent-primary)] prose-a:no-underline hover:prose-a:underline
-				prose-strong:text-[var(--text-primary)]
-				prose-code:text-[var(--accent-secondary)] prose-code:bg-[var(--bg-elevated)] prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded
-				prose-pre:bg-[var(--bg-secondary)] prose-pre:border prose-pre:border-[var(--border-subtle)]
-				prose-ul:text-[var(--text-secondary)]
-				prose-li:marker:text-[var(--accent-primary)]
-			">
+			<div class="prose max-w-none">
 				<Content />
 			</div>
 		</div>
@@ -135,7 +127,7 @@ function formatDate(date: Date) {
 				<div class="grid md:grid-cols-2 gap-6">
 					{relatedProjects.map(related => (
 						<a 
-							href={`${base}projects/${related.slug}`}
+							href={`${base}projects/${related.id}`}
 							class="group p-6 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-secondary)] hover:border-[var(--accent-primary)] transition-all"
 						>
 							<div class="flex gap-2 mb-3">

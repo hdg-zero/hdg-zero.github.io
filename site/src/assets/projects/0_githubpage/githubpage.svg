@@ -1,0 +1,307 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675">
+  <defs>
+    <!-- Background Gradients -->
+    <linearGradient id="canvas-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#06090e"/>
+      <stop offset="50%" stop-color="#0a0e16"/>
+      <stop offset="100%" stop-color="#05080c"/>
+    </linearGradient>
+    <linearGradient id="window-bg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0d1117"/>
+      <stop offset="100%" stop-color="#090d13"/>
+    </linearGradient>
+    <linearGradient id="hero-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#5eead4"/>
+      <stop offset="100%" stop-color="#2dd4bf"/>
+    </linearGradient>
+    <linearGradient id="btn-primary" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#14b8a6"/>
+      <stop offset="100%" stop-color="#0d9488"/>
+    </linearGradient>
+    <linearGradient id="card-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#161f2c" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#0f1622" stop-opacity="0.85"/>
+    </linearGradient>
+    <linearGradient id="address-border" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#5eead4" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#38bdf8" stop-opacity="0.2"/>
+    </linearGradient>
+    
+    <!-- Shadows & Filters -->
+    <filter id="browser-shadow" x="-5%" y="-5%" width="110%" height="115%">
+      <feDropShadow dx="0" dy="24" stdDeviation="30" flood-color="#000000" flood-opacity="0.9"/>
+    </filter>
+    <filter id="card-shadow" x="-5%" y="-5%" width="110%" height="115%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.5"/>
+    </filter>
+
+    <!-- Matrix Pattern -->
+    <pattern id="site-grid" width="36" height="36" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1" fill="#5eead4" fill-opacity="0.05"/>
+    </pattern>
+  </defs>
+
+  <!-- Outer Canvas Background -->
+  <rect width="1200" height="675" fill="url(#canvas-bg)"/>
+  <rect width="1200" height="675" fill="url(#site-grid)"/>
+
+  <!-- Ambient Light Atmosphere Behind Browser -->
+  <circle cx="250" cy="180" r="320" fill="#5eead4" opacity="0.07" filter="blur(70px)"/>
+  <circle cx="950" cy="420" r="300" fill="#38bdf8" opacity="0.06" filter="blur(70px)"/>
+
+  <!-- ==================== BROWSER WINDOW MOCKUP ==================== -->
+  <g transform="translate(45, 20)" filter="url(#browser-shadow)">
+    
+    <!-- Window Frame Body -->
+    <rect width="1110" height="635" rx="16" fill="url(#window-bg)" stroke="#26354a" stroke-width="1.5"/>
+    
+    <!-- Browser Titlebar Chrome -->
+    <path d="M 0 16 C 0 7.163 7.163 0 16 0 L 1094 0 C 1102.837 0 1110 7.163 1110 16 L 1110 44 L 0 44 Z" fill="#141c28"/>
+    <line x1="0" y1="44" x2="1110" y2="44" stroke="#222f42" stroke-width="1"/>
+
+    <!-- Window Traffic Light Buttons -->
+    <circle cx="28" cy="22" r="6" fill="#ff5f56"/>
+    <circle cx="48" cy="22" r="6" fill="#ffbd2e"/>
+    <circle cx="68" cy="22" r="6" fill="#27c93f"/>
+
+    <!-- Browser Tab -->
+    <g transform="translate(96, 8)">
+      <path d="M 0 28 L 8 8 C 10 4 14 0 20 0 L 180 0 C 186 0 190 4 192 8 L 200 28 Z" fill="#0d1117"/>
+      <circle cx="24" cy="15" r="3.5" fill="#5eead4"/>
+      <text x="36" y="19" font-family="'Inter', system-ui, sans-serif" font-size="11" font-weight="600" fill="#e6edf3">
+        Hippolyte de Guigné
+      </text>
+    </g>
+
+    <!-- Browser Address / URL Bar -->
+    <g transform="translate(320, 9)">
+      <rect width="520" height="26" rx="7" fill="#0b1017" stroke="url(#address-border)" stroke-width="1"/>
+      
+      <!-- Lock Icon -->
+      <g transform="translate(14, 6)">
+        <rect x="0" y="4.5" width="10" height="8" rx="2" fill="#5eead4"/>
+        <path d="M 2 4.5 V 2.5 C 2 1 3.5 0 5 0 C 6.5 0 8 1 8 2.5 V 4.5" fill="none" stroke="#5eead4" stroke-width="1.3"/>
+      </g>
+      
+      <!-- URL Text -->
+      <text x="34" y="17" font-family="'JetBrains Mono', monospace" font-size="11.5" fill="#f8fafc">
+        <tspan fill="#5eead4">https://</tspan>hdg-zero.github.io<tspan fill="#8b949e">/</tspan>
+      </text>
+
+      <!-- Badge "100% Zero-JS" -->
+      <g transform="translate(430, 4)">
+        <rect width="78" height="18" rx="5" fill="#5eead4" fill-opacity="0.12"/>
+        <text x="39" y="13" font-family="'JetBrains Mono', monospace" font-size="9" font-weight="700" fill="#5eead4" text-anchor="middle">ASTRO 7</text>
+      </g>
+    </g>
+
+    <!-- Browser Action Icons (Right) -->
+    <g transform="translate(1040, 16)" fill="#8b949e">
+      <circle cx="6" cy="6" r="2"/>
+      <circle cx="16" cy="6" r="2"/>
+      <circle cx="26" cy="6" r="2"/>
+    </g>
+
+    <!-- ==================== WEBSITE VIEWPORT ==================== -->
+    <g id="viewport-content" transform="translate(0, 44)">
+      
+      <!-- 1. Header / Navbar -->
+      <g id="mock-navbar" transform="translate(40, 14)">
+        <!-- Brand Logo -->
+        <text x="0" y="24" font-family="'Inter', system-ui, sans-serif" font-size="16" font-weight="800" fill="#ffffff" letter-spacing="-0.5">
+          hdg<tspan fill="#5eead4">.</tspan>zero
+        </text>
+
+        <!-- Nav Links -->
+        <g transform="translate(730, 10)" font-family="'Inter', system-ui, sans-serif" font-size="12" font-weight="500">
+          <text x="0" y="14" fill="#5eead4" font-weight="700">Projets</text>
+          <text x="65" y="14" fill="#94a3b8">Blog</text>
+          <text x="120" y="14" fill="#94a3b8">GitHub</text>
+          
+          <!-- Lang pill -->
+          <rect x="180" y="0" width="56" height="22" rx="11" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+          <text x="194" y="15" fill="#5eead4" font-size="11" font-weight="700">FR</text>
+          <text x="214" y="15" fill="#64748b" font-size="11">EN</text>
+
+          <!-- Theme toggle icon (Moon) -->
+          <g transform="translate(255, 3)">
+            <circle cx="8" cy="8" r="7" fill="#1e293b"/>
+            <path d="M 6 3 C 8 4 9 7 8 10 C 7 12 4 13 2 12 C 4 14 8 14 11 11 C 13 8 12 4 9 2 C 8 2 7 2.5 6 3 Z" fill="#5eead4"/>
+          </g>
+        </g>
+        <line x1="0" y1="40" x2="1030" y2="40" stroke="#1e293b" stroke-width="0.8" stroke-opacity="0.8"/>
+      </g>
+
+      <!-- 2. Hero Section Preview -->
+      <g id="mock-hero" transform="translate(555, 76)" text-anchor="middle">
+        
+        <!-- Status Pill -->
+        <rect x="-145" y="0" width="290" height="26" rx="13" fill="#16202e" stroke="#25354c" stroke-width="1"/>
+        <circle cx="-125" cy="13" r="4" fill="#5eead4"/>
+        <text x="6" y="17" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="600" fill="#94a3b8">
+          Ingénieur en systèmes d'information
+        </text>
+
+        <!-- Main Headline -->
+        <text y="54" font-family="'Inter', system-ui, sans-serif" font-size="28" font-weight="900" fill="#f8fafc" letter-spacing="-0.5">
+          Développer et
+        </text>
+        <text y="86" font-family="'Inter', system-ui, sans-serif" font-size="28" font-weight="900" fill="url(#hero-gradient)" letter-spacing="-0.5">
+          partager.
+        </text>
+
+        <!-- Subtitle -->
+        <text y="112" font-family="'Inter', system-ui, sans-serif" font-size="12" font-weight="400" fill="#8b949e">
+          Protection des données, IA générative, projets techniques et retours d'expérience.
+        </text>
+
+        <!-- Action CTAs -->
+        <g transform="translate(0, 126)">
+          <rect x="-115" y="0" width="130" height="28" rx="8" fill="url(#btn-primary)"/>
+          <text x="-50" y="18" font-family="'Inter', system-ui, sans-serif" font-size="11" font-weight="700" fill="#ffffff">
+            Voir les projets
+          </text>
+
+          <rect x="25" y="0" width="90" height="28" rx="8" fill="#16202e" stroke="#28394f" stroke-width="1"/>
+          <text x="70" y="18" font-family="'Inter', system-ui, sans-serif" font-size="11" font-weight="600" fill="#e2e8f0">
+            Lire le blog
+          </text>
+        </g>
+      </g>
+
+      <!-- 3. Bento Grid Showcase (Scaled Preview) -->
+      <g id="mock-bento" transform="translate(40, 248)">
+        
+        <!-- Bento Card 1: agent-ws (2 cols x 2 rows equivalent) -->
+        <g transform="translate(0, 0)" filter="url(#card-shadow)">
+          <rect width="660" height="215" rx="14" fill="url(#card-grad)" stroke="#223042" stroke-width="1.2"/>
+          
+          <g transform="translate(24, 20)">
+            <rect width="90" height="20" rx="5" fill="#5eead4" fill-opacity="0.15" stroke="#5eead4" stroke-width="0.8"/>
+            <text x="45" y="14" font-family="'JetBrains Mono', monospace" font-size="9.5" font-weight="700" fill="#5eead4" text-anchor="middle">v0.1.0 • OPEN SOURCE</text>
+
+            <text x="105" y="15" font-family="'JetBrains Mono', monospace" font-size="11" fill="#8b949e">Rootless Sandbox</text>
+
+            <!-- Title -->
+            <text y="42" font-family="'Inter', system-ui, sans-serif" font-size="17" font-weight="800" fill="#f8fafc">
+              agent-ws : Espace de travail IA isolé sous Linux
+            </text>
+            <text y="58" font-family="'Inter', system-ui, sans-serif" font-size="11" fill="#8b949e">
+              Conteneurisation Podman &amp; Distrobox avec isolation totale de l'environnement hôte (~/.ssh, GPG protégés).
+            </text>
+
+            <!-- Mini Terminal Inside agent-ws card -->
+            <g transform="translate(0, 72)">
+              <rect width="612" height="78" rx="8" fill="#080c12" stroke="#1c2838" stroke-width="1"/>
+              
+              <!-- Terminal Header -->
+              <rect width="612" height="20" rx="8" fill="#101824"/>
+              <circle cx="12" cy="10" r="3.5" fill="#ff5f56"/>
+              <circle cx="22" cy="10" r="3.5" fill="#ffbd2e"/>
+              <circle cx="32" cy="10" r="3.5" fill="#27c93f"/>
+              <text x="46" y="14" font-family="'JetBrains Mono', monospace" font-size="9" fill="#8b949e">agent-ws — rootless sandbox</text>
+
+              <!-- Terminal Content -->
+              <g transform="translate(14, 36)" font-family="'JetBrains Mono', monospace" font-size="10">
+                <text fill="#5eead4">$</text> <text x="12" fill="#f8fafc">agent-ws run claude --dangerously-skip-permissions</text>
+                <text y="16" fill="#8b949e">[agent-ws] Mount: ~/.local/share/agent-ws/agent (host safe)</text>
+                <text y="30" fill="#5eead4">agent@distrobox-ws:~$ <tspan fill="#ffffff">_</tspan></text>
+              </g>
+            </g>
+
+            <!-- Tags -->
+            <g transform="translate(0, 168)" font-family="'JetBrains Mono', monospace" font-size="9.5">
+              <rect width="52" height="18" rx="4" fill="#1b2636"/>
+              <text x="26" y="12" fill="#5eead4" text-anchor="middle">Linux</text>
+
+              <rect x="58" width="60" height="18" rx="4" fill="#1b2636"/>
+              <text x="88" y="12" fill="#5eead4" text-anchor="middle">Sécurité</text>
+
+              <rect x="124" width="56" height="18" rx="4" fill="#1b2636"/>
+              <text x="152" y="12" fill="#5eead4" text-anchor="middle">Podman</text>
+
+              <rect x="186" width="65" height="18" rx="4" fill="#1b2636"/>
+              <text x="218" y="12" fill="#5eead4" text-anchor="middle">Distrobox</text>
+
+              <text x="612" y="13" font-family="'Inter', system-ui, sans-serif" font-size="10" font-weight="600" fill="#5eead4" text-anchor="end">Explorer le projet →</text>
+            </g>
+          </g>
+        </g>
+
+        <!-- Bento Card 2: Technical Blog Teaser (1 col x 2 rows equivalent) -->
+        <g transform="translate(680, 0)" filter="url(#card-shadow)">
+          <rect width="350" height="215" rx="14" fill="url(#card-grad)" stroke="#223042" stroke-width="1.2"/>
+          
+          <g transform="translate(20, 18)">
+            <!-- Header -->
+            <g transform="translate(0, 0)">
+              <rect width="28" height="28" rx="7" fill="url(#btn-primary)"/>
+              <text x="14" y="19" font-size="14" text-anchor="middle">✍️</text>
+              <text x="36" y="14" font-family="'Inter', system-ui, sans-serif" font-size="14" font-weight="800" fill="#f8fafc">Blog technique</text>
+              <text x="36" y="26" font-family="'Inter', system-ui, sans-serif" font-size="10" fill="#8b949e">Articles &amp; REX</text>
+            </g>
+
+            <!-- Article 1 -->
+            <g transform="translate(0, 42)">
+              <rect width="310" height="48" rx="8" fill="#0d141e" stroke="#1d2838" stroke-width="1"/>
+              <text x="12" y="18" font-family="'JetBrains Mono', monospace" font-size="8.5" fill="#8b949e">DÉC. 2025</text>
+              <text x="12" y="34" font-family="'Inter', system-ui, sans-serif" font-size="11" font-weight="600" fill="#f8fafc">
+                Gestionnaires de mots de passe &amp; Zero...
+              </text>
+              <text x="295" y="28" font-size="11" fill="#5eead4">→</text>
+            </g>
+
+            <!-- Article 2 -->
+            <g transform="translate(0, 98)">
+              <rect width="310" height="48" rx="8" fill="#0d141e" stroke="#1d2838" stroke-width="1"/>
+              <text x="12" y="18" font-family="'JetBrains Mono', monospace" font-size="8.5" fill="#8b949e">DÉC. 2025</text>
+              <text x="12" y="34" font-family="'Inter', system-ui, sans-serif" font-size="11" font-weight="600" fill="#f8fafc">
+                Lancement du site GitHub.io
+              </text>
+              <text x="295" y="28" font-size="11" fill="#5eead4">→</text>
+            </g>
+
+            <!-- Bottom Link -->
+            <text x="0" y="174" font-family="'Inter', system-ui, sans-serif" font-size="10.5" font-weight="700" fill="#5eead4">
+              Tous les articles (2) →
+            </text>
+          </g>
+        </g>
+
+        <!-- Bento Card 3: GitHub Page (1 col) -->
+        <g transform="translate(0, 230)" filter="url(#card-shadow)">
+          <rect width="320" height="92" rx="12" fill="url(#card-grad)" stroke="#223042" stroke-width="1.2"/>
+          <g transform="translate(18, 16)">
+            <rect width="76" height="18" rx="4" fill="#5eead4" fill-opacity="0.12"/>
+            <text x="38" y="12" font-family="'JetBrains Mono', monospace" font-size="9" font-weight="700" fill="#5eead4" text-anchor="middle">Web &amp; CI/CD</text>
+            <text x="284" y="12" font-family="'JetBrains Mono', monospace" font-size="9" fill="#8b949e" text-anchor="end">Astro 7</text>
+
+            <text y="38" font-family="'Inter', system-ui, sans-serif" font-size="13" font-weight="700" fill="#f8fafc">
+              Mon site github.io
+            </text>
+            <text y="52" font-family="'Inter', system-ui, sans-serif" font-size="10" fill="#8b949e">
+              Architecture Astro 7, SSG &amp; GitHub Actions.
+            </text>
+          </g>
+        </g>
+
+        <!-- Bento Card 4: Hyprland (2 cols) -->
+        <g transform="translate(340, 230)" filter="url(#card-shadow)">
+          <rect width="690" height="92" rx="12" fill="url(#card-grad)" stroke="#223042" stroke-width="1.2"/>
+          <g transform="translate(20, 16)">
+            <rect width="105" height="18" rx="4" fill="#38bdf8" fill-opacity="0.12"/>
+            <text x="52" y="12" font-family="'JetBrains Mono', monospace" font-size="9" font-weight="700" fill="#38bdf8" text-anchor="middle">Dotfiles &amp; Système</text>
+            <text x="650" y="12" font-family="'JetBrains Mono', monospace" font-size="9" fill="#8b949e" text-anchor="end">&lt; 800 Mo RAM</text>
+
+            <text y="38" font-family="'Inter', system-ui, sans-serif" font-size="13.5" font-weight="700" fill="#f8fafc">
+              À la découverte d'Hyprland — Window Manager Wayland
+            </text>
+            <text y="52" font-family="'Inter', system-ui, sans-serif" font-size="10" fill="#8b949e">
+              Environnement graphique ultra-léger sous Arch Linux avec Waybar, Rofi, animations fluides et gestion multi-écrans.
+            </text>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

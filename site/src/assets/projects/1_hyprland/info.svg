@@ -1,0 +1,96 @@
+<svg width="800" height="1100" viewBox="0 0 800 1100" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&amp;family=Fira+Code:wght@500&amp;display=swap');
+      .title { font-family: 'Roboto', sans-serif; font-weight: 700; fill: #ffffff; font-size: 32px; }
+      .subtitle { font-family: 'Roboto', sans-serif; font-weight: 400; fill: #e0e0e0; font-size: 16px; }
+      .header-bg { fill: #1793d1; }
+      .section-title { font-family: 'Roboto', sans-serif; font-weight: 700; fill: #1793d1; font-size: 18px; text-transform: uppercase; }
+      .cmd-box { fill: #2d2d2d; rx: 5; }
+      .cmd-text { font-family: 'Fira Code', 'Courier New', monospace; fill: #a3be8c; font-size: 14px; font-weight: 500; }
+      .desc-text { font-family: 'Roboto', sans-serif; fill: #444444; font-size: 13px; }
+      .warning-box { fill: #fff3cd; stroke: #ffeeba; stroke-width: 2; rx: 5; }
+      .warning-text { font-family: 'Roboto', sans-serif; fill: #856404; font-size: 13px; font-weight: 700; }
+      .icon { fill: #1793d1; }
+    </style>
+  </defs>
+
+  <rect width="100%" height="100%" fill="#f9f9f9" />
+
+  <rect x="0" y="0" width="800" height="120" class="header-bg" />
+  <text x="50" y="55" class="title">YAY CHEAT SHEET</text>
+  <text x="50" y="85" class="subtitle">Yet Another Yogurt - AUR Helper &amp; Pacman Wrapper</text>
+  
+  <path d="M 700 30 L 730 90 L 670 90 Z" fill="none" stroke="white" stroke-width="3" opacity="0.5"/>
+  <circle cx="700" cy="70" r="30" fill="none" stroke="white" stroke-width="2" opacity="0.3"/>
+
+  <g transform="translate(50, 160)">
+    <text x="0" y="0" class="section-title">1. MISE À JOUR (UPDATE)</text>
+    
+    <text x="0" y="30" class="desc-text">Mise à jour complète (Système + AUR)</text>
+    <rect x="0" y="45" width="340" height="35" class="cmd-box"/>
+    <text x="15" y="68" class="cmd-text">yay</text>
+    <text x="350" y="68" class="desc-text" style="font-style:italic;">(équivalent à yay -Syu)</text>
+
+    <text x="0" y="105" class="desc-text">Inclure les paquets de dev (git/svn)</text>
+    <rect x="0" y="120" width="340" height="35" class="cmd-box"/>
+    <text x="15" y="143" class="cmd-text">yay -Syu --devel</text>
+  </g>
+
+  <g transform="translate(410, 160)">
+    <text x="0" y="0" class="section-title">2. INSTALLATION</text>
+    
+    <text x="0" y="30" class="desc-text">Recherche interactive (Menu)</text>
+    <rect x="0" y="45" width="340" height="35" class="cmd-box"/>
+    <text x="15" y="68" class="cmd-text">yay [terme]</text>
+
+    <text x="0" y="105" class="desc-text">Installation directe (Sans menu)</text>
+    <rect x="0" y="120" width="340" height="35" class="cmd-box"/>
+    <text x="15" y="143" class="cmd-text">yay -S [paquet]</text>
+  </g>
+
+  <line x1="50" y1="360" x2="750" y2="360" stroke="#dddddd" stroke-width="2" />
+
+  <g transform="translate(50, 400)">
+    <text x="0" y="0" class="section-title">3. NETTOYAGE (CLEANING)</text>
+    
+    <text x="0" y="30" class="desc-text">Supprimer les orphelins (Inutilisés)</text>
+    <rect x="0" y="45" width="340" height="35" class="cmd-box"/>
+    <text x="15" y="68" class="cmd-text">yay -Yc</text>
+
+    <text x="0" y="105" class="desc-text">Vider le cache des paquets</text>
+    <rect x="0" y="120" width="340" height="35" class="cmd-box"/>
+    <text x="15" y="143" class="cmd-text">yay -Sc</text>
+  </g>
+
+  <g transform="translate(410, 400)">
+    <text x="0" y="0" class="section-title">4. GESTION &amp; INFOS</text>
+    
+    <text x="0" y="30" class="desc-text">Désinstaller un paquet et dépendances</text>
+    <rect x="0" y="45" width="340" height="35" class="cmd-box"/>
+    <text x="15" y="68" class="cmd-text">yay -Rns [paquet]</text>
+
+    <text x="0" y="105" class="desc-text">Stats système et santé</text>
+    <rect x="0" y="120" width="340" height="35" class="cmd-box"/>
+    <text x="15" y="143" class="cmd-text">yay -Ps</text>
+  </g>
+
+  <g transform="translate(50, 600)">
+    <rect x="0" y="0" width="700" height="100" class="warning-box" />
+    <text x="20" y="30" class="section-title" fill="#856404" style="fill:#856404;">⚠️ SÉCURITÉ &amp; BONNES PRATIQUES</text>
+    <text x="20" y="60" class="warning-text">1. NE JAMAIS utiliser SUDO avec YAY (ex: sudo yay ...).</text>
+    <text x="20" y="80" class="warning-text">2. Toujours vérifier les PKGBUILD lors d'une nouvelle installation AUR.</text>
+  </g>
+
+  <g transform="translate(50, 740)">
+    <text x="0" y="0" class="section-title">INSTALLATION INITIALE (BOOTSTRAP)</text>
+    <rect x="0" y="20" width="700" height="130" class="cmd-box"/>
+    <text x="20" y="50" class="cmd-text">sudo pacman -S --needed git base-devel</text>
+    <text x="20" y="75" class="cmd-text">git clone https://aur.archlinux.org/yay.git</text>
+    <text x="20" y="100" class="cmd-text">cd yay</text>
+    <text x="20" y="125" class="cmd-text">makepkg -si</text>
+  </g>
+
+  <rect x="0" y="1050" width="800" height="50" fill="#333333" />
+  <text x="400" y="1080" font-family="Roboto" font-size="12" fill="#777777" text-anchor="middle">Généré par Pro Linux AI</text>
+</svg>

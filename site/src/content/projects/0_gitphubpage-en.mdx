@@ -1,0 +1,51 @@
+---
+title: "My github.io Website"
+description: "Setting up a clean, high-performance developer portfolio with Astro and GitHub Pages."
+publishDate: 2025-12-01
+tags: ["GitHub", "DevOps"]
+cover: "../../assets/projects/0_githubpage/githubpage.svg"
+coverAlt: "GitHub Pages portfolio preview"
+linkRepo: "https://github.com/hdg-zero/hdg-zero.github.io"
+lang: en
+---
+
+## Choosing Simplicity
+
+When I evaluated my requirements for a personal developer portfolio, I settled on a clear checklist:
+- Simple to use,
+- Easy to update,
+- Quick to set up,
+- Cost-effective (free hosting),
+- And visually polished.
+
+GitHub Pages immediately stood out due to its established track record, seamless Git integration, and native support across developer workflows. It checked every box: simplicity, zero hosting costs, and swift deployments.
+
+The second decision was the underlying web framework. I explored modern web architectures, evaluated various static site generators, and discovered Astro. Astro is exceptionally fast, delivers zero JavaScript by default, is open-source, and has great ecosystem support. Those qualities made it an ideal choice.
+
+## Tooling & Initial Setup
+
+Before writing any complex UI code, I set up a barebones GitHub repository to perform a dry run of the deployment pipeline with a simple static file:
+
+### Setup Steps
+0. Ensure an active GitHub account.
+1. Create a repository named `x.github.io` (where `x` is your username).
+2. Add a basic `README.md` or static `index.html`.
+3. Configure GitHub Pages deployment via GitHub Actions.
+4. Verify proper deployment at `https://x.github.io`.
+
+Once this foundational pipeline was validated, I proceeded to create the Astro project following the [Astro Manual Setup](https://docs.astro.build/en/install-and-setup/#manual-setup).
+
+## Engineering & Architecture
+
+Rather than treating this site as a trivial static page, I turned it into a testbed for modern development workflows: AI-assisted pair programming driven by strict technical oversight and deep architectural control.
+
+I established clear engineering constraints: performance-first **Astro 7 architecture (zero unnecessary client JS)**, a responsive Bento grid, a muted natural palette, and strict accessibility standards. Using LLMs as rapid prototyping accelerators, I explored multiple architectural patterns while keeping total ownership and rigor over the codebase:
+- **Modular Component Architecture**: Decoupled Astro components, typed Content Layer integration, and a seamless zero-reload bilingual (EN/FR) state system.
+- **Hardware-Accelerated Fluid FX**: Interactive neural network topology & dynamic data packet simulation rendered on HTML5 Canvas 2D via `requestAnimationFrame` for buttery 120 FPS performance with zero layout reflows.
+- **Zero Technical Debt**: Pruning redundant dependencies, enforcing mobile responsiveness edge-cases, and guaranteeing high-contrast typography (WCAG AAA compliance).
+
+This approach paired the velocity of contemporary assistive tooling with the craftsmanship and uncompromising standards expected of a systems engineer.
+
+## First Publications
+
+To test the deployment pipeline end-to-end and preview the article reading experience, I published the introductory blog post available [here](/blog/1_bienvenue-en).

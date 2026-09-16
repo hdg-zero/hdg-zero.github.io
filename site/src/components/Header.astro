@@ -277,46 +277,38 @@ const currentPath = Astro.url.pathname;
         });
     });
 
-    ['lang-fr', 'mobile-lang-fr'].forEach(id => {
-        document.getElementById(id)?.addEventListener('click', () => {
-            localStorage.setItem('lang', 'fr');
-            document.documentElement.setAttribute('data-lang', 'fr');
-            document.documentElement.lang = 'fr';
-            updateStateUI();
-            window.dispatchEvent(new CustomEvent('languageChange'));
+    function handleLanguageSwitch(newLang: 'fr' | 'en') {
+        localStorage.setItem('lang', newLang);
+        document.documentElement.setAttribute('data-lang', newLang);
+        document.documentElement.lang = newLang;
+        updateStateUI();
+        window.dispatchEvent(new CustomEvent('languageChange'));
+        
+        // Smart translation navigation on detail pages
+        const path = window.location.pathname;
+        const detailMatch = path.match(/^(.*)\/(projects|blog)\/([^/]+)\/?$/);
+        if (detailMatch) {
+            const prefix = detailMatch[1];
+            const section = detailMatch[2];
+            const slug = detailMatch[3];
+            const fromSuffix = newLang === 'en' ? '-fr' : '-en';
+            const toSuffix = newLang === 'en' ? '-en' : '-fr';
             
-            // Redirect to list page if on article/project detail page
-            const path = window.location.pathname;
-            // Check if we're on a detail page (has something after /blog/ or /projects/)
-            const blogMatch = path.match(/(.*)\/blog\/.+/);
-            const projectMatch = path.match(/(.*)\/projects\/.+/);
-            if (blogMatch) {
-                window.location.href = blogMatch[1] + '/blog';
-            } else if (projectMatch) {
-                window.location.href = projectMatch[1] + '/projects';
+            if (slug.endsWith(fromSuffix)) {
+                const targetSlug = slug.slice(0, -fromSuffix.length) + toSuffix;
+                window.location.href = `${prefix}/${section}/${targetSlug}`;
+                return;
             }
-        });
+            window.location.href = `${prefix}/${section}`;
+        }
+    }
+
+    ['lang-fr', 'mobile-lang-fr'].forEach(id => {
+        document.getElementById(id)?.addEventListener('click', () => handleLanguageSwitch('fr'));
     });
 
     ['lang-en', 'mobile-lang-en'].forEach(id => {
-        document.getElementById(id)?.addEventListener('click', () => {
-            localStorage.setItem('lang', 'en');
-            document.documentElement.setAttribute('data-lang', 'en');
-            document.documentElement.lang = 'en';
-            updateStateUI();
-            window.dispatchEvent(new CustomEvent('languageChange'));
-            
-            // Redirect to list page if on article/project detail page
-            const path = window.location.pathname;
-            // Check if we're on a detail page (has something after /blog/ or /projects/)
-            const blogMatch = path.match(/(.*)\/blog\/.+/);
-            const projectMatch = path.match(/(.*)\/projects\/.+/);
-            if (blogMatch) {
-                window.location.href = blogMatch[1] + '/blog';
-            } else if (projectMatch) {
-                window.location.href = projectMatch[1] + '/projects';
-            }
-        });
+        document.getElementById(id)?.addEventListener('click', () => handleLanguageSwitch('en'));
     });
 
     // Run once on load

@@ -1,158 +1,499 @@
 ---
 // site/src/pages/index.astro
-// Ultra Pro Homepage - Clean version
+// Ultra Pro Homepage with Personal Engineering Identity
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
-import { Image } from 'astro:assets';
 
 const base = import.meta.env.BASE_URL;
+
 const allProjects = await getCollection('projects');
-const featuredProjects = allProjects
-    .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
-    .slice(0, 3);
+const sortedProjects = allProjects.sort(
+    (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf()
+);
+
+const featuredProjectsFr = sortedProjects.filter(p => (p.data.lang || 'fr') === 'fr');
+const featuredProjectsEn = sortedProjects.filter(p => (p.data.lang || 'fr') === 'en');
+
+const allBlogPosts = await getCollection('blog');
+const sortedBlogPosts = allBlogPosts.sort(
+    (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf()
+);
+
+const latestBlogFr = sortedBlogPosts.filter(p => (p.data.lang || 'fr') === 'fr').slice(0, 2);
+const latestBlogEn = sortedBlogPosts.filter(p => (p.data.lang || 'fr') === 'en').slice(0, 2);
 ---
 
-<BaseLayout title="Hippolyte de Guigné — Digital Architect">
+<BaseLayout title="Hippolyte de Guigné — Ingénieur en systèmes d'information">
     
     <!-- Hero Section -->
-    <section class="relative min-h-[100svh] flex items-center justify-center pt-16 pb-20 sm:pt-20 sm:pb-0 overflow-hidden">
+    <section class="relative min-h-[92svh] flex items-center justify-center pt-24 pb-20 sm:pt-28 sm:pb-24 overflow-hidden">
         
-        <!-- Ambient Orbs -->
-        <div class="absolute inset-0 pointer-events-none overflow-hidden">
-            <div class="ambient-orb ambient-orb-1 animate-orb"></div>
-            <div class="ambient-orb ambient-orb-2 animate-orb" style="animation-delay: -8s;"></div>
-            <div class="ambient-orb ambient-orb-3 animate-orb" style="animation-delay: -15s;"></div>
-        </div>
 
         <!-- Grid Pattern Overlay -->
-        <div class="absolute inset-0 opacity-[0.02] pointer-events-none"
-             style="background-image: linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px); background-size: 60px 60px;">
+        <div class="absolute inset-0 opacity-[0.03] pointer-events-none"
+             style="background-image: linear-gradient(rgba(255,255,255,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.15) 1px, transparent 1px); background-size: 60px 60px;">
         </div>
 
         <div class="container mx-auto px-4 sm:px-6 relative z-10">
             <div class="max-w-5xl mx-auto text-center px-2 sm:px-0">
                 
+                <!-- Role / Status Badge -->
+                <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full glass border border-[var(--border-subtle)] text-xs sm:text-sm font-medium text-[var(--text-secondary)] mb-8 animate-fade-up shadow-sm">
+                    <span class="relative flex h-2 w-2">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--accent-primary)] opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-[var(--accent-primary)]"></span>
+                    </span>
+                    <span data-hero-role-badge>Ingénieur en systèmes d'information</span>
+                </div>
+
                 <!-- Main Headline -->
-                <h1 class="text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tighter leading-[0.95] mb-6 sm:mb-8 animate-fade-up">
+                <h1 class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight leading-[1.02] mb-6 sm:mb-8 animate-fade-up">
                     <span data-hero-headline>Développer et</span><br/>
                     <span class="text-gradient" data-hero-headline-accent>partager.</span>
                 </h1>
 
                 <!-- Subtitle -->
-                <p class="text-base sm:text-lg md:text-xl text-[var(--text-secondary)] max-w-3xl mx-auto leading-relaxed mb-8 sm:mb-12 animate-fade-up delay-100" data-hero-subtitle>
-                    Ingénieur en systèmes d'information, j'explore au quotidien la nécessité 
-                    de la protection des données personnelles et privées, le potentiel de l'IA 
-                    générative et toute sorte de sujet touchant de près ou loin aux technologies 
-                    de l'information. Retrouvez ici mes projets techniques, mes expérimentations 
-                    et mes retours d'expérience.
+                <p class="text-base sm:text-lg md:text-xl text-[var(--text-secondary)] max-w-3xl mx-auto leading-relaxed mb-8 sm:mb-10 animate-fade-up delay-100" data-hero-subtitle>
+                    Ingénieur en systèmes d'information, j'explore au quotidien la nécessité de la protection des données personnelles et privées, le potentiel de l'IA générative et toute sorte de sujet touchant de près ou de loin aux technologies de l'information. Retrouvez ici mes projets techniques, mes expérimentations et mes retours d'expérience.
                 </p>
+
+                <!-- Action CTAs -->
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-up delay-200">
+                    <a href="#work" class="btn-primary w-full sm:w-auto text-center shadow-lg shadow-[var(--accent-glow)]">
+                        <span data-hero-view-work>Voir mes projets</span>
+                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+                        </svg>
+                    </a>
+                    <a href={`${base}blog`} class="btn-secondary w-full sm:w-auto text-center">
+                        <span data-hero-read-blog>Lire le blog</span>
+                    </a>
+                    <a href="https://github.com/hdg-zero" target="_blank" rel="noopener noreferrer" class="btn-secondary w-full sm:w-auto text-center flex items-center justify-center gap-2">
+                        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                        </svg>
+                        <span>GitHub</span>
+                    </a>
+                </div>
+
             </div>
         </div>
 
         <!-- Scroll Indicator -->
         <div class="scroll-indicator hidden sm:flex animate-fade-up delay-300">
-            <span class="text-xs uppercase tracking-widest">Scroll</span>
+            <span class="text-xs uppercase tracking-widest text-[var(--text-muted)]">Scroll</span>
         </div>
     </section>
 
     <!-- Bento Grid Section -->
-    <section id="work" class="py-32 relative">
+    <section id="work" class="py-24 sm:py-32 relative">
         <div class="container mx-auto px-4 sm:px-6">
             
             <!-- Section Header -->
-            <div class="max-w-2xl mb-16 animate-fade-up">
-                <span class="text-[var(--accent-primary)] text-sm font-medium uppercase tracking-widest mb-4 block" data-work-label>
-                    Travaux sélectionnés
+            <div class="max-w-2xl mb-12 sm:mb-16 animate-fade-up">
+                <span class="text-[var(--accent-primary)] text-sm font-semibold uppercase tracking-widest mb-3 block" data-work-label>
+                    Réalisations &amp; Ingénierie
                 </span>
-                <h2 class="text-2xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-4">
-                    <span data-work-title>Projets</span> <span class="text-gradient" data-work-title-accent>récents</span>
+                <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-[var(--text-primary)]">
+                    <span data-work-title>Projets</span> <span class="text-gradient" data-work-title-accent>phares</span>
                 </h2>
-                <p class="text-[var(--text-secondary)] text-base sm:text-lg" data-work-description>
-                    Une collection de mes travaux récents — applications web, 
-                    design systems et expérimentations créatives.
+                <p class="text-[var(--text-secondary)] text-base sm:text-lg leading-relaxed" data-work-description>
+                    Architectures de sécurité, applications offline-first et configurations système pensées pour la performance.
                 </p>
             </div>
             
-            <!-- Bento Grid -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 lg:auto-rows-[200px]">
-                
-                <!-- Large Feature: Latest Project (2x2) -->
-                {featuredProjects[0] && (
-                    <a href={`${base}projects/${featuredProjects[0].slug}`} 
-                       class="bento-card col-span-1 sm:col-span-2 lg:row-span-2 min-h-[280px] sm:min-h-[320px] lg:min-h-0 p-6 sm:p-8 flex flex-col justify-end group">
-                        <div class="absolute inset-0 z-0">
-                            {featuredProjects[0].data.cover && (
-                                <Image 
-                                    src={featuredProjects[0].data.cover} 
-                                    alt={featuredProjects[0].data.title} 
-                                    class="w-full h-full object-cover opacity-40 group-hover:opacity-60 group-hover:scale-105 transition-all duration-700" 
-                                    width={800} 
-                                    height={800} 
-                                />
-                            )}
-                            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent"></div>
-                        </div>
-                        <div class="relative z-10">
-                            <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium bg-[var(--accent-primary)] text-white mb-4">
-                                <span class="w-1.5 h-1.5 rounded-full bg-white"></span>
-                                <span data-work-latest>Dernier</span>
-                            </span>
-                            <h3 class="text-2xl sm:text-3xl font-bold text-white mb-2 group-hover:text-[var(--accent-secondary)] transition-colors">
-                                {featuredProjects[0].data.title}
+            <!-- Bento Grid French -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6" data-lang-section="fr">
+                <!-- 1. Large Feature: agent-ws (2x2) -->
+                {featuredProjectsFr[0] && (
+                    <article class="bento-card col-span-1 sm:col-span-2 lg:col-span-2 lg:row-span-2 p-6 sm:p-8 flex flex-col justify-between group relative overflow-hidden">
+                        <div class="absolute -right-16 -top-16 w-64 h-64 bg-[var(--accent-primary)]/10 rounded-full blur-3xl pointer-events-none group-hover:bg-[var(--accent-primary)]/20 transition-all duration-700"></div>
+
+                        <div>
+                            <!-- Header / Badges -->
+                            <div class="flex items-center justify-between gap-3 mb-4 flex-wrap">
+                                <div class="flex items-center gap-2">
+                                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[var(--accent-primary)] text-white shadow-sm">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>
+                                        <span data-work-latest>Projet Phare</span>
+                                    </span>
+                                    <span class="px-2.5 py-0.5 rounded-md text-[11px] font-mono font-medium bg-[var(--bg-secondary)] text-[var(--text-muted)] border border-[var(--border-subtle)]">
+                                        v0.1.0 • open-source
+                                    </span>
+                                </div>
+                                <span class="text-xs font-mono text-[var(--accent-primary)] flex items-center gap-1.5 bg-[var(--accent-primary)]/10 px-2.5 py-1 rounded-full border border-[var(--accent-primary)]/20">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-[var(--accent-primary)]"></span>
+                                    Podman Rootless
+                                </span>
+                            </div>
+
+                            <!-- Title & Subtitle -->
+                            <h3 class="text-2xl sm:text-3xl lg:text-4xl font-black text-[var(--text-primary)] mb-2 group-hover:text-[var(--accent-primary)] transition-colors">
+                                <a href={`${base}projects/${featuredProjectsFr[0].id}`} class="focus:outline-none after:absolute after:inset-0">
+                                    {featuredProjectsFr[0].data.title}
+                                </a>
                             </h3>
-                            <p class="text-[var(--text-secondary)] line-clamp-2">
-                                {featuredProjects[0].data.description}
+                            <p class="text-sm sm:text-base font-medium text-[var(--accent-secondary)] mb-3">
+                                {featuredProjectsFr[0].data.subtitle || "Espace de travail IA isolé sous Linux"}
                             </p>
+                            <p class="text-sm sm:text-base text-[var(--text-secondary)] leading-relaxed mb-6 max-w-2xl">
+                                {featuredProjectsFr[0].data.description}
+                            </p>
+
+                            <!-- Terminal Mockup Window -->
+                            <div class="rounded-xl overflow-hidden border border-[var(--border-subtle)] bg-black/60 dark:bg-black/80 text-xs font-mono backdrop-blur-md mb-6 shadow-xl relative z-20 pointer-events-none select-none">
+                                <div class="flex items-center justify-between px-3.5 py-2 bg-white/5 border-b border-white/5 text-[11px] text-zinc-400">
+                                    <div class="flex items-center gap-2">
+                                        <span class="w-2.5 h-2.5 rounded-full bg-[#ff5f56]"></span>
+                                        <span class="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]"></span>
+                                        <span class="w-2.5 h-2.5 rounded-full bg-[#27c93f]"></span>
+                                        <span class="ml-2 text-zinc-400">agent-ws — rootless sandbox</span>
+                                    </div>
+                                    <span class="text-[var(--accent-secondary)] text-[10px]">● safe mount</span>
+                                </div>
+                                <div class="p-3.5 space-y-1.5 text-zinc-300">
+                                    <div><span class="text-[var(--accent-secondary)] font-semibold">$</span> agent-ws run claude --dangerously-skip-permissions</div>
+                                    <div class="text-zinc-500">[agent-ws] Container: distrobox-agent-ws (rootless Podman)</div>
+                                    <div class="text-zinc-500">[agent-ws] Mount: ~/.local/share/agent-ws/agent (host safe)</div>
+                                    <div class="text-zinc-500">[agent-ws] Protection: ~/.ssh, ~/.gnupg [BLOCKED]</div>
+                                    <div class="text-[var(--accent-secondary)] font-semibold">agent@distrobox-ws:~$ <span class="animate-pulse">_</span></div>
+                                </div>
+                            </div>
                         </div>
-                    </a>
+
+                        <!-- Card Footer -->
+                        <div class="flex items-center justify-between pt-4 border-t border-[var(--border-subtle)] relative z-20">
+                            <div class="flex items-center gap-2 flex-wrap">
+                                {featuredProjectsFr[0].data.tags.slice(0, 4).map(tag => (
+                                    <span class="tag">{tag}</span>
+                                ))}
+                            </div>
+                            <div class="flex items-center gap-2 text-sm font-semibold text-[var(--accent-primary)] group-hover:gap-3 transition-all">
+                                <span>Explorer le projet</span>
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </article>
                 )}
 
-                <!-- Blog Teaser (1x2) -->
-                <a href={`${base}blog`} class="bento-card col-span-1 lg:row-span-2 min-h-[180px] lg:min-h-0 p-5 sm:p-6 flex flex-col justify-between group bg-gradient-to-b from-white/[0.02] to-transparent">
+                <!-- 2. Blog Teaser with dynamic recent posts (1x2) -->
+                <div class="bento-card col-span-1 lg:col-span-1 lg:row-span-2 p-6 sm:p-7 flex flex-col justify-between group">
                     <div>
-                        <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-[var(--accent-primary)] to-[var(--accent-secondary)] flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                            <span class="text-xl">✍️</span>
+                        <!-- Header -->
+                        <div class="flex items-center justify-between mb-5">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-[var(--accent-primary)] to-[var(--accent-secondary)] flex items-center justify-center shadow-md shadow-[var(--accent-glow)] group-hover:scale-110 transition-transform">
+                                    <span class="text-lg">✍️</span>
+                                </div>
+                                <div>
+                                    <h3 class="text-base font-bold text-[var(--text-primary)]" data-blog-engineering>Blog technique</h3>
+                                    <span class="text-xs text-[var(--text-muted)]">Articles &amp; REX</span>
+                                </div>
+                            </div>
                         </div>
-                        <h3 class="text-lg font-bold text-[var(--text-primary)] mb-2" data-blog-engineering>Blog technique</h3>
-                        <p class="text-sm text-[var(--text-muted)]" data-blog-blog-desc>
-                            Plongées profondes dans le code et les patterns.
-                        </p>
-                    </div>
-                    <div class="flex items-center gap-2 text-[var(--accent-primary)] text-sm font-medium group-hover:gap-3 transition-all">
-                        <span data-blog-read-articles>Lire</span>
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-                        </svg>
-                    </div>
-                </a>
 
-                <!-- Secondary Project (2x1) -->
-                {featuredProjects[1] && (
-                    <a href={`${base}projects/${featuredProjects[1].slug}`} 
-                       class="bento-card col-span-1 sm:col-span-2 lg:row-span-1 min-h-[100px] lg:min-h-0 p-5 sm:p-6 flex items-center gap-4 sm:gap-6 group">
-                        <div class="flex-1 min-w-0">
-                            <h3 class="text-xl font-bold text-[var(--text-primary)] mb-1 group-hover:text-[var(--accent-primary)] transition-colors truncate">
-                                {featuredProjects[1].data.title}
-                            </h3>
-                            <p class="text-sm text-[var(--text-secondary)] line-clamp-1">
-                                {featuredProjects[1].data.description}
-                            </p>
+                        <!-- Posts list inside the card -->
+                        <div class="space-y-3 my-3">
+                            {latestBlogFr.map((post) => (
+                                <a href={`${base}blog/${post.id}`} class="flex items-center justify-between p-3.5 rounded-xl bg-[var(--bg-secondary)]/40 hover:bg-[var(--bg-secondary)] border border-[var(--border-subtle)] hover:border-[var(--glass-border-hover)] transition-all group/post">
+                                    <div class="min-w-0 pr-3">
+                                        <span class="text-[11px] font-mono text-[var(--text-muted)] block mb-1">
+                                            {new Intl.DateTimeFormat('fr-FR', { month: 'short', year: 'numeric' }).format(post.data.publishDate)}
+                                        </span>
+                                        <h4 class="text-sm font-semibold text-[var(--text-primary)] group-hover/post:text-[var(--accent-primary)] transition-colors truncate">
+                                            {post.data.title}
+                                        </h4>
+                                    </div>
+                                    <svg class="w-4 h-4 text-[var(--text-muted)] group-hover/post:text-[var(--accent-primary)] group-hover/post:translate-x-1 transition-all shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                                    </svg>
+                                </a>
+                            ))}
                         </div>
-                        <div class="w-12 h-12 rounded-full border border-[var(--glass-border)] flex items-center justify-center group-hover:bg-[var(--accent-primary)] group-hover:border-transparent transition-all duration-300 flex-shrink-0">
-                            <svg class="w-5 h-5 text-[var(--text-secondary)] group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    </div>
+
+                    <!-- Bottom Link -->
+                    <div class="pt-4 border-t border-[var(--border-subtle)] mt-4">
+                        <a href={`${base}blog`} class="flex items-center justify-between text-sm font-semibold text-[var(--accent-primary)] hover:text-[var(--accent-secondary)] transition-colors">
+                            <span data-blog-read-articles>Tous les articles ({sortedBlogPosts.filter(p => (p.data.lang || 'fr') === 'fr').length})</span>
+                            <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
                             </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 3. Secondary Project: GitHub Page (1x1) -->
+                {featuredProjectsFr[2] && (
+                    <article class="bento-card col-span-1 sm:col-span-1 lg:col-span-1 p-6 flex flex-col justify-between group relative overflow-hidden">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="px-2.5 py-0.5 rounded-md text-[11px] font-mono font-medium bg-[var(--accent-primary)]/10 text-[var(--accent-primary)] border border-[var(--accent-primary)]/20">
+                                    Web &amp; CI/CD
+                                </span>
+                                <span class="text-xs font-mono text-[var(--text-muted)]">Astro 7</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-[var(--text-primary)] mb-2 group-hover:text-[var(--accent-primary)] transition-colors">
+                                <a href={`${base}projects/${featuredProjectsFr[2].id}`} class="after:absolute after:inset-0 focus:outline-none">
+                                    {featuredProjectsFr[2].data.title}
+                                </a>
+                            </h3>
+                            <p class="text-xs sm:text-sm text-[var(--text-secondary)] line-clamp-2 mb-4">
+                                {featuredProjectsFr[2].data.description}
+                            </p>
                         </div>
-                    </a>
+                        <div class="flex items-center justify-between pt-3 border-t border-[var(--border-subtle)] relative z-20">
+                            <div class="flex items-center gap-1.5 flex-wrap">
+                                {featuredProjectsFr[2].data.tags.slice(0, 2).map(tag => (
+                                    <span class="tag text-[10px] py-0.5 px-2">{tag}</span>
+                                ))}
+                            </div>
+                            <div class="w-8 h-8 rounded-full border border-[var(--glass-border)] flex items-center justify-center group-hover:bg-[var(--accent-primary)] group-hover:border-transparent transition-all">
+                                <svg class="w-4 h-4 text-[var(--text-secondary)] group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </article>
+                )}
+
+                <!-- 4. Third Project: Hyprland (2x1) -->
+                {featuredProjectsFr[1] && (
+                    <article class="bento-card col-span-1 sm:col-span-1 lg:col-span-2 p-6 flex flex-col justify-between group relative overflow-hidden">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="px-2.5 py-0.5 rounded-md text-[11px] font-mono font-medium bg-[var(--accent-secondary)]/10 text-[var(--accent-secondary)] border border-[var(--accent-secondary)]/20">
+                                    Dotfiles &amp; Système
+                                </span>
+                                <span class="text-xs font-mono text-[var(--text-muted)]">&lt; 800 Mo RAM</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-[var(--text-primary)] mb-2 group-hover:text-[var(--accent-primary)] transition-colors">
+                                <a href={`${base}projects/${featuredProjectsFr[1].id}`} class="after:absolute after:inset-0 focus:outline-none">
+                                    {featuredProjectsFr[1].data.title}
+                                </a>
+                            </h3>
+                            <p class="text-xs sm:text-sm text-[var(--text-secondary)] line-clamp-2 mb-4">
+                                {featuredProjectsFr[1].data.description}
+                            </p>
+                        </div>
+                        <div class="flex items-center justify-between pt-3 border-t border-[var(--border-subtle)] relative z-20">
+                            <div class="flex items-center gap-1.5 flex-wrap">
+                                {featuredProjectsFr[1].data.tags.slice(0, 4).map(tag => (
+                                    <span class="tag text-[10px] py-0.5 px-2">{tag}</span>
+                                ))}
+                            </div>
+                            <div class="flex items-center gap-2 text-xs font-semibold text-[var(--accent-primary)] group-hover:gap-3 transition-all">
+                                <span>Voir la configuration</span>
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </article>
+                )}
+            </div>
+
+            <!-- Bento Grid English -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6" data-lang-section="en" style="display: none;">
+                <!-- 1. Large Feature: agent-ws (2x2) -->
+                {featuredProjectsEn[0] && (
+                    <article class="bento-card col-span-1 sm:col-span-2 lg:col-span-2 lg:row-span-2 p-6 sm:p-8 flex flex-col justify-between group relative overflow-hidden">
+                        <div class="absolute -right-16 -top-16 w-64 h-64 bg-[var(--accent-primary)]/10 rounded-full blur-3xl pointer-events-none group-hover:bg-[var(--accent-primary)]/20 transition-all duration-700"></div>
+
+                        <div>
+                            <!-- Header / Badges -->
+                            <div class="flex items-center justify-between gap-3 mb-4 flex-wrap">
+                                <div class="flex items-center gap-2">
+                                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[var(--accent-primary)] text-white shadow-sm">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>
+                                        <span>Featured Project</span>
+                                    </span>
+                                    <span class="px-2.5 py-0.5 rounded-md text-[11px] font-mono font-medium bg-[var(--bg-secondary)] text-[var(--text-muted)] border border-[var(--border-subtle)]">
+                                        v0.1.0 • open-source
+                                    </span>
+                                </div>
+                                <span class="text-xs font-mono text-[var(--accent-primary)] flex items-center gap-1.5 bg-[var(--accent-primary)]/10 px-2.5 py-1 rounded-full border border-[var(--accent-primary)]/20">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-[var(--accent-primary)]"></span>
+                                    Podman Rootless
+                                </span>
+                            </div>
+
+                            <!-- Title & Subtitle -->
+                            <h3 class="text-2xl sm:text-3xl lg:text-4xl font-black text-[var(--text-primary)] mb-2 group-hover:text-[var(--accent-primary)] transition-colors">
+                                <a href={`${base}projects/${featuredProjectsEn[0].id}`} class="focus:outline-none after:absolute after:inset-0">
+                                    {featuredProjectsEn[0].data.title}
+                                </a>
+                            </h3>
+                            <p class="text-sm sm:text-base font-medium text-[var(--accent-secondary)] mb-3">
+                                {featuredProjectsEn[0].data.subtitle || "Isolated Linux AI Workspace"}
+                            </p>
+                            <p class="text-sm sm:text-base text-[var(--text-secondary)] leading-relaxed mb-6 max-w-2xl">
+                                {featuredProjectsEn[0].data.description}
+                            </p>
+
+                            <!-- Terminal Mockup Window -->
+                            <div class="rounded-xl overflow-hidden border border-[var(--border-subtle)] bg-black/60 dark:bg-black/80 text-xs font-mono backdrop-blur-md mb-6 shadow-xl relative z-20 pointer-events-none select-none">
+                                <div class="flex items-center justify-between px-3.5 py-2 bg-white/5 border-b border-white/5 text-[11px] text-zinc-400">
+                                    <div class="flex items-center gap-2">
+                                        <span class="w-2.5 h-2.5 rounded-full bg-[#ff5f56]"></span>
+                                        <span class="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]"></span>
+                                        <span class="w-2.5 h-2.5 rounded-full bg-[#27c93f]"></span>
+                                        <span class="ml-2 text-zinc-400">agent-ws — rootless sandbox</span>
+                                    </div>
+                                    <span class="text-[var(--accent-secondary)] text-[10px]">● safe mount</span>
+                                </div>
+                                <div class="p-3.5 space-y-1.5 text-zinc-300">
+                                    <div><span class="text-[var(--accent-secondary)] font-semibold">$</span> agent-ws run claude --dangerously-skip-permissions</div>
+                                    <div class="text-zinc-500">[agent-ws] Container: distrobox-agent-ws (rootless Podman)</div>
+                                    <div class="text-zinc-500">[agent-ws] Mount: ~/.local/share/agent-ws/agent (host safe)</div>
+                                    <div class="text-zinc-500">[agent-ws] Protection: ~/.ssh, ~/.gnupg [BLOCKED]</div>
+                                    <div class="text-[var(--accent-secondary)] font-semibold">agent@distrobox-ws:~$ <span class="animate-pulse">_</span></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card Footer -->
+                        <div class="flex items-center justify-between pt-4 border-t border-[var(--border-subtle)] relative z-20">
+                            <div class="flex items-center gap-2 flex-wrap">
+                                {featuredProjectsEn[0].data.tags.slice(0, 4).map(tag => (
+                                    <span class="tag">{tag}</span>
+                                ))}
+                            </div>
+                            <div class="flex items-center gap-2 text-sm font-semibold text-[var(--accent-primary)] group-hover:gap-3 transition-all">
+                                <span>Explore Project</span>
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </article>
+                )}
+
+                <!-- 2. Blog Teaser with dynamic recent posts (1x2) -->
+                <div class="bento-card col-span-1 lg:col-span-1 lg:row-span-2 p-6 sm:p-7 flex flex-col justify-between group">
+                    <div>
+                        <!-- Header -->
+                        <div class="flex items-center justify-between mb-5">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-[var(--accent-primary)] to-[var(--accent-secondary)] flex items-center justify-center shadow-md shadow-[var(--accent-glow)] group-hover:scale-110 transition-transform">
+                                    <span class="text-lg">✍️</span>
+                                </div>
+                                <div>
+                                    <h3 class="text-base font-bold text-[var(--text-primary)]">Technical Blog</h3>
+                                    <span class="text-xs text-[var(--text-muted)]">Articles &amp; Insights</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Posts list inside the card -->
+                        <div class="space-y-3 my-3">
+                            {latestBlogEn.map((post) => (
+                                <a href={`${base}blog/${post.id}`} class="flex items-center justify-between p-3.5 rounded-xl bg-[var(--bg-secondary)]/40 hover:bg-[var(--bg-secondary)] border border-[var(--border-subtle)] hover:border-[var(--glass-border-hover)] transition-all group/post">
+                                    <div class="min-w-0 pr-3">
+                                        <span class="text-[11px] font-mono text-[var(--text-muted)] block mb-1">
+                                            {new Intl.DateTimeFormat('en-US', { month: 'short', year: 'numeric' }).format(post.data.publishDate)}
+                                        </span>
+                                        <h4 class="text-sm font-semibold text-[var(--text-primary)] group-hover/post:text-[var(--accent-primary)] transition-colors truncate">
+                                            {post.data.title}
+                                        </h4>
+                                    </div>
+                                    <svg class="w-4 h-4 text-[var(--text-muted)] group-hover/post:text-[var(--accent-primary)] group-hover/post:translate-x-1 transition-all shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                                    </svg>
+                                </a>
+                            ))}
+                        </div>
+                    </div>
+
+                    <!-- Bottom Link -->
+                    <div class="pt-4 border-t border-[var(--border-subtle)] mt-4">
+                        <a href={`${base}blog`} class="flex items-center justify-between text-sm font-semibold text-[var(--accent-primary)] hover:text-[var(--accent-secondary)] transition-colors">
+                            <span>All articles ({sortedBlogPosts.filter(p => (p.data.lang || 'fr') === 'en').length})</span>
+                            <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 3. Secondary Project: GitHub Page (1x1) -->
+                {featuredProjectsEn[2] && (
+                    <article class="bento-card col-span-1 sm:col-span-1 lg:col-span-1 p-6 flex flex-col justify-between group relative overflow-hidden">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="px-2.5 py-0.5 rounded-md text-[11px] font-mono font-medium bg-[var(--accent-primary)]/10 text-[var(--accent-primary)] border border-[var(--accent-primary)]/20">
+                                    Web &amp; CI/CD
+                                </span>
+                                <span class="text-xs font-mono text-[var(--text-muted)]">Astro 7</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-[var(--text-primary)] mb-2 group-hover:text-[var(--accent-primary)] transition-colors">
+                                <a href={`${base}projects/${featuredProjectsEn[2].id}`} class="after:absolute after:inset-0 focus:outline-none">
+                                    {featuredProjectsEn[2].data.title}
+                                </a>
+                            </h3>
+                            <p class="text-xs sm:text-sm text-[var(--text-secondary)] line-clamp-2 mb-4">
+                                {featuredProjectsEn[2].data.description}
+                            </p>
+                        </div>
+                        <div class="flex items-center justify-between pt-3 border-t border-[var(--border-subtle)] relative z-20">
+                            <div class="flex items-center gap-1.5 flex-wrap">
+                                {featuredProjectsEn[2].data.tags.slice(0, 2).map(tag => (
+                                    <span class="tag text-[10px] py-0.5 px-2">{tag}</span>
+                                ))}
+                            </div>
+                            <div class="w-8 h-8 rounded-full border border-[var(--glass-border)] flex items-center justify-center group-hover:bg-[var(--accent-primary)] group-hover:border-transparent transition-all">
+                                <svg class="w-4 h-4 text-[var(--text-secondary)] group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </article>
+                )}
+
+                <!-- 4. Third Project: Hyprland (2x1) -->
+                {featuredProjectsEn[1] && (
+                    <article class="bento-card col-span-1 sm:col-span-1 lg:col-span-2 p-6 flex flex-col justify-between group relative overflow-hidden">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="px-2.5 py-0.5 rounded-md text-[11px] font-mono font-medium bg-[var(--accent-secondary)]/10 text-[var(--accent-secondary)] border border-[var(--accent-secondary)]/20">
+                                    Dotfiles &amp; Systems
+                                </span>
+                                <span class="text-xs font-mono text-[var(--text-muted)]">&lt; 800 MB RAM</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-[var(--text-primary)] mb-2 group-hover:text-[var(--accent-primary)] transition-colors">
+                                <a href={`${base}projects/${featuredProjectsEn[1].id}`} class="after:absolute after:inset-0 focus:outline-none">
+                                    {featuredProjectsEn[1].data.title}
+                                </a>
+                            </h3>
+                            <p class="text-xs sm:text-sm text-[var(--text-secondary)] line-clamp-2 mb-4">
+                                {featuredProjectsEn[1].data.description}
+                            </p>
+                        </div>
+                        <div class="flex items-center justify-between pt-3 border-t border-[var(--border-subtle)] relative z-20">
+                            <div class="flex items-center gap-1.5 flex-wrap">
+                                {featuredProjectsEn[1].data.tags.slice(0, 4).map(tag => (
+                                    <span class="tag text-[10px] py-0.5 px-2">{tag}</span>
+                                ))}
+                            </div>
+                            <div class="flex items-center gap-2 text-xs font-semibold text-[var(--accent-primary)] group-hover:gap-3 transition-all">
+                                <span>View Configuration</span>
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </article>
                 )}
             </div>
 
             <!-- View All Projects Link -->
-            <div class="flex justify-center mt-12">
+            <div class="flex justify-center mt-12 sm:mt-16">
                 <a href={`${base}projects`} 
-                   class="inline-flex items-center gap-2 px-6 py-3 rounded-full glass text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-all group">
+                   class="inline-flex items-center gap-2 px-6 py-3 rounded-full glass text-[var(--text-secondary)] hover:text-[var(--text-primary)] border border-[var(--border-subtle)] transition-all group shadow-sm">
                     <span data-work-view-all>Voir tous les projets</span>
-                    <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform text-[var(--accent-primary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
                     </svg>
                 </a>
@@ -161,36 +502,3 @@ const featuredProjects = allProjects
     </section>
 
 </BaseLayout>
-
-<style>
-    .ambient-orb {
-        position: absolute;
-        border-radius: 50%;
-        filter: blur(100px);
-        pointer-events: none;
-    }
-    
-    .ambient-orb-1 {
-        width: 800px;
-        height: 800px;
-        background: rgba(10, 132, 255, 0.12);
-        top: -30%;
-        right: -20%;
-    }
-    
-    .ambient-orb-2 {
-        width: 600px;
-        height: 600px;
-        background: rgba(100, 210, 255, 0.06);
-        bottom: -20%;
-        left: -15%;
-    }
-    
-    .ambient-orb-3 {
-        width: 500px;
-        height: 500px;
-        background: rgba(94, 92, 230, 0.08);
-        top: 30%;
-        left: 20%;
-    }
-</style>

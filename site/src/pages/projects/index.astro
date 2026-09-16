@@ -9,8 +9,11 @@ const projects = (await getCollection('projects')).sort(
 	(a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf()
 );
 
-// Extract unique tags
-const allTags = [...new Set(projects.flatMap(p => p.data.tags))];
+// Extract unique tags per language
+const frProjects = projects.filter(p => (p.data.lang || 'fr') === 'fr');
+const enProjects = projects.filter(p => p.data.lang === 'en');
+const frTags = [...new Set(frProjects.flatMap(p => p.data.tags))];
+const enTags = [...new Set(enProjects.flatMap(p => p.data.tags))];
 ---
 
 <BaseLayout title="Projets — Hippolyte de Guigné">
@@ -30,19 +33,41 @@ const allTags = [...new Set(projects.flatMap(p => p.data.tags))];
 			</p>
 		</header>
 
-		<!-- Tags filter -->
-		{allTags.length > 0 && (
-			<div class="mb-12 animate-fade-up delay-300">
+		<!-- Tags filter FR -->
+		{frTags.length > 0 && (
+			<div class="mb-12 animate-fade-up delay-300" data-lang-section="fr">
 				<div class="flex flex-wrap gap-2">
 					<button 
-						class="tag-filter active px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300"
+						class="tag-filter active px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 cursor-pointer"
 						data-filter="all"
 					>
-						<span data-projects-all>Tous</span>
+						<span>Tous</span>
 					</button>
-					{allTags.map(tag => (
+					{frTags.map(tag => (
 						<button 
-							class="tag-filter px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300"
+							class="tag-filter px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 cursor-pointer"
+							data-filter={tag}
+						>
+							{tag}
+						</button>
+					))}
+				</div>
+			</div>
+		)}
+
+		<!-- Tags filter EN -->
+		{enTags.length > 0 && (
+			<div class="mb-12 animate-fade-up delay-300" data-lang-section="en">
+				<div class="flex flex-wrap gap-2">
+					<button 
+						class="tag-filter active px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 cursor-pointer"
+						data-filter="all"
+					>
+						<span>All</span>
+					</button>
+					{enTags.map(tag => (
+						<button 
+							class="tag-filter px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 cursor-pointer"
 							data-filter={tag}
 						>
 							{tag}
@@ -59,6 +84,7 @@ const allTags = [...new Set(projects.flatMap(p => p.data.tags))];
 					class="project-item animate-fade-up" 
 					style={`animation-delay: ${300 + index * 100}ms`}
 					data-tags={project.data.tags.join(',')}
+					data-lang={project.data.lang || 'fr'}
 				>
 					<ProjectCard project={project} />
 				</div>
@@ -80,42 +106,78 @@ const allTags = [...new Set(projects.flatMap(p => p.data.tags))];
 </BaseLayout>
 
 <script>
+	function getCurrentLang() {
+		return localStorage.getItem('lang') || 'fr';
+	}
+
+	function applyFilters() {
+		const lang = getCurrentLang();
+		const activeSection = document.querySelector(`[data-lang-section="${lang}"]`);
+		const activeButton = activeSection?.querySelector('.tag-filter.active') || document.querySelector('.tag-filter.active');
+		const filter = activeButton?.getAttribute('data-filter') || 'all';
+		const projectItems = document.querySelectorAll('.project-item');
+		
+		projectItems.forEach(item => {
+			const projectLang = item.getAttribute('data-lang') || 'fr';
+			const isCorrectLang = projectLang === lang;
+			const tags = item.getAttribute('data-tags')?.split(',') || [];
+			const tagMatches = filter === 'all' || tags.includes(filter);
+			const shouldShow = isCorrectLang && tagMatches;
+			
+			if (shouldShow) {
+				(item as HTMLElement).style.display = '';
+				(item as HTMLElement).style.opacity = '0';
+				(item as HTMLElement).style.transform = 'translateY(16px)';
+				requestAnimationFrame(() => {
+					(item as HTMLElement).style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+					(item as HTMLElement).style.opacity = '1';
+					(item as HTMLElement).style.transform = 'translateY(0)';
+				});
+			} else {
+				(item as HTMLElement).style.display = 'none';
+			}
+		});
+	}
+
+	function onLanguageChange() {
+		const lang = getCurrentLang();
+		const activeSection = document.querySelector(`[data-lang-section="${lang}"]`);
+		if (activeSection) {
+			activeSection.querySelectorAll('.tag-filter').forEach(btn => btn.classList.remove('active'));
+			activeSection.querySelector('.tag-filter[data-filter="all"]')?.classList.add('active');
+		}
+		applyFilters();
+	}
+
 	document.addEventListener('astro:page-load', () => {
 		const filterButtons = document.querySelectorAll('.tag-filter');
-		const projectItems = document.querySelectorAll('.project-item');
+		
+		onLanguageChange();
 		
 		filterButtons.forEach(button => {
 			button.addEventListener('click', () => {
-				const filter = button.getAttribute('data-filter');
-				
-				// Update active state
-				filterButtons.forEach(btn => btn.classList.remove('active'));
+				const parent = button.closest('[data-lang-section]');
+				if (parent) {
+					parent.querySelectorAll('.tag-filter').forEach(btn => btn.classList.remove('active'));
+				} else {
+					filterButtons.forEach(btn => btn.classList.remove('active'));
+				}
 				button.classList.add('active');
-				
-				// Filter projects with animation
-				projectItems.forEach(item => {
-					const tags = item.getAttribute('data-tags')?.split(',') || [];
-					const matches = filter === 'all' || tags.includes(filter);
-					
-					if (matches) {
-						(item as HTMLElement).style.display = 'block';
-						(item as HTMLElement).style.opacity = '0';
-						(item as HTMLElement).style.transform = 'translateY(20px)';
-						requestAnimationFrame(() => {
-							(item as HTMLElement).style.transition = 'opacity 0.4s ease, transform 0.4s ease';
-							(item as HTMLElement).style.opacity = '1';
-							(item as HTMLElement).style.transform = 'translateY(0)';
-						});
-					} else {
-						(item as HTMLElement).style.display = 'none';
-					}
-				});
+				applyFilters();
 			});
 		});
 	});
+	
+	window.addEventListener('languageChange', onLanguageChange);
 </script>
 
 <style>
+	/* CSS-based filtering for instant results */
+	:global(html[data-lang="fr"]) .project-item[data-lang="en"],
+	:global(html[data-lang="en"]) .project-item[data-lang="fr"] {
+		display: none !important;
+	}
+
 	.tag-filter {
 		background: var(--glass-bg);
 		border: 1px solid var(--glass-border);
