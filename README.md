@@ -90,7 +90,7 @@ The portfolio spotlights the following core engineering case studies:
    - Dual-container model (headless AI engine vs. Wayland GUI container) with shared SGID project volumes.
    - Complete technical case study available in [French](/projects/3_agent-ws-fr) and [English](/projects/3_agent-ws-en).
 
-2. **[hyprland](https://github.com/hdg-zero/dotfiles)** — *Wayland Tiling Environment*
+2. **[hyprland](https://github.com/hdg-zero/hdg-hyprland)** — *Wayland Tiling Environment*
    - High-efficiency personal development environment configured on Arch Linux / Hyprland with automated window rules, low latency, and custom status monitors.
 
 3. **[hdg-zero.github.io](https://github.com/hdg-zero/hdg-zero.github.io)** — *Astro Portfolio Platform*
@@ -111,7 +111,7 @@ The application leverages a hybrid compile-time + runtime i18n architecture:
 ## 6. 🚀 Getting Started & Development
 
 ### Prerequisites
-- **Node.js**: `v20.0.0` or higher
+- **Node.js**: `v22.12.0` or higher (required by Astro 7)
 - **npm**: `v10.0.0` or higher
 
 ### Local Setup
