@@ -14,6 +14,14 @@ const sortedProjects = allProjects.sort(
 const featuredProjectsFr = sortedProjects.filter(p => (p.data.lang || 'fr') === 'fr');
 const featuredProjectsEn = sortedProjects.filter(p => (p.data.lang || 'fr') === 'en');
 
+const agentWsProjectFr = featuredProjectsFr.find(p => p.id.includes('agent-ws')) || featuredProjectsFr[0];
+const githubPageProjectFr = featuredProjectsFr.find(p => p.id.includes('gitphubpage')) || featuredProjectsFr[1];
+const hyprlandProjectFr = featuredProjectsFr.find(p => p.id.includes('hyprland')) || featuredProjectsFr[2];
+
+const agentWsProjectEn = featuredProjectsEn.find(p => p.id.includes('agent-ws')) || featuredProjectsEn[0];
+const githubPageProjectEn = featuredProjectsEn.find(p => p.id.includes('gitphubpage')) || featuredProjectsEn[1];
+const hyprlandProjectEn = featuredProjectsEn.find(p => p.id.includes('hyprland')) || featuredProjectsEn[2];
+
 const allBlogPosts = await getCollection('blog');
 const sortedBlogPosts = allBlogPosts.sort(
     (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf()
@@ -105,7 +113,7 @@ const latestBlogEn = sortedBlogPosts.filter(p => (p.data.lang || 'fr') === 'en')
             <!-- Bento Grid French -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6" data-lang-section="fr">
                 <!-- 1. Large Feature: agent-ws (2x2) -->
-                {featuredProjectsFr[0] && (
+                {agentWsProjectFr && (
                     <article class="bento-card col-span-1 sm:col-span-2 lg:col-span-2 lg:row-span-2 p-6 sm:p-8 flex flex-col justify-between group relative overflow-hidden">
                         <div class="absolute -right-16 -top-16 w-64 h-64 bg-[var(--accent-primary)]/10 rounded-full blur-3xl pointer-events-none group-hover:bg-[var(--accent-primary)]/20 transition-all duration-700"></div>
 
@@ -129,15 +137,15 @@ const latestBlogEn = sortedBlogPosts.filter(p => (p.data.lang || 'fr') === 'en')
 
                             <!-- Title & Subtitle -->
                             <h3 class="text-2xl sm:text-3xl lg:text-4xl font-black text-[var(--text-primary)] mb-2 group-hover:text-[var(--accent-primary)] transition-colors">
-                                <a href={`${base}projects/${featuredProjectsFr[0].id}`} class="focus:outline-none after:absolute after:inset-0">
-                                    {featuredProjectsFr[0].data.title}
+                                <a href={`${base}projects/${agentWsProjectFr.id}`} class="focus:outline-none after:absolute after:inset-0">
+                                    {agentWsProjectFr.data.title}
                                 </a>
                             </h3>
                             <p class="text-sm sm:text-base font-medium text-[var(--accent-secondary)] mb-3">
-                                {featuredProjectsFr[0].data.subtitle || "Espace de travail IA isolé sous Linux"}
+                                {agentWsProjectFr.data.subtitle || "Espace de travail IA isolé sous Linux"}
                             </p>
                             <p class="text-sm sm:text-base text-[var(--text-secondary)] leading-relaxed mb-6 max-w-2xl">
-                                {featuredProjectsFr[0].data.description}
+                                {agentWsProjectFr.data.description}
                             </p>
 
                             <!-- Terminal Mockup Window -->
@@ -164,7 +172,7 @@ const latestBlogEn = sortedBlogPosts.filter(p => (p.data.lang || 'fr') === 'en')
                         <!-- Card Footer -->
                         <div class="flex items-center justify-between pt-4 border-t border-[var(--border-subtle)] relative z-20">
                             <div class="flex items-center gap-2 flex-wrap">
-                                {featuredProjectsFr[0].data.tags.slice(0, 4).map(tag => (
+                                {agentWsProjectFr.data.tags.slice(0, 4).map(tag => (
                                     <span class="tag">{tag}</span>
                                 ))}
                             </div>
@@ -226,7 +234,7 @@ const latestBlogEn = sortedBlogPosts.filter(p => (p.data.lang || 'fr') === 'en')
                 </div>
 
                 <!-- 3. Secondary Project: GitHub Page (1x1) -->
-                {featuredProjectsFr[2] && (
+                {githubPageProjectFr && (
                     <article class="bento-card col-span-1 sm:col-span-1 lg:col-span-1 p-6 flex flex-col justify-between group relative overflow-hidden">
                         <div>
                             <div class="flex items-center justify-between mb-3">
@@ -236,17 +244,17 @@ const latestBlogEn = sortedBlogPosts.filter(p => (p.data.lang || 'fr') === 'en')
                                 <span class="text-xs font-mono text-[var(--text-muted)]">Astro 7</span>
                             </div>
                             <h3 class="text-xl font-bold text-[var(--text-primary)] mb-2 group-hover:text-[var(--accent-primary)] transition-colors">
-                                <a href={`${base}projects/${featuredProjectsFr[2].id}`} class="after:absolute after:inset-0 focus:outline-none">
-                                    {featuredProjectsFr[2].data.title}
+                                <a href={`${base}projects/${githubPageProjectFr.id}`} class="after:absolute after:inset-0 focus:outline-none">
+                                    {githubPageProjectFr.data.title}
                                 </a>
                             </h3>
                             <p class="text-xs sm:text-sm text-[var(--text-secondary)] line-clamp-2 mb-4">
-                                {featuredProjectsFr[2].data.description}
+                                {githubPageProjectFr.data.description}
                             </p>
                         </div>
                         <div class="flex items-center justify-between pt-3 border-t border-[var(--border-subtle)] relative z-20">
                             <div class="flex items-center gap-1.5 flex-wrap">
-                                {featuredProjectsFr[2].data.tags.slice(0, 2).map(tag => (
+                                {githubPageProjectFr.data.tags.slice(0, 2).map(tag => (
                                     <span class="tag text-[10px] py-0.5 px-2">{tag}</span>
                                 ))}
                             </div>
@@ -260,7 +268,7 @@ const latestBlogEn = sortedBlogPosts.filter(p => (p.data.lang || 'fr') === 'en')
                 )}
 
                 <!-- 4. Third Project: Hyprland (2x1) -->
-                {featuredProjectsFr[1] && (
+                {hyprlandProjectFr && (
                     <article class="bento-card col-span-1 sm:col-span-1 lg:col-span-2 p-6 flex flex-col justify-between group relative overflow-hidden">
                         <div>
                             <div class="flex items-center justify-between mb-3">
@@ -270,17 +278,17 @@ const latestBlogEn = sortedBlogPosts.filter(p => (p.data.lang || 'fr') === 'en')
                                 <span class="text-xs font-mono text-[var(--text-muted)]">&lt; 800 Mo RAM</span>
                             </div>
                             <h3 class="text-xl font-bold text-[var(--text-primary)] mb-2 group-hover:text-[var(--accent-primary)] transition-colors">
-                                <a href={`${base}projects/${featuredProjectsFr[1].id}`} class="after:absolute after:inset-0 focus:outline-none">
-                                    {featuredProjectsFr[1].data.title}
+                                <a href={`${base}projects/${hyprlandProjectFr.id}`} class="after:absolute after:inset-0 focus:outline-none">
+                                    {hyprlandProjectFr.data.title}
                                 </a>
                             </h3>
                             <p class="text-xs sm:text-sm text-[var(--text-secondary)] line-clamp-2 mb-4">
-                                {featuredProjectsFr[1].data.description}
+                                {hyprlandProjectFr.data.description}
                             </p>
                         </div>
                         <div class="flex items-center justify-between pt-3 border-t border-[var(--border-subtle)] relative z-20">
                             <div class="flex items-center gap-1.5 flex-wrap">
-                                {featuredProjectsFr[1].data.tags.slice(0, 4).map(tag => (
+                                {hyprlandProjectFr.data.tags.slice(0, 4).map(tag => (
                                     <span class="tag text-[10px] py-0.5 px-2">{tag}</span>
                                 ))}
                             </div>
@@ -298,7 +306,7 @@ const latestBlogEn = sortedBlogPosts.filter(p => (p.data.lang || 'fr') === 'en')
             <!-- Bento Grid English -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6" data-lang-section="en" style="display: none;">
                 <!-- 1. Large Feature: agent-ws (2x2) -->
-                {featuredProjectsEn[0] && (
+                {agentWsProjectEn && (
                     <article class="bento-card col-span-1 sm:col-span-2 lg:col-span-2 lg:row-span-2 p-6 sm:p-8 flex flex-col justify-between group relative overflow-hidden">
                         <div class="absolute -right-16 -top-16 w-64 h-64 bg-[var(--accent-primary)]/10 rounded-full blur-3xl pointer-events-none group-hover:bg-[var(--accent-primary)]/20 transition-all duration-700"></div>
 
@@ -322,15 +330,15 @@ const latestBlogEn = sortedBlogPosts.filter(p => (p.data.lang || 'fr') === 'en')
 
                             <!-- Title & Subtitle -->
                             <h3 class="text-2xl sm:text-3xl lg:text-4xl font-black text-[var(--text-primary)] mb-2 group-hover:text-[var(--accent-primary)] transition-colors">
-                                <a href={`${base}projects/${featuredProjectsEn[0].id}`} class="focus:outline-none after:absolute after:inset-0">
-                                    {featuredProjectsEn[0].data.title}
+                                <a href={`${base}projects/${agentWsProjectEn.id}`} class="focus:outline-none after:absolute after:inset-0">
+                                    {agentWsProjectEn.data.title}
                                 </a>
                             </h3>
                             <p class="text-sm sm:text-base font-medium text-[var(--accent-secondary)] mb-3">
-                                {featuredProjectsEn[0].data.subtitle || "Isolated Linux AI Workspace"}
+                                {agentWsProjectEn.data.subtitle || "Isolated Linux AI Workspace"}
                             </p>
                             <p class="text-sm sm:text-base text-[var(--text-secondary)] leading-relaxed mb-6 max-w-2xl">
-                                {featuredProjectsEn[0].data.description}
+                                {agentWsProjectEn.data.description}
                             </p>
 
                             <!-- Terminal Mockup Window -->
@@ -357,7 +365,7 @@ const latestBlogEn = sortedBlogPosts.filter(p => (p.data.lang || 'fr') === 'en')
                         <!-- Card Footer -->
                         <div class="flex items-center justify-between pt-4 border-t border-[var(--border-subtle)] relative z-20">
                             <div class="flex items-center gap-2 flex-wrap">
-                                {featuredProjectsEn[0].data.tags.slice(0, 4).map(tag => (
+                                {agentWsProjectEn.data.tags.slice(0, 4).map(tag => (
                                     <span class="tag">{tag}</span>
                                 ))}
                             </div>
@@ -419,7 +427,7 @@ const latestBlogEn = sortedBlogPosts.filter(p => (p.data.lang || 'fr') === 'en')
                 </div>
 
                 <!-- 3. Secondary Project: GitHub Page (1x1) -->
-                {featuredProjectsEn[2] && (
+                {githubPageProjectEn && (
                     <article class="bento-card col-span-1 sm:col-span-1 lg:col-span-1 p-6 flex flex-col justify-between group relative overflow-hidden">
                         <div>
                             <div class="flex items-center justify-between mb-3">
@@ -429,17 +437,17 @@ const latestBlogEn = sortedBlogPosts.filter(p => (p.data.lang || 'fr') === 'en')
                                 <span class="text-xs font-mono text-[var(--text-muted)]">Astro 7</span>
                             </div>
                             <h3 class="text-xl font-bold text-[var(--text-primary)] mb-2 group-hover:text-[var(--accent-primary)] transition-colors">
-                                <a href={`${base}projects/${featuredProjectsEn[2].id}`} class="after:absolute after:inset-0 focus:outline-none">
-                                    {featuredProjectsEn[2].data.title}
+                                <a href={`${base}projects/${githubPageProjectEn.id}`} class="after:absolute after:inset-0 focus:outline-none">
+                                    {githubPageProjectEn.data.title}
                                 </a>
                             </h3>
                             <p class="text-xs sm:text-sm text-[var(--text-secondary)] line-clamp-2 mb-4">
-                                {featuredProjectsEn[2].data.description}
+                                {githubPageProjectEn.data.description}
                             </p>
                         </div>
                         <div class="flex items-center justify-between pt-3 border-t border-[var(--border-subtle)] relative z-20">
                             <div class="flex items-center gap-1.5 flex-wrap">
-                                {featuredProjectsEn[2].data.tags.slice(0, 2).map(tag => (
+                                {githubPageProjectEn.data.tags.slice(0, 2).map(tag => (
                                     <span class="tag text-[10px] py-0.5 px-2">{tag}</span>
                                 ))}
                             </div>
@@ -453,7 +461,7 @@ const latestBlogEn = sortedBlogPosts.filter(p => (p.data.lang || 'fr') === 'en')
                 )}
 
                 <!-- 4. Third Project: Hyprland (2x1) -->
-                {featuredProjectsEn[1] && (
+                {hyprlandProjectEn && (
                     <article class="bento-card col-span-1 sm:col-span-1 lg:col-span-2 p-6 flex flex-col justify-between group relative overflow-hidden">
                         <div>
                             <div class="flex items-center justify-between mb-3">
@@ -463,17 +471,17 @@ const latestBlogEn = sortedBlogPosts.filter(p => (p.data.lang || 'fr') === 'en')
                                 <span class="text-xs font-mono text-[var(--text-muted)]">&lt; 800 MB RAM</span>
                             </div>
                             <h3 class="text-xl font-bold text-[var(--text-primary)] mb-2 group-hover:text-[var(--accent-primary)] transition-colors">
-                                <a href={`${base}projects/${featuredProjectsEn[1].id}`} class="after:absolute after:inset-0 focus:outline-none">
-                                    {featuredProjectsEn[1].data.title}
+                                <a href={`${base}projects/${hyprlandProjectEn.id}`} class="after:absolute after:inset-0 focus:outline-none">
+                                    {hyprlandProjectEn.data.title}
                                 </a>
                             </h3>
                             <p class="text-xs sm:text-sm text-[var(--text-secondary)] line-clamp-2 mb-4">
-                                {featuredProjectsEn[1].data.description}
+                                {hyprlandProjectEn.data.description}
                             </p>
                         </div>
                         <div class="flex items-center justify-between pt-3 border-t border-[var(--border-subtle)] relative z-20">
                             <div class="flex items-center gap-1.5 flex-wrap">
-                                {featuredProjectsEn[1].data.tags.slice(0, 4).map(tag => (
+                                {hyprlandProjectEn.data.tags.slice(0, 4).map(tag => (
                                     <span class="tag text-[10px] py-0.5 px-2">{tag}</span>
                                 ))}
                             </div>
