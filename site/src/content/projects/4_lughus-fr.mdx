@@ -1,0 +1,129 @@
+---
+title: "Lughus : Micro-framework d'agents IA (A2A & LiteLLM)"
+description: "Framework Python minimaliste et déterministe pour concevoir des agents autonomes avec LiteLLM, protocole A2A, gouvernance stricte et sandboxing d'outils."
+publishDate: 2026-09-20
+tags: ["Python", "IA", "Agents", "Open Source", "Sécurité", "A2A"]
+cover: "../../assets/projects/4_lughus/lughus.svg"
+coverAlt: "Architecture et boucle d'exécution du micro-framework agentique Lughus"
+linkRepo: "https://github.com/hdg-zero/lughus"
+lang: fr
+---
+
+import { Image } from 'astro:assets';
+import logoImg from '../../assets/projects/4_lughus/logo.svg';
+
+## La Genèse du Projet : Démythifier les Agents IA
+
+L'écosystème de l'intelligence artificielle est saturé de frameworks agentiques promettant l'autonomie totale au prix d'une complexité démesurée. Des graphes d'états tentaculaires, des dizaines de métaclasses intermédiaires, des analyseurs de prompts opaques et des mécanismes de retry incontrôlables finissent par transformer des scripts simples en véritables boîtes noires impossibles à déboguer en production.
+
+Pourtant, le principe d'un agent d'IA repose sur une mécanique logicielle universelle et élémentaire :
+
+> **La boucle agentique fondamentale :**
+> Un modèle de langage (LLM) reçoit un contexte et une intention, sélectionne un outil parmi ceux autorisés, observe son retour d'exécution, puis adapte ou conclut son raisonnement.
+> 
+> ```text
+> Objectif  ──►  Outil  ──►  Résultat  ──►  Décision
+>    ▲                                         │
+>    └─────────────────────────────────────────┘
+> ```
+
+Lorsque cette boucle échappe au contrôle du développeur, les dérives surviennent immédiatement : boucles infinies de requêtes, factures de tokens exorbitantes, et surtout **absence totale de garanties sur l'exécution du code** ou l'accès aux données sensibles.
+
+C'est pour restaurer une ingénierie saine, sobre et prédictible que j'ai conçu **[Lughus](https://github.com/hdg-zero/lughus)** : un micro-framework Python autonome et déterministe, guidé par la règle d'or : **« Moins de magie, plus d'ingénierie »**.
+
+---
+
+## Les Principes d'Ingénierie de Lughus
+
+| Pilier | Problème classique | Réponse apportée par Lughus |
+| :--- | :--- | :--- |
+| **Exécution** | Graphes nébuleux, hooks cachés | Boucle asynchrone Python pure, 100 % traçable via OpenTelemetry |
+| **Outillage** | DSL propriétaire ou wrappers lourds | Fonctions Python typées natives avec inférence automatique de schéma JSON |
+| **Sécurité** | Accès libre et aveugle de l'agent au système | Politiques de risques (`ToolRisk`), portes d'approbation humaine et sandboxing Podman/Docker |
+| **Interopérabilité** | Enfermement dans un SDK propriétaire | Standard ouvert A2A (Agent-to-Agent) de Google et support de 100+ LLMs via LiteLLM |
+
+---
+
+## Architecture et Composants Clés
+
+Lughus est structuré autour de composants modulaires et indépendants :
+
+### 1. Le Registre d'Outils (`ToolRegistry`)
+Les outils ne nécessitent aucun boilerplate. Un simple décorateur `@registry.tool` inspecte les types Python et les docstrings pour générer les schémas d'appels JSON conformes aux spécifications des LLMs :
+
+```python
+from lughus import ToolRegistry
+
+registry = ToolRegistry()
+
+@registry.tool
+def get_weather(city: str) -> str:
+    """Consulte la météo actuelle pour une ville donnée.
+    
+    Args:
+        city: Nom de la ville à interroger.
+    """
+    return f"Ensoleillé à {city}, 21°C"
+```
+
+### 2. Le Moteur d'Exécution (`agent_loop`)
+La boucle d'exécution asynchrone orchestre les allers-retours entre le modèle et les outils avec un contrôle strict des ressources :
+* Plafond d'itérations (`max_iterations`) pour prévenir les boucles infinies.
+* Quotas de tokens en entrée et en sortie.
+* Parallélisation des appels d'outils avec régulation par sémaphore (*bulkhead pattern*).
+
+```python
+import asyncio
+from lughus import LLM, ToolRegistry, agent_loop
+
+async def main():
+    llm = LLM(model="anthropic/claude-3-7-sonnet")
+    result = await agent_loop(
+        llm,
+        system="Tu es un assistant météo concis.",
+        context="Quel temps fait-il à Nantes ?",
+        registry=registry,
+        tool_names=["get_weather"],
+        max_iterations=5,
+    )
+    print(result.text)
+    print(f"Consommation : {result.total_tokens} tokens en {result.iterations} tours")
+
+asyncio.run(main())
+```
+
+---
+
+## Gouvernance et Sécurité : Le Sandboxing d'Outils
+
+Dans un environnement de production, autoriser un LLM à invoquer des commandes système ou à exécuter du code dynamique est un vecteur critique d'attaque. Lughus apporte deux couches défensives formelles :
+
+### Classification des Risques et Approbation Humaine
+Chaque outil déclare son niveau de risque (`ToolRisk`) et ses effets secondaires (`ToolEffect`). Si un outil présente un risque critique ou une action irréversible (déploiement, écriture en base), Lughus interrompt automatiquement le traitement et attend la validation explicite d'un opérateur humain via l'API ou la console développeur.
+
+### Interpréteur Python Conteneurisé (*Container-confined Code Interpreter*)
+Pour permettre à l'agent de résoudre des problèmes algorithmiques complexes sans menacer l'hôte, Lughus intègre un environnement d'exécution isolé sous conteneur éphémère (Podman ou Docker rootless) :
+* **Isolation réseau totale** (`--network none`) : aucun risque d'exfiltration de données.
+* **Plafonds stricts de ressources** : limite de RAM (512 Mo par défaut) et timeout dur de 30 secondes.
+* **Système de fichiers temporaire jetable** avec capture automatique des artefacts générés (graphiques, exports CSV).
+
+## Mode Serveur A2A et Console Développeur
+
+En installant l'extension serveur (`pip install "lughus[server]"`), tout agent Lughus peut être instantanément exposé comme un service réseau conforme au protocole ouvert **A2A (Agent-to-Agent)** de Google :
+
+* **Transport hybride** : requêtes JSON-RPC 2.0 pour les commandes synchrones et flux Server-Sent Events (SSE) pour le streaming temps réel de tokens et de traces.
+* **Console développeur intégrée (`/ui`)** : interface web locale offrant la visualisation de la timeline d'exécution, le rendu LaTeX/KaTeX, les alertes GitHub markdown et les boutons d'approbation humaine interactive.
+
+---
+
+<div class="my-10 p-6 rounded-2xl border border-[var(--glass-border)] bg-[var(--glass-bg)] flex flex-col items-center justify-center">
+  <img src={logoImg.src} alt="Logo Lughus" class="max-w-[220px] w-full h-auto drop-shadow-xl" />
+</div>
+
+## Fiche Technique
+
+* **Dépôt officiel** : [github.com/hdg-zero/lughus](https://github.com/hdg-zero/lughus)
+* **Distribution PyPI** : `pip install lughus`
+* **Licence** : MIT
+* **Technologies clés** : Python 3.12+, LiteLLM, A2A Protocol (JSON-RPC / SSE), Pydantic v2, FastAPI, Podman/Docker Rootless, OpenTelemetry
+* **Statut** : Open Source, V0.22.0

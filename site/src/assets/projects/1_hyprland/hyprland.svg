@@ -1,196 +1,167 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675">
   <defs>
-    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#090c10"/>
-      <stop offset="50%" stop-color="#0d1117"/>
-      <stop offset="100%" stop-color="#0a0e14"/>
+    <!-- Background Gradient (Dark Charcoal/Obsidian) -->
+    <linearGradient id="hypr-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090c0f"/>
+      <stop offset="50%" stop-color="#0e1217"/>
+      <stop offset="100%" stop-color="#0a0d11"/>
     </linearGradient>
-    <linearGradient id="active-border" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#5eead4"/>
-      <stop offset="100%" stop-color="#0d9488"/>
-    </linearGradient>
-    <linearGradient id="inactive-border" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#334155" stop-opacity="0.6"/>
-      <stop offset="100%" stop-color="#1e293b" stop-opacity="0.6"/>
-    </linearGradient>
-    <filter id="win-shadow" x="-5%" y="-5%" width="110%" height="115%">
-      <feDropShadow dx="0" dy="16" stdDeviation="20" flood-color="#000000" flood-opacity="0.65"/>
-    </filter>
-    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-      <circle cx="2" cy="2" r="1" fill="#94a3b8" fill-opacity="0.08"/>
+
+    <!-- Subtle Dot Grid -->
+    <pattern id="hypr-grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="0.8" fill="#1f2835" fill-opacity="0.4"/>
     </pattern>
   </defs>
 
-  <!-- Background -->
-  <rect width="1200" height="675" fill="url(#bg-grad)"/>
-  <rect width="1200" height="675" fill="url(#grid)"/>
+  <!-- Canvas Background -->
+  <rect width="1200" height="675" fill="url(#hypr-bg)"/>
+  <rect width="1200" height="675" fill="url(#hypr-grid)"/>
 
-  <!-- Ambient background glow -->
-  <circle cx="280" cy="240" r="320" fill="#14b8a6" opacity="0.05" filter="blur(60px)"/>
-  <circle cx="950" cy="450" r="280" fill="#38bdf8" opacity="0.04" filter="blur(60px)"/>
-
-  <!-- TOP BAR: Waybar -->
+  <!-- ==================== TOP BAR: Waybar ==================== -->
   <g id="waybar" transform="translate(30, 20)">
-    <rect width="1140" height="42" rx="10" fill="#161b22" stroke="#30363d" stroke-width="1.2"/>
+    <rect width="1140" height="36" rx="8" fill="#10151c" stroke="#1d2633" stroke-width="1"/>
     
     <!-- Workspaces Left -->
-    <g transform="translate(14, 9)">
-      <rect width="32" height="24" rx="6" fill="#5eead4" fill-opacity="0.2" stroke="#5eead4" stroke-width="1"/>
-      <text x="16" y="16" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="700" fill="#5eead4" text-anchor="middle">1</text>
+    <g transform="translate(12, 7)">
+      <!-- Active workspace 1 -->
+      <rect width="28" height="22" rx="4" fill="#161c24" stroke="#253040" stroke-width="1"/>
+      <circle cx="8" cy="11" r="2" fill="#527c67"/>
+      <text x="17" y="15" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="700" fill="#f0f3f6" text-anchor="middle">1</text>
       
-      <rect x="38" width="32" height="24" rx="6" fill="#21262d" stroke="#30363d" stroke-width="1"/>
-      <text x="54" y="16" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="600" fill="#8b949e" text-anchor="middle">2</text>
-      
-      <rect x="76" width="32" height="24" rx="6" fill="#21262d" stroke="#30363d" stroke-width="1"/>
-      <text x="92" y="16" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="600" fill="#8b949e" text-anchor="middle">3</text>
-
-      <rect x="114" width="32" height="24" rx="6" fill="#21262d" stroke="#30363d" stroke-width="1"/>
-      <text x="130" y="16" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="600" fill="#8b949e" text-anchor="middle">4</text>
+      <!-- Inactive workspaces -->
+      <text x="44" y="15" font-family="'JetBrains Mono', monospace" font-size="11" fill="#525f70" text-anchor="middle">2</text>
+      <text x="64" y="15" font-family="'JetBrains Mono', monospace" font-size="11" fill="#525f70" text-anchor="middle">3</text>
+      <text x="84" y="15" font-family="'JetBrains Mono', monospace" font-size="11" fill="#525f70" text-anchor="middle">4</text>
     </g>
 
     <!-- Center Window Title -->
-    <g transform="translate(570, 25)">
-      <text font-family="'JetBrains Mono', monospace" font-size="12" font-weight="600" fill="#e6edf3" text-anchor="middle">
-        hyprland // ~/.config/hypr/hyprland.conf
-      </text>
-    </g>
+    <text x="570" y="22" font-family="'JetBrains Mono', monospace" font-size="11" fill="#7a8594" text-anchor="middle">
+      hyprland // ~/.config/hypr/hyprland.conf
+    </text>
 
     <!-- Right System Modules -->
-    <g transform="translate(860, 10)">
-      <!-- CPU -->
-      <rect x="0" width="80" height="22" rx="5" fill="#21262d"/>
-      <text x="40" y="15" font-family="'JetBrains Mono', monospace" font-size="11" fill="#5eead4" text-anchor="middle">CPU 2.4%</text>
+    <g transform="translate(870, 8)" font-family="'JetBrains Mono', monospace" font-size="10.5">
+      <rect x="0" width="75" height="20" rx="4" fill="#141920"/>
+      <text x="37" y="14" fill="#8b949e" text-anchor="middle">CPU 2.4%</text>
 
-      <!-- RAM -->
-      <rect x="86" width="105" height="22" rx="5" fill="#21262d"/>
-      <text x="138" y="15" font-family="'JetBrains Mono', monospace" font-size="11" fill="#a5d6ff" text-anchor="middle">RAM 764 MB</text>
+      <rect x="82" width="95" height="20" rx="4" fill="#141920"/>
+      <text x="129" y="14" fill="#8b949e" text-anchor="middle">RAM 760 MB</text>
 
-      <!-- Clock -->
-      <rect x="197" width="75" height="22" rx="5" fill="#5eead4" fill-opacity="0.15" stroke="#5eead4" stroke-width="1"/>
-      <text x="234" y="15" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="700" fill="#5eead4" text-anchor="middle">00:42</text>
+      <rect x="184" width="76" height="20" rx="4" fill="#141920"/>
+      <text x="222" y="14" fill="#8b949e" text-anchor="middle">165Hz</text>
     </g>
   </g>
 
-  <!-- TILING WINDOW 1: Master Left Terminal (Active Window) -->
-  <g id="window-master" transform="translate(30, 80)" filter="url(#win-shadow)">
-    <!-- Active Border Outline -->
-    <rect width="670" height="565" rx="14" fill="#0d1117" stroke="url(#active-border)" stroke-width="2"/>
+  <!-- ==================== TILING WINDOW 1: Master Terminal (Left) ==================== -->
+  <g id="window-master" transform="translate(30, 72)">
+    <rect width="680" height="575" rx="10" fill="#0f141a" stroke="#222b37" stroke-width="1.2"/>
     
     <!-- Titlebar -->
-    <path d="M 0 14 C 0 6.268 6.268 0 14 0 L 656 0 C 663.732 0 670 6.268 670 14 L 670 38 L 0 38 Z" fill="#161b22"/>
-    <line x1="0" y1="38" x2="670" y2="38" stroke="#30363d" stroke-width="1"/>
+    <path d="M 0 10 C 0 4.477 4.477 0 10 0 L 670 0 C 675.523 0 680 4.477 680 10 L 680 34 L 0 34 Z" fill="#141920"/>
+    <line x1="0" y1="34" x2="680" y2="34" stroke="#1d2531" stroke-width="1"/>
     
     <!-- Window Controls -->
-    <circle cx="20" cy="19" r="6" fill="#ff5f56"/>
-    <circle cx="38" cy="19" r="6" fill="#ffbd2e"/>
-    <circle cx="56" cy="19" r="6" fill="#27c93f"/>
-    <text x="80" y="23" font-family="'JetBrains Mono', monospace" font-size="11" fill="#8b949e">alacritty — archlinux: ~/dotfiles</text>
-    <text x="650" y="23" font-family="'JetBrains Mono', monospace" font-size="11" fill="#5eead4" text-anchor="end">[ACTIVE]</text>
+    <circle cx="18" cy="17" r="5" fill="#434f5e"/>
+    <circle cx="34" cy="17" r="5" fill="#434f5e"/>
+    <circle cx="50" cy="17" r="5" fill="#434f5e"/>
+    <text x="72" y="21" font-family="'JetBrains Mono', monospace" font-size="11" fill="#7a8594">kitty — archlinux: ~/dotfiles</text>
 
-    <!-- Terminal Code / Output -->
-    <g transform="translate(24, 66)" font-family="'JetBrains Mono', 'Fira Code', monospace" font-size="13">
-      <text y="0" fill="#8b949e"># Hyprland Core Configuration &amp; Window Rules</text>
+    <!-- Terminal Code -->
+    <g transform="translate(24, 60)" font-family="'JetBrains Mono', monospace" font-size="12" xml:space="preserve">
+      <text y="0" fill="#525f70"># Monitors &amp; Workspaces Configuration</text>
       
-      <text y="30" fill="#7ee787">monitor</text><text x="65" y="30" fill="#e6edf3">= DP-1, 2560x1440@165Hz, 0x0, 1</text>
-      <text y="52" fill="#7ee787">monitor</text><text x="65" y="52" fill="#e6edf3">= HDMI-A-1, 1920x1080@60Hz, 2560x0, 1</text>
+      <text y="26" fill="#8b949e">monitor</text><text x="65" y="26" fill="#d0d7de"> = DP-1, 2560x1440@165Hz, 0x0, 1</text>
+      <text y="48" fill="#8b949e">monitor</text><text x="65" y="48" fill="#d0d7de"> = HDMI-A-1, 1920x1080@60Hz, 2560x0, 1</text>
       
-      <text y="88" fill="#5eead4">$mainMod</text><text x="80" y="88" fill="#e6edf3">= SUPER</text>
-      <text y="110" fill="#d2a8ff">bind</text><text x="45" y="110" fill="#e6edf3">= $mainMod, Return, exec, alacritty</text>
-      <text y="132" fill="#d2a8ff">bind</text><text x="45" y="132" fill="#e6edf3">= $mainMod, Space,  exec, rofi -show drun</text>
-      <text y="154" fill="#d2a8ff">bind</text><text x="45" y="154" fill="#e6edf3">= $mainMod, Q,      killactive</text>
-      <text y="176" fill="#d2a8ff">bind</text><text x="45" y="176" fill="#e6edf3">= $mainMod SHIFT, E, exit</text>
+      <text y="88" fill="#525f70"># Modifiers &amp; Keybindings</text>
+      <text y="112" fill="#8b949e">$mainMod</text><text x="75" y="112" fill="#d0d7de"> = SUPER</text>
+      <text y="134" fill="#8b949e">bind</text><text x="45" y="134" fill="#d0d7de"> = $mainMod, Return, exec, kitty</text>
+      <text y="156" fill="#8b949e">bind</text><text x="45" y="156" fill="#d0d7de"> = $mainMod, Space,  exec, rofi -show drun</text>
+      <text y="178" fill="#8b949e">bind</text><text x="45" y="178" fill="#d0d7de"> = $mainMod, Q,      killactive</text>
+      <text y="200" fill="#8b949e">bind</text><text x="45" y="200" fill="#d0d7de"> = $mainMod SHIFT, E, exit</text>
       
-      <text y="212" fill="#8b949e"># Smooth Bezier Animations &amp; Dwindle Layout</text>
-      <text y="234" fill="#79c0ff">general</text><text x="68" y="234" fill="#e6edf3">{</text>
-      <text x="20" y="256" fill="#e6edf3">gaps_in = 6</text>
-      <text x="20" y="278" fill="#e6edf3">gaps_out = 14</text>
-      <text x="20" y="300" fill="#e6edf3">border_size = 2</text>
-      <text x="20" y="322" fill="#5eead4">col.active_border = rgba(5eead4ee) rgba(0d9488ee) 45deg</text>
-      <text x="20" y="344" fill="#8b949e">col.inactive_border = rgba(1e293bee)</text>
-      <text y="366" fill="#e6edf3">}</text>
+      <text y="240" fill="#525f70"># Smooth Bezier Animations &amp; Dwindle Tiling</text>
+      <text y="262" fill="#8b949e">general</text><text x="68" y="262" fill="#d0d7de"> {</text>
+      <text x="20" y="284" fill="#8b949e">gaps_in</text><text x="90" y="284" fill="#d0d7de"> = 6</text>
+      <text x="20" y="306" fill="#8b949e">gaps_out</text><text x="90" y="306" fill="#d0d7de"> = 12</text>
+      <text x="20" y="328" fill="#8b949e">border_size</text><text x="120" y="328" fill="#d0d7de"> = 2</text>
+      <text y="350" fill="#d0d7de">}</text>
 
-      <text y="410" fill="#5eead4">[hdg@arch ~]$</text>
-      <text x="135" y="410" fill="#e6edf3">hyprctl version | head -n 2</text>
-      <text y="432" fill="#8b949e">Hyprland, built from branch main at commit 6a4f91b (Wayland native)</text>
-      <text y="454" fill="#5eead4">[hdg@arch ~]$</text>
-      <rect x="135" y="442" width="9" height="15" fill="#5eead4" opacity="0.9"/>
+      <text y="404" fill="#7a8594">[hdg@arch ~]$</text>
+      <text x="135" y="404" fill="#f0f3f6">hyprctl version | head -n 2</text>
+      <text y="428" fill="#525f70">Hyprland, built from branch main (Wayland native compositor)</text>
+      <text y="452" fill="#7a8594">[hdg@arch ~]$</text>
+      <rect x="135" y="440" width="8" height="15" fill="#7a8594" opacity="0.8"/>
     </g>
   </g>
 
-  <!-- TILING WINDOW 2: Top-Right Resource Monitor -->
-  <g id="window-top-right" transform="translate(720, 80)" filter="url(#win-shadow)">
-    <rect width="450" height="265" rx="14" fill="#0d1117" stroke="url(#inactive-border)" stroke-width="1.5"/>
-    <path d="M 0 14 C 0 6.268 6.268 0 14 0 L 436 0 C 443.732 0 450 6.268 450 14 L 450 38 L 0 38 Z" fill="#161b22"/>
-    <line x1="0" y1="38" x2="450" y2="38" stroke="#30363d" stroke-width="1"/>
+  <!-- ==================== TILING WINDOW 2: Telemetry Stack (Right) ==================== -->
+  <g id="window-telemetry" transform="translate(730, 72)">
+    <rect width="440" height="575" rx="10" fill="#0f141a" stroke="#1f2734" stroke-width="1.2"/>
     
-    <circle cx="20" cy="19" r="6" fill="#30363d"/>
-    <circle cx="38" cy="19" r="6" fill="#30363d"/>
-    <circle cx="56" cy="19" r="6" fill="#30363d"/>
-    <text x="75" y="23" font-family="'JetBrains Mono', monospace" font-size="11" fill="#8b949e">btop — performance telemetry</text>
+    <!-- Titlebar -->
+    <path d="M 0 10 C 0 4.477 4.477 0 10 0 L 430 0 C 435.523 0 440 4.477 440 10 L 440 34 L 0 34 Z" fill="#141920"/>
+    <line x1="0" y1="34" x2="440" y2="34" stroke="#1d2531" stroke-width="1"/>
+    
+    <circle cx="18" cy="17" r="5" fill="#434f5e"/>
+    <circle cx="34" cy="17" r="5" fill="#434f5e"/>
+    <circle cx="50" cy="17" r="5" fill="#434f5e"/>
+    <text x="72" y="21" font-family="'JetBrains Mono', monospace" font-size="11" fill="#7a8594">btop — resource telemetry</text>
 
-    <!-- CPU Bar charts -->
-    <g transform="translate(24, 62)" font-family="'JetBrains Mono', monospace" font-size="11">
-      <text y="0" fill="#8b949e">CPU Usage [AMD Ryzen 7]</text>
-      
-      <text y="24" fill="#e6edf3">Core 0</text>
-      <rect x="60" y="14" width="340" height="10" rx="3" fill="#21262d"/>
-      <rect x="60" y="14" width="85" height="10" rx="3" fill="#5eead4"/>
-      
-      <text y="44" fill="#e6edf3">Core 1</text>
-      <rect x="60" y="34" width="340" height="10" rx="3" fill="#21262d"/>
-      <rect x="60" y="34" width="135" height="10" rx="3" fill="#5eead4"/>
+    <!-- Telemetry Content -->
+    <g transform="translate(24, 58)" font-family="'JetBrains Mono', monospace">
+      <!-- CPU telemetry header -->
+      <text y="0" font-size="11" font-weight="700" fill="#7a8594">CPU USAGE [AMD RYZEN 7]</text>
 
-      <text y="64" fill="#e6edf3">Core 2</text>
-      <rect x="60" y="54" width="340" height="10" rx="3" fill="#21262d"/>
-      <rect x="60" y="54" width="45" height="10" rx="3" fill="#5eead4"/>
+      <g transform="translate(0, 16)" font-size="11">
+        <text y="16" fill="#8b949e">Core 0</text>
+        <rect x="60" y="8" width="330" height="8" rx="2" fill="#151b24"/>
+        <rect x="60" y="8" width="85" height="8" rx="2" fill="#323e4e"/>
 
-      <text y="84" fill="#e6edf3">Core 3</text>
-      <rect x="60" y="74" width="340" height="10" rx="3" fill="#21262d"/>
-      <rect x="60" y="74" width="190" height="10" rx="3" fill="#38bdf8"/>
+        <text y="36" fill="#8b949e">Core 1</text>
+        <rect x="60" y="28" width="330" height="8" rx="2" fill="#151b24"/>
+        <rect x="60" y="28" width="140" height="8" rx="2" fill="#3b4859"/>
 
-      <!-- Mem stats -->
-      <g transform="translate(0, 112)">
-        <text y="0" fill="#8b949e">Memory &amp; Swap footprint</text>
-        <rect y="12" width="195" height="48" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1"/>
-        <text x="16" y="32" font-size="10" fill="#8b949e">Resident RAM</text>
-        <text x="16" y="48" font-size="14" font-weight="700" fill="#5eead4">764 MB / 32 GB</text>
+        <text y="56" fill="#8b949e">Core 2</text>
+        <rect x="60" y="48" width="330" height="8" rx="2" fill="#151b24"/>
+        <rect x="60" y="48" width="45" height="8" rx="2" fill="#323e4e"/>
 
-        <rect x="210" y="12" width="190" height="48" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1"/>
-        <text x="226" y="32" font-size="10" fill="#8b949e">Wayland Server Latency</text>
-        <text x="226" y="48" font-size="14" font-weight="700" fill="#a5d6ff">1.2 ms (165Hz)</text>
+        <text y="76" fill="#8b949e">Core 3</text>
+        <rect x="60" y="68" width="330" height="8" rx="2" fill="#151b24"/>
+        <rect x="60" y="68" width="180" height="8" rx="2" fill="#4a5a6e"/>
+      </g>
+
+      <!-- Memory & Compositing Stats -->
+      <g transform="translate(0, 130)">
+        <text y="0" font-size="11" font-weight="700" fill="#7a8594">FOOTPRINT &amp; COMPOSITING</text>
+        
+        <rect y="14" width="190" height="52" rx="6" fill="#131820" stroke="#1f2734" stroke-width="1"/>
+        <text x="14" y="34" font-size="10" fill="#525f70">RESIDENT RAM</text>
+        <text x="14" y="52" font-size="14" font-weight="700" fill="#f0f3f6">&lt; 800 MB</text>
+
+        <rect x="202" y="14" width="190" height="52" rx="6" fill="#131820" stroke="#1f2734" stroke-width="1"/>
+        <text x="14" y="34" transform="translate(202, 0)" font-size="10" fill="#525f70">WAYLAND LATENCY</text>
+        <text x="14" y="52" transform="translate(202, 0)" font-size="14" font-weight="700" fill="#f0f3f6">1.2 ms (165Hz)</text>
+      </g>
+
+      <!-- Wayland Native Stack List -->
+      <g transform="translate(0, 240)">
+        <text y="0" font-size="11" font-weight="700" fill="#7a8594">WAYLAND NATIVE ECOSYSTEM</text>
+        
+        <g transform="translate(0, 16)" font-size="11" fill="#8b949e">
+          <text y="14">├── waybar        <tspan fill="#525f70">(Status bar &amp; system tray)</tspan></text>
+          <text y="36">├── rofi-wayland  <tspan fill="#525f70">(Application launcher)</tspan></text>
+          <text y="58">├── kitty         <tspan fill="#525f70">(GPU-accelerated terminal)</tspan></text>
+          <text y="80">└── dunst         <tspan fill="#525f70">(Lightweight notifications)</tspan></text>
+        </g>
+
+        <!-- Status Tag -->
+        <g transform="translate(0, 130)">
+          <rect width="392" height="32" rx="6" fill="#131820" stroke="#1f2734" stroke-width="1"/>
+          <circle cx="16" cy="16" r="3" fill="#527c67"/>
+          <text x="28" y="20" font-size="10.5" font-weight="600" fill="#8b949e">100% Wayland Native (Zero XWayland Fallbacks)</text>
+        </g>
       </g>
     </g>
-  </g>
-
-  <!-- TILING WINDOW 3: Bottom-Right File Tree -->
-  <g id="window-bottom-right" transform="translate(720, 365)" filter="url(#win-shadow)">
-    <rect width="450" height="280" rx="14" fill="#0d1117" stroke="url(#inactive-border)" stroke-width="1.5"/>
-    <path d="M 0 14 C 0 6.268 6.268 0 14 0 L 436 0 C 443.732 0 450 6.268 450 14 L 450 38 L 0 38 Z" fill="#161b22"/>
-    <line x1="0" y1="38" x2="450" y2="38" stroke="#30363d" stroke-width="1"/>
-    
-    <circle cx="20" cy="19" r="6" fill="#30363d"/>
-    <circle cx="38" cy="19" r="6" fill="#30363d"/>
-    <circle cx="56" cy="19" r="6" fill="#30363d"/>
-    <text x="75" y="23" font-family="'JetBrains Mono', monospace" font-size="11" fill="#8b949e">tree ~/.config -L 2</text>
-
-    <g transform="translate(24, 60)" font-family="'JetBrains Mono', monospace" font-size="12" fill="#e6edf3">
-      <text y="0" fill="#5eead4">~/.config</text>
-      <text y="22" fill="#8b949e">├── <tspan fill="#79c0ff">hypr/</tspan></text>
-      <text y="42" fill="#8b949e">│   ├── <tspan fill="#e6edf3">hyprland.conf</tspan></text>
-      <text y="62" fill="#8b949e">│   └── <tspan fill="#e6edf3">hyprpaper.conf</tspan></text>
-      <text y="82" fill="#8b949e">├── <tspan fill="#79c0ff">waybar/</tspan></text>
-      <text y="102" fill="#8b949e">│   ├── <tspan fill="#e6edf3">config.jsonc</tspan></text>
-      <text y="122" fill="#8b949e">│   └── <tspan fill="#e6edf3">style.css</tspan></text>
-      <text y="142" fill="#8b949e">├── <tspan fill="#79c0ff">rofi/</tspan> <tspan fill="#8b949e">(Wayland launcher)</tspan></text>
-      <text y="162" fill="#8b949e">└── <tspan fill="#79c0ff">dunst/</tspan> <tspan fill="#8b949e">(notifications daemon)</tspan></text>
-      <text y="194" fill="#5eead4" font-weight="600">✓ 0 xwayland legacy fallbacks · 100% Wayland Native</text>
-    </g>
-  </g>
-
-  <!-- Badge Bottom Left -->
-  <g transform="translate(48, 620)">
-    <rect width="180" height="28" rx="6" fill="#161b22" stroke="#30363d" stroke-width="1"/>
-    <circle cx="16" cy="14" r="5" fill="#5eead4"/>
-    <text x="32" y="19" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="700" fill="#e6edf3">ARCH LINUX / WAYLAND</text>
   </g>
 </svg>
