@@ -1,6 +1,6 @@
 # hdg-zero.github.io
 
-[![Astro 7](https://img.shields.io/badge/Astro-7.3-FF5D01?style=flat-square&logo=astro&logoColor=white)](https://astro.build)
+[![Astro 7](https://img.shields.io/badge/Astro-7.4-FF5D01?style=flat-square&logo=astro&logoColor=white)](https://astro.build)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-v4.3-38B2AC?style=flat-square&logo=tailwind-css&logoColor=white)](https://tailwindcss.com)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.7-3178C6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
 [![Zero-JS Baseline](https://img.shields.io/badge/JS%20Bundle-~15kB%20gzipped-success?style=flat-square)](https://astro.build)
@@ -29,7 +29,7 @@ The primary engineering goal of this platform is to showcase systems programming
 
 | Technology | Version | Role | Architectural Justification |
 | :--- | :--- | :--- | :--- |
-| **[Astro](https://astro.build)** | `^7.3.2` | Core Framework & SSG | Blazing-fast Rust compiler, Content Layer API with `glob()` loader, and zero-JS baseline. |
+| **[Astro](https://astro.build)** | `^7.4.4` | Core Framework & SSG | Blazing-fast Rust compiler, Content Layer API with `glob()` loader, and zero-JS baseline. |
 | **[Tailwind CSS](https://tailwindcss.com)** | `^4.3.3` | Styling Engine | Ultra-fast CSS-first engine via `@tailwindcss/vite` integrated with Vite 8. |
 | **[ClientRouter](https://docs.astro.build/en/guides/view-transitions/)** | Astro 7 | Navigation & View Transitions | Persistent client-side transitions, caching, and state preservation during navigation (~5 kB gzipped). |
 | **[TypeScript](https://www.typescriptlang.org)** | `^5.7.0` | Type Safety | Compile-time validation of frontmatters, i18n dictionaries, and component contracts. |
