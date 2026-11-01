@@ -111,7 +111,7 @@ The application leverages a hybrid compile-time + runtime i18n architecture:
 ## 6. 🚀 Getting Started & Development
 
 ### Prerequisites
-- **Node.js**: `v22.12.0` or higher (required by Astro 7)
+- **Node.js**: `v22.23.4` or `v24`+ (required by Astro 7.4.4)
 - **npm**: `v10.0.0` or higher
 
 ### Local Setup
