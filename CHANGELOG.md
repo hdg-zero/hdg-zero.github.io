@@ -14,3 +14,6 @@ et ce projet adhère à [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ### Added
 - Ajout du fichier d'instructions unifié `AGENTS.md` pour contributeurs et agents IA.
 - Initialisation du suivi des versions via `CHANGELOG.md`.
+
+### Fixed
+- Déploiement GitHub Actions : configuration explicite de `node-version: 24` dans `deploy.yml` pour satisfaire l'exigence `>=22.23.4` d'Astro 7.4.4.
